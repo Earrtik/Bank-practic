@@ -3,170 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="../style/credite.css">
+    <link rel="stylesheet" href="../style/credite.css">
     <link rel="stylesheet" href="../style/repeat.css">
-        
     <title>Diny bank credite</title>
 </head>
 <body>
+    <!-- Header -->
     <header>
-            <span class="logo" >Diny bank</span>
+        <span class="logo">Diny bank</span>
     </header>
-        <main  > 
-            <div class="content" >
 
-                <div class="" >
-                    <h2 class="calculator-st" >Calculator </h2>
-                    <h3 class="for-credit" >Pentru  credite</h3>
-                        <hr>
-                    <p class="type-valuta" >Alege valuta : <a href="" class="valuta-mdl" >MDL</a> <a href=""class="valuta">EUR</a> <a href=""class="valuta">USD</a> </p>
-                    <hr>
+    <!-- Main content -->
+    <main>
+        <div class="content">
+
+            <!-- Calculator header -->
+            <div>
+                <h2 class="calculator-st">Calculator</h2>
+                <h3 class="for-credit">Pentru credite</h3>
+                <hr>
+                <!-- Selectare valuta -->
+                <p class="type-valuta">
+                    Alege valuta: 
+                    <a href="#" class="valuta-mdl" data-valuta="MDL">MDL</a> 
+                    <a href="#" class="valuta" data-valuta="EUR">EUR</a> 
+                    <a href="#" class="valuta" data-valuta="USD">USD</a> 
+                </p>
+                <hr>
+            </div>
+
+            <!-- Form credit -->
+            <div class="credit-form">
+                <h3>Tip credit</h3>
+                <select name="">
+                    <option value="">-- Alege tipul de credit --</option>
+                    <option value="ipotecar">Credit ipotecar / imobiliar</option>
+                    <option value="nevoi">Credit de nevoi personale</option>
+                    <option value="auto">Credit auto</option>
+                    <option value="linie">Linie de credit (overdraft)</option>
+                    <option value="refinantare">Credit de refinanțare</option>
+                </select>
+
+                <br><br>
+                <!-- Suma imprumutata -->
+                <span class="span-content">Suma Imprumutata</span>
+                <div class="input-wrapper">
+                    <input type="text" class="suma" placeholder=" ">
+                    <span class="placeholder-left">1000 - 100,000,000</span>
+                    <span class="placeholder-right">Lei</span>
                 </div>
 
-            <div class="credit-form" >
-                    <h3>Tip credit</h3>
-                    <select name="" id="">
-                        <option value="">-- Alege tipul de credit --</option>
-                        <option value="ipotecar">Credit ipotecar / imobiliar</option>
-                        <option value="nevoi">Credit de nevoi personale</option>
-                        <option value="auto">Credit auto</option>
-                        <option value="linie">Linie de credit (overdraft)</option>
-                        <option value="refinantare">Credit de refinanțare</option>
-                        
-                    </select>
-
-                        <br><br>
-                    <span class="span-content" >Suma Imprumutata</span>
-                    <div class="input-wrapper">
-                        <input type="text" id="" class="suma" placeholder=" " >
-                        <span class="placeholder-left">1000 - 100,000,000</span>
-                        <span class="placeholder-right">Lei</span>
-                    </div>
-                        <br>
-                    <span class="span-content" >Perioada</span> 
-                     <div class="input-wrapper">
-                        <input type="text" id="" class="suma" placeholder="" >
-                        <span class="placeholder-left">Perioada</span>
-                    </div>
-
+                <br>
+                <!-- Perioada -->
+                <span class="span-content">Perioada</span> 
+                <div class="input-wrapper">
+                    <input type="text" class="suma" placeholder="">
+                    <span class="placeholder-left">Perioada</span>
                 </div>
-                        
-                    <div class="into-border-div" >
-                        <br>
-                        <div class="text-form" >
-                             <span class="span-content">Tip Rata</span>
-                             <select name="" id="">
+            </div>
+
+            <!-- Tip rata -->
+            <div class="into-border-div">
+                <div class="text-form">
+                    <span class="span-content">Tip Rata</span>
+                    <select>
                         <option value="">-- Alege tipul de rata --</option>
                         <option value="contant">Rate cu Anuități Constante</option>
                         <option value="descrescatoare">Rate Descrescătoare</option>
-                                
                     </select>
-                    <input type="checkbox" name="" id="" class="checkbox" >
-                    <span class="span-chekbox" >Include Perioada de gratie Optional</span>
 
+                    <!-- Checkbox perioada de gratie -->
+                    <input type="checkbox" id="gratie-checkbox" class="checkbox">
+                    <span class="span-chekbox">Include Perioada de gratie Optional</span>
+
+                    <!-- Bloc ascuns initial -->
+                    <div class="conditional" data-target="gratie-checkbox" style="display:none;">
+                        <br>
+                        <span class="span-content">Durata perioada de gratie</span>
+                        <select>
+                            <option value="">-- Alege durata de gratie --</option>
+                            <option value="prima-luna">Prima Luna</option>
+                            <option value="luna-3">Primele 3 luni</option>
+                            <option value="luna-6">Primele 6 luni</option>
+                            <option value="luna-9">Primele 9 luni</option>
+                            <option value="luna-12">Primele 12 luni</option>
+                        </select>
                         <br><br>
-                     <span class="span-content">Durata perioada de gratie</span>
-                             <select name="" id="">
-                        <option value="">-- Alege durata de gratie --</option>
-                        <option value="prima-luna">Prima Luna</option>
-                        <option value="luna-3">Primele 3 luni</option>
-                        <option value="luna-6">Primele 6 luni</option>
-                        <option value="luna-9">Primele 9 luni</option>
-                        <option value="luna-12">Primele 12 luni</option>
-  
-                    </select>
-                    <br><br>
-                        </div>
-                      
                     </div>
-                        
+                </div>
+            </div>
 
-                <div class="into-border-div" >
-                        
-                        <div class="text-form" >
-                             <p>Tip Dobândă </p>
-                             <select name="" id="">
+            <!-- Tip dobanda -->
+            <div class="into-border-div">
+                <div class="text-form">
+                    <p>Tip Dobândă</p>
+                    <select>
                         <option value="">-- Alege tipul de Dobândă --</option>
                         <option value="fixa">Dobândă Fixă</option>
                         <option value="variabila">Dobândă Variabilă</option>
-                                
                     </select>
-                    <input type="checkbox" name="" id="" class="checkbox" >
-                    <span class="span-chekbox" >Include Dobinda mixta Optional</span>
+                    <!-- Checkbox dobanda mixta -->
+                    <input type="checkbox" id="dobinda-mixta-checkbox" class="checkbox">
+                    <span class="span-chekbox">Include Dobinda mixta Optional</span>
 
-                        <br><br>
-                     <span class="span-content">Durata perioada de gratie</span>
-                             <select name="" id="">
-                        <option value="">-- Alege durata de gratie --</option>
-                        <option value="prima-luna">Prima Luna</option>
-                        <option value="luna-3">Primele 3 luni</option>
-                        <option value="luna-6">Primele 6 luni</option>
-                        <option value="luna-9">Primele 9 luni</option>
-                        <option value="luna-12">Primele 12 luni</option>
-  
-                    </select>
-                    <br><br>
-                        </div>
-                      
-                </div>
-                        
-
-
+                    <!-- Bloc ascuns initial -->
+                    <div class="conditional" data-target="dobinda-mixta-checkbox" style="display:none;">
                         <br>
-                <div class="credit-form" >
-                    <span class="span-content" >Avans</span>
-                    <div class="input-wrapper">
-                        <input type="text" id="" class="avans" placeholder=" " >
-                        <span class="placeholder-left">1000 - 60,000,000</span>
-                        <span class="placeholder-right">Lei</span>
-                    </div>
-                        <br>
-                    <span class="span-content" >Salariul</span>
-                    <div class="input-wrapper">
-                        <input type="text" id="" class="salariu" placeholder=" " >
-                        <span class="placeholder-left">1000 - 300,000</span>
-                        <span class="placeholder-right">Lei</span>
-                    </div>
-                    <br>
-                </div>
-                    
-                    <div class="into-border-div" >
-                        
-                        <div class="text-form" >
-                                
-                            
-                    <input type="checkbox" name="" id="" class="checkbox" >
-                    <span class="span-chekbox" >Activeaza rambursarea Optional</span>
-
+                        <span class="span-content">Initial Dobinda Fixa dupa Dobinda Variabilă</span>
+                        <select>
+                            <option value="">-- Alege Initial tip Dobinda --</option>
+                            <option value="start-fixa">Inital Dobândă Fixă</option>
+                            <option value="start-variabila">Initial Dobinda Variabilă</option>
+                        </select>
+                        <br><br><br>
+                        <span class="span-content">Durata perioada de gratie</span>
+                        <select>
+                            <option value="">-- Alege durata de gratie --</option>
+                            <option value="prima-luna">Prima Luna</option>
+                            <option value="luna-3">Primele 3 luni</option>
+                            <option value="luna-6">Primele 6 luni</option>
+                            <option value="luna-9">Primele 9 luni</option>
+                            <option value="luna-12">Primele 12 luni</option>
+                        </select>
                         <br><br>
-                     <span class="span-content">Suma pentru rambursare anticipata</span>
+                       
+                    </div>
+                </div>
+            </div>
+
+            <!-- Avans si salariu -->
+            <div class="credit-form">
+                <span class="span-content">Avans</span>
+                <div class="input-wrapper">
+                    <input type="text" class="avans" placeholder=" ">
+                    <span class="placeholder-left">1000 - 60,000,000</span>
+                    <span class="placeholder-right">Lei</span>
+                </div>
+                <br>
+                <span class="span-content">Salariul</span>
+                <div class="input-wrapper">
+                    <input type="text" class="salariu" placeholder=" ">
+                    <span class="placeholder-left">1000 - 300,000</span>
+                    <span class="placeholder-right">Lei</span>
+                </div>
+                <br>
+            </div>
+
+            <!-- Rambursare anticipata -->
+            <div class="into-border-div">
+                <div class="text-form">
+                    <input type="checkbox" id="rambursare-checkbox" class="checkbox">
+                    <span class="span-chekbox">Activeaza rambursarea Optional</span>
+
+                    <!-- Bloc ascuns initial -->
+                    <div class="conditional" data-target="rambursare-checkbox" style="display:none;">
+                        <br>
+                        <span class="span-content">Suma pentru rambursare anticipata</span>
                         <div class="input-wrapper">
-                            <input type="text" id="" class="salariu" placeholder=" " >
+                            <input type="text" class="salariu" placeholder=" ">
                             <span class="placeholder-left">1000 - 300,000</span>
                             <span class="placeholder-right">Lei</span>
                         </div>
-                     
-                        <br>
+                            <br>
                         <span class="span-content">Optiunea de rambursare anticipata</span>
-                    
-                     <select name="" id="">
-                        
-                        <option value="">-- Alege durata de gratie --</option>
-                        <option value="reduce-perioada">Reducere perioadă, rata rămâne aceeași</option>
-                        <option value="reduce-rata">Reducere rată, perioada rămâne aceeași</option>
-
-                    </select>
-                    <br><br>
-                        </div>
-                        
-                    </div>  
-                    <br><br>
-                    <div class="credit-form" >
-                        <button class="btn-calcul" >Calculeaza</button>
+                        <select>
+                            <option value="">-- Alege durata de gratie --</option>
+                            <option value="reduce-perioada">Reducere perioadă, rata rămâne aceeași</option>
+                            <option value="reduce-rata">Reducere rată, perioada rămâne aceeași</option>
+                        </select>
                         <br><br>
                     </div>
+                </div>
+            </div>
+
+            <!-- Buton calcul -->
+             <br>
+            <div class="credit-form">
+                <button class="btn-calcul">Calculeaza</button>
+                <br><br>
+            </div>
 
         </div>
     </main>
+
+    <script src="../js/credite.js"></script>
+
 </body>
 </html>
