@@ -1,0 +1,54 @@
+main {
+    display: flex;
+    justify-content: center; 
+    margin-top: 70px;
+  }
+body{
+    margin: 0px;
+    padding: 0px;
+}
+header .logo{
+    z-index: 222;
+    display: flex;
+    margin-top: 10px;
+    margin-left: 20px;
+    color: #0FA926;
+    font-weight: bolder;
+    font-size: 22px;
+   
+}
+
+header{
+    position: fixed;   /* face header-ul fix */
+    top: 0;            /* lipit de sus */
+    left: 0;           /* lipit de stânga */
+    width: 100%;       /* ocupă tot ecranul pe lățime */
+    background-color: #4CAF50;
+    color: white;
+    height: 50px;
+    
+    background-color: white;
+}
+/* Start login,register form  */
+
+body{
+    margin: 15px;
+    padding: 0px;
+    margin-top: 20px;
+    background-color: #EFF9EE;
+}
+
+.form-box{
+    text-align: center ;
+    background-color: white;
+    border: 2px solid #E6E6E6;
+    width: 400px;
+        
+
+}
+label{
+   display: flex;
+   
+}
+
+  /* FINISH login,register form  

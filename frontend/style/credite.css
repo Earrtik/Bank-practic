@@ -1,0 +1,144 @@
+.calculator-st{
+    color: #0FA926;
+    text-align: center;
+}
+.for-credit{
+    text-align: center;
+}
+.valuta-mdl{
+     color: #0FA926;
+     text-decoration: underline;
+
+}
+.valuta{
+    text-decoration: none;
+    color: #B4B4B4;
+}
+.content {
+    background-color: white;
+    border: 2px solid #E6E6E6;
+    width: 90%;           
+    max-width: 500px;
+     min-width: 250px;
+ 
+}
+.credit-form,.type-valuta{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+select{
+    padding: 13px;
+    width: 100%;
+   
+}.input-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+.input-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.input-wrapper input {
+  width: 100%;
+  height: 38px;
+  border: 1px solid #E6E6E6; /* culoare implicită */
+  border-radius: 6px;
+  background-color: #f8fafb;
+  font-size: 15px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+  background-color: #F5F8FA;
+}
+select{
+    background-color: #F5F8FA;
+}
+
+/* textul din stânga */
+.placeholder-left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-left: 20px;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  pointer-events: none;
+}
+
+/* textul din dreapta */
+.placeholder-right {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+/* dispare doar când e scris ceva */
+.input-wrapper input:not(:placeholder-shown) + .placeholder-left {
+  display: none;
+}
+
+/* când se scrie ceva — textul „Lei” devine mai închis */
+.input-wrapper input:not(:placeholder-shown) ~ .placeholder-right {
+  color: #333;
+}
+
+/* când inputul e focusat sau are text — border puțin mai închis */
+
+.input-wrapper input:focus,
+.input-wrapper input:not(:placeholder-shown) {
+  border-color: #5a5a5a;
+  outline: none;
+}
+.suma,.avans,.salariu{
+    padding-left: 20px;
+}
+.span-content{
+    display: flex;
+    padding-bottom: 5px;
+}
+
+
+.into-border-div{
+    border: 1px solid #E6E6E6;
+    margin-top: 20px;
+    margin-left: 15px;
+    margin-right: 15px;
+   border-radius: 10px;
+   
+}
+.text-form{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.checkbox{
+    margin-top: 10px;
+}
+.span-chekbox{
+  
+   margin-top: 0px;
+   margin-left: 5px;
+   color: #A9A9A9;
+}
+.btn-calcul{
+    font-size: 22px;
+    width: 100%;
+    padding: 12px;
+    border: 0px;
+    background-color: #0FA926;
+    color: white;
+    box-shadow: inset;
+    font-weight: bold;
+    border-radius: 8px;
+}
