@@ -1,54 +1,200 @@
+body{
+    margin: 0px;
+    padding: 0px;
+     background-color: #EFF9EE;
+}
+/* Main content */
 main {
     display: flex;
     justify-content: center; 
     margin-top: 70px;
-  }
-body{
-    margin: 0px;
-    padding: 0px;
 }
-header .logo{
-    z-index: 222;
-    display: flex;
-    margin-top: 10px;
-    margin-left: 20px;
+
+/* Logo */
+.logo {
+    position: absolute; 
+    top: -6px;          
+    left: 20px;         
+    font-size: 24px;
+    font-weight: bold;
     color: #0FA926;
-    font-weight: bolder;
-    font-size: 22px;
-   
 }
 
-header{
-    position: fixed;   /* face header-ul fix */
-    top: 0;            /* lipit de sus */
-    left: 0;           /* lipit de stânga */
-    width: 100%;       /* ocupă tot ecranul pe lățime */
-    background-color: #4CAF50;
-    color: white;
-    height: 50px;
-    
-    background-color: white;
+/* Meniu */
+.menu-items {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
 }
+.menu {
+    display: flex;
+    gap: 50px; 
+    justify-content: center; 
+    flex: 1; 
+    margin-left: 80px;
+}
+.language-select {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.menu a{
+  text-decoration: none;
+  font-size: 22px;
+  font-weight: 900;
+}
+.a2{
+  color: #0FA926; 
+  font-weight: bold;
+}
+.a1,.a3{
+  color: black;
+}
+.left-language{
+  position: absolute;
+  width: 1px;
+  height: 30px;
+  background-color: black;
+  margin-left: -20px;
+}
+.right-language{
+  position: absolute;
+  width: 1px;
+  height: 30px;
+  background-color: black;
+  margin-left: 70px;
+}
+#lang{
+  margin-right: 20px;
+  width: 100px;
+  
+}
+
+/* Container meniu */
+header {
+
+  padding: 20px;  
+  background-color: white;
+   height: 20px;
+    }
+
+/* Hamburger pentru telefoane */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 20px;
+    cursor: pointer;
+}
+.hamburger span {
+    display: block;
+    height: 3px;
+    background-color: #333;
+    border-radius: 2px;
+}
+
+/* Meniu desktop */
+.menu-items {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* Dropdown limba */
+.language-select select {
+    padding: 3px 5px;
+    border-radius: 4px;
+}
+
+/* Responsive pentru mobil */
+@media screen and (max-width: 768px) {
+    .hamburger {
+        display: flex;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 101;
+    }
+
+    .menu-items {
+        position: absolute;
+        width: 300px;
+        top: 60px; /* sub header */
+        
+        right: 30px;
+        background: #ffffff;
+        flex-direction: column; /* elementele unul sub altul */
+        gap: 15px; /* distanță între elemente */
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        display: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        z-index: 100;
+    }
+
+    .menu-items.show {
+        display: flex;
+    }
+
+    /* Link-urile pe verticală */
+    .menu {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        width: 100%;
+    }
+
+    .menu a {
+        color: #000;
+        font-size: 20px;
+        font-weight: 600;
+        width: 100%;
+
+    }
+
+    /* Dropdown limba sub link-uri */
+    .language-select {
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .left-language, .right-language {
+        display: none; /* ascundem liniile verticale pe mobil */
+    }
+}
+
 /* Start login,register form  */
-
-body{
-    margin: 15px;
-    padding: 0px;
-    margin-top: 20px;
-    background-color: #EFF9EE;
-}
 
 .form-box{
     text-align: center ;
     background-color: white;
     border: 2px solid #E6E6E6;
     width: 400px;
-        
-
 }
 label{
    display: flex;
-   
+}
+/* FINISH login,register form */
+
+/* Footer */
+.footer {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 30px 10px;
+    font-size: 15px;
+    margin-top: 60px;
+    left: 0px;
+    right: 0px;
 }
 
-  /* FINISH login,register form  
+
+select {
+    padding: 13px;
+    width: 100%;
+    background-color: #F5F8FA;
+}

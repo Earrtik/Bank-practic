@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +12,32 @@
 <body>
     <!-- Header -->
     <header>
-        <span class="logo">Diny bank</span>
+        <div class="menu-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-items" id="menu-items">
+                <div class="menu" >
+                <a href="index.html" class="a1">Acasă</a>
+                <a href="credite.html"class="a2">Calculator Credite</a>
+                <a href="informatii.html"class="a3">Informații</a>
+                </div>
+                
+                <div class="language-select">
+                    <hr class="left-language" >
+                    
+                    <select id="lang">
+                        <option value="ro">RO</option>
+                        <option value="ru">RU</option>
+                        <option value="en">EN</option>
+                    </select>
+                     <hr class="right-language" >
+                </div>
+            </div>
+        </div>
+        <p class="logo">Diny bank</p>
     </header>
 
     <!-- Main content -->
@@ -19,7 +46,7 @@
 
             <!-- Calculator header -->
             <div>
-                <h2 class="calculator-st">Calculator</h2>
+                <h1 class="calculator-st">Calculator</h1>
                 <h3 class="for-credit">Pentru credite</h3>
                 <hr>
                 <!-- Selectare valuta -->
@@ -50,7 +77,7 @@
                 <div class="input-wrapper">
                     <input type="text" class="suma" placeholder=" ">
                     <span class="placeholder-left">1000 - 100,000,000</span>
-                    <span class="placeholder-right">Lei</span>
+                    <span class="placeholder-right">LEI</span>
                 </div>
 
                 <br>
@@ -137,14 +164,14 @@
                 <div class="input-wrapper">
                     <input type="text" class="avans" placeholder=" ">
                     <span class="placeholder-left">1000 - 60,000,000</span>
-                    <span class="placeholder-right">Lei</span>
+                    <span class="placeholder-right">LEI</span>
                 </div>
                 <br>
                 <span class="span-content">Salariul</span>
                 <div class="input-wrapper">
                     <input type="text" class="salariu" placeholder=" ">
                     <span class="placeholder-left">1000 - 300,000</span>
-                    <span class="placeholder-right">Lei</span>
+                    <span class="placeholder-right">LEI</span>
                 </div>
                 <br>
             </div>
@@ -181,11 +208,24 @@
             <div class="credit-form">
                 <button class="btn-calcul">Calculeaza</button>
                 <br><br>
+                
+                    <div class="eur-usd-rate">
+                        <div>
+                            1 EUR = <span id="eur-rate">…</span> MDL
+                        </div>
+
+                        <div>
+                            1 USD = <span id="usd-rate">…</span> MDL
+                        </div>
+                    </div>
+                    <br>
             </div>
 
         </div>
     </main>
-
+<footer class="footer">
+    Dinybank | © Copyright 2025 Toate drepturile rezervate.
+</footer>
     <script src="../js/credite.js"></script>
 
 </body>

@@ -5,14 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/register.css">
     <link rel="stylesheet" href="../style/repeat.css">
+    
 
     <title>Diny-Bank Register</title>
 </head>
 <body>
     <div class="container" >
-        <header>
-            <p>Diny bank</p>
-        </header>
+         <header>
+        <div class="menu-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="menu-items" id="menu-items">
+                <div class="menu" >
+                <a href="index.html" class="a1">Acasă</a>
+                <a href="credite.html"class="a2">Calculator Credite</a>
+                <a href="informatii.html"class="a3">Informații</a>
+                </div>
+                
+                <div class="language-select">
+                    <hr class="left-language" >
+                    <label for="lang">Limba:</label>
+                    <select id="lang">
+                        <option value="ro">RO</option>
+                        <option value="ru">RU</option>
+                        <option value="en">EN</option>
+                    </select>
+                     <hr class="right-language" >
+                </div>
+            </div>
+        </div>
+        <p class="logo">Diny bank</p>
+    </header>
         <main> 
             <div class="main-div" >
                 <div class="form-box" >

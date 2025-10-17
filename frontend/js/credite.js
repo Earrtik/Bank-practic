@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
             link.classList.remove('valuta');
 
                 
-            let symbol = 'Lei';
+            let symbol = 'LEI';
             if (selectedValuta === 'EUR') symbol = 'EUR';
             if (selectedValuta === 'USD') symbol = 'USD';
 
@@ -46,4 +46,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+});
+
+fetch('../../backend/php/credite.php')
+  .then(response => response.json())
+  .then(data => {
+      document.getElementById('eur-rate').textContent = data.EUR || "Eroare la server";
+      document.getElementById('usd-rate').textContent = data.USD || "Eroare la server";
+  })
+  .catch(err => {
+      document.getElementById('eur-rate').textContent = "Eroare la server";
+      document.getElementById('usd-rate').textContent = "Eroare la server";
+      console.error(err);
+  });
+const hamburger = document.getElementById('hamburger');
+const menuItems = document.getElementById('menu-items');
+
+hamburger.addEventListener('click', () => {
+    menuItems.classList.toggle('show');
 });
