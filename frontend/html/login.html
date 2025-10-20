@@ -3,57 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/register.css">
+    <link rel="stylesheet" href="../style/login.css">
     <link rel="stylesheet" href="../style/repeat.css">
+    <link rel="stylesheet" href="../style/login_register_repeat.css">
     
     <title>Diny-Bank Register</title>
 </head>
 <body>
-    <header>
-          <div class="container" >
-    <p class="logo">Diny bank</p>
-    <div class="menu-container">
-        <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <div class="menu-items" id="menu-items">
-            <div class="menu">
-                <a href="index.html" class="a1">Acasă</a>
-                <a href="credite.html" class="a2">Calculator Credite</a>
-                <a href="informatii.html" class="a3">Informații</a>
+     <header>
+        <div class="menu-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-            <div class="language-select">
-                <label for="lang">Limba:</label>
-                <select id="lang">
-                    <option value="ro">RO</option>
-                    <option value="ru">RU</option>
-                    <option value="en">EN</option>
-                </select>
+            <div class="menu-items" id="menu-items">
+                <div class="menu" >
+                <a href="" class="a1">Acasă</a>
+                <a href="credite.html"class="a2">Calculator Credite</a>
+                <a href="informatii.html"class="a3">Informații</a>
+                </div>
+                <a href="" class="login" >Login</a>
+                <a href="/frontend/html/register.html">
+                    <button class="register" >Register</button>
+                </a>
+                <div class="language-select">
+                    <hr class="left-language" >
+                    
+                    <select id="lang">
+                        <option value="ro">RO</option>
+                        <option value="ru">RU</option>
+                        <option value="en">EN</option>
+                    </select>
+                     <hr class="right-language" >
+                </div>
             </div>
         </div>
-    </div>
-</header>
-        <main> 
-            <div class="main-div" >
+        <p class="logo">Diny bank</p>
+    </header>
+    <main> 
+            <img src="/photo/register_login.png" alt="">
+            
+            <div class="content"  >
                 <div class="form-box" >
                     <form action="">
                         <div class="in-form-box" >
-                            <h2>Inregistrare</h2>
-                            <h3>Creaza un cont</h3>
+                            <h1>Conectare</h1>
+                            <h3  >Intra in contrul tau</h3>
 
-                            <label for=""  >Nume</label>    
-                            <input type="text" name="" id="" placeholder="Numele tau" >
-                                
-                            <label for=""> Email</label>    
+                            <label for="">Adresa de Email</label>    
                             <input type="text" name="" id="" placeholder="Exemplu@gmail.com" >
+                                
+                            <label for=""> Parola</label>    
+                            <input type="password" name="" id="" placeholder="*********" >
                                 <br>
-                            <a href="">Ai uitat parola ?</a>
-                           
-                            <div>
-                                <p>Nu ai cont ?</p>
-                                <a href=""><p>Inregistrare</p></a>
+                            <a href="" class="forgout-password" >
+                                <p>Ai uitat parola ?</p>
+                            </a>
+                            <a href=""><button class="login-btn" >Intra in cont</button></a>
+                            <div class="dont-have-container">
+                                <p class="dont-have-account" >Nu ai cont ?</p>
+                                <a href="/frontend/html/register.html" id="logout-link">
+                                    <p class="register-account" >Inregistrare</p>
+                                </a>
                             
                             </div>
                         </div>
@@ -61,11 +73,13 @@
                 </div>
             </div>
         </div>
-            
+            <div id="spinner" class="spinner" style="display: none;"></div>
     </main>
-
+        <br><br><br>
     <footer class="footer">
         Dinybank | © Copyright 2025 Toate drepturile rezervate.
     </footer>
+     <script src="../js/repeat.js"></script>
+    
 </body>
 </html>

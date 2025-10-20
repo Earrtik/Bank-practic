@@ -2,22 +2,46 @@ body{
     margin: 0px;
     padding: 0px;
      background-color: #EFF9EE;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    
+}html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 }
+a {
+  text-decoration: none;
+}
+   
 /* Main content */
 main {
     display: flex;
-    justify-content: center; 
+    flex-direction: column; 
+    align-items: center;    
     margin-top: 70px;
+    width: 100%;
+    flex: 1;
 }
 
 /* Logo */
 .logo {
-    position: absolute; 
-    top: -6px;          
-    left: 20px;         
+    margin: 0px;
+   top: 23px;
+    position: absolute;
     font-size: 24px;
     font-weight: bold;
     color: #0FA926;
+    cursor: pointer;
+  
+}
+header {
+    box-sizing: border-box;
+    min-height: 70px; 
+        
 }
 
 /* Meniu */
@@ -27,12 +51,20 @@ main {
     align-items: center;
     width: 100%;
 }
+
 .menu {
     display: flex;
-    gap: 50px; 
+    gap: 40px; 
     justify-content: center; 
     flex: 1; 
-    margin-left: 80px;
+    margin-left: 10px;
+    text-align: center;
+    
+}
+@media (min-width: 998px) {
+  .menu {
+    margin-left: 130px;
+  }
 }
 .language-select {
     display: flex;
@@ -42,15 +74,10 @@ main {
 .menu a{
   text-decoration: none;
   font-size: 22px;
-  font-weight: 900;
+  font-weight: 600;
 }
-.a2{
-  color: #0FA926; 
-  font-weight: bold;
-}
-.a1,.a3{
-  color: black;
-}
+
+   
 .left-language{
   position: absolute;
   width: 1px;
@@ -65,18 +92,21 @@ main {
   background-color: black;
   margin-left: 70px;
 }
-#lang{
-  margin-right: 20px;
-  width: 100px;
-  
-}
 
+.content {
+    background-color: white;
+    border: 2px solid #E6E6E6;
+    width: 90%;
+    max-width: 500px;
+    min-width: 250px;
+    border-radius: 10px;
+}
 /* Container meniu */
 header {
-
-  padding: 20px;  
+padding: 20px;
   background-color: white;
-   height: 20px;
+ 
+    
     }
 
 /* Hamburger pentru telefoane */
@@ -109,24 +139,25 @@ header {
 }
 
 /* Responsive pentru mobil */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 998px) {
+    img{
+        display: none;
+    }
     .hamburger {
         display: flex;
         position: absolute;
-        top: 20px;
+        top: 30px;
         right: 20px;
         z-index: 101;
     }
 
     .menu-items {
         position: absolute;
-        width: 300px;
+        width: 200px;
         top: 60px; /* sub header */
-        
-        right: 30px;
+        right: 20px;
         background: #ffffff;
         flex-direction: column; /* elementele unul sub altul */
-        gap: 15px; /* distanță între elemente */
         padding: 15px;
         border: 1px solid #ccc;
         border-radius: 8px;
@@ -138,7 +169,6 @@ header {
     .menu-items.show {
         display: flex;
     }
-
     /* Link-urile pe verticală */
     .menu {
         flex-direction: column;
@@ -146,7 +176,6 @@ header {
         align-items: center;
         width: 100%;
     }
-
     .menu a {
         color: #000;
         font-size: 20px;
@@ -154,7 +183,6 @@ header {
         width: 100%;
 
     }
-
     /* Dropdown limba sub link-uri */
     .language-select {
         justify-content: center;
@@ -165,36 +193,75 @@ header {
     .left-language, .right-language {
         display: none; /* ascundem liniile verticale pe mobil */
     }
+  
 }
-
-/* Start login,register form  */
-
-.form-box{
-    text-align: center ;
-    background-color: white;
-    border: 2px solid #E6E6E6;
-    width: 400px;
-}
-label{
-   display: flex;
-}
-/* FINISH login,register form */
-
 /* Footer */
 .footer {
     background-color: #ffffff;
     color: rgb(0, 0, 0);
     text-align: center;
-    padding: 30px 10px;
+    padding: 10px 10px;
     font-size: 15px;
-    margin-top: 60px;
-    left: 0px;
-    right: 0px;
+    bottom: 0px;
 }
-
-
-select {
+main select {
     padding: 13px;
     width: 100%;
     background-color: #F5F8FA;
+}
+
+.login{
+text-decoration: none;
+color: black;
+cursor: pointer;
+font-size: 20px;
+
+
+}
+.register{
+font-size: 20px;
+background-color: #0FA926;
+color: white;
+padding: 5px 20px 5px 20px;
+border: 0px;
+
+border-radius: 5px;
+cursor: pointer;
+}
+@media (min-width: 998px) {
+  .register {
+    margin-right: 20px;
+  }
+  #lang{
+    margin-right: 20px;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* Spinner - cerc care se învârte */
+.spinner {
+  border: 6px solid #f3f3f3; /* gri deschis */
+  border-top: 6px solid #0FA926; /* verde */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 2s linear infinite;
+  
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
 }

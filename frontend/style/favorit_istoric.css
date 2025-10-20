@@ -1,0 +1,46 @@
+.a1,.a2,.a3{
+    color: black;
+    
+}
+
+/* Button isotric favorite / style  */
+a{
+    text-decoration: none;
+}
+
+.buttons{
+    text-align: center;
+}
+.favorite{
+font-size: 22px;
+padding: 10px 30px 10px 30px;
+margin: 20px 100px 20px 0px;
+border-radius: 10px;
+cursor: pointer;
+}
+.istoric{
+font-size: 22px;
+padding: 10px 30px 10px 30px;
+margin: 20px 0px 20px 0px;
+border-radius: 10px;
+cursor: pointer;
+}
+#content2{
+    margin-top: 100px;
+    padding: 20px 0px 20px 0px;
+}
+.login-text h1{
+text-align: center;
+color: #9b9b9b;
+ }
+
+.login-favorit-button{
+    margin-top: 100px;
+    font-size: 24px;
+    background-color: #0FA926;
+    color: white;
+    border: 0px;
+    border-radius: 8px;
+    padding: 10px 60px 10px 60px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}

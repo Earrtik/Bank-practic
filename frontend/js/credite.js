@@ -1,21 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- Gestionare blocuri ascunse la checkbox ---
-    const conditionals = document.querySelectorAll('.conditional');
-
-    conditionals.forEach(div => {
-        const checkboxId = div.getAttribute('data-target');
-        const checkbox = document.getElementById(checkboxId);
-
-        checkbox.addEventListener('change', () => {
-            if (checkbox.checked) {
-                div.style.display = 'block';
-            } else {
-                div.style.display = 'none';
-            }
-        });
-    });
-
     // Schimbare valuta (MDL / EUR / USD) 
     const valutaLinks = document.querySelectorAll('.type-valuta a');
 
@@ -59,9 +43,22 @@ fetch('../../backend/php/credite.php')
       document.getElementById('usd-rate').textContent = "Eroare la server";
       console.error(err);
   });
-const hamburger = document.getElementById('hamburger');
-const menuItems = document.getElementById('menu-items');
+   
 
-hamburger.addEventListener('click', () => {
-    menuItems.classList.toggle('show');
+
+// Chekbox
+document.addEventListener("DOMContentLoaded", () => {
+    // Găsește toate checkbox-urile cu clasa .checkbox
+    const checkboxes = document.querySelectorAll(".checkbox");
+
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", () => {
+            // Găsește div-ul corespunzător (data-target = id checkbox)
+            const targetId = checkbox.id;
+            const conditionalDiv = document.querySelector(`.conditional[data-target="${targetId}"]`);
+            if (conditionalDiv) {
+                conditionalDiv.style.display = checkbox.checked ? "block" : "none";
+            }
+        });
+    });
 });

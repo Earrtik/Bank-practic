@@ -1,0 +1,24 @@
+.have-container {
+  display: flex;
+  justify-content: flex-end; 
+  align-items: center;         
+  gap: 6px;                    
+  margin-top: 15px;  
+  margin-right: 40px;          
+}
+
+.have-account {
+  font-size: 19px;
+  color: #333;
+}
+
+.login-account {
+  font-size: 19px;
+  color: #036000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.login-account:hover {
+  text-decoration: underline;
+}
