@@ -4,14 +4,14 @@ $username = "root";
 $password = "";
 $database = "diny_bank";
 
-$connection = new mysqli($server,$username,$password,$database);
+$conn = new mysqli($server,$username,$password,$database);
 
-if ($connection->connect_error) {
+if ($conn->connect_error) {
    
-    die("Error sql" . $connection->connect_error);
+    die("Error sql" . $conn->connect_error);
 } else {
    
     echo "Succes sql";
 }
-$connection->close();
+
 ?>

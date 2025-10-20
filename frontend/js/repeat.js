@@ -5,17 +5,14 @@ hamburger.addEventListener('click', () => {
     menuItems.classList.toggle('show');
 });
 
+document.body.addEventListener('click', function(e) {
+    const link = e.target.closest('.spinner-link'); // prinde a sau button
+    if (!link) return;
 
-// Animatie loading
-// selectează toate link-urile cu clasa spinner-link
-document.querySelectorAll('.spinner-link').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault(); // previne navigarea instantanee
-        document.getElementById('spinner').style.display = 'block'; // arată spinnerul
+    e.preventDefault();
+    const spinner = document.getElementById('spinner');
+    if(spinner) spinner.style.display = 'block';
 
-        setTimeout(() => {
-            window.location.href = this.href; // navighează după 0.5 secunde
-        }, 500);    
-    });
+    const href = link.getAttribute('href');
+    if(href) setTimeout(() => { window.location.href = href; }, 500);
 });
-

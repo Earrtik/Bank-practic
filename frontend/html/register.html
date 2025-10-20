@@ -44,34 +44,35 @@
             
             <div class="content"  >
                 <div class="form-box" >
-                    <form action="">
-                        <div class="in-form-box" >
-                            <h1>Inregistrare</h1>
-                            <h3>Creaza un cont</h3>
-                            <label for="">Nume</label>    
-                            <input type="text" name="" id="" placeholder="Numele tau" >
-                              
+                    <form action="../../backend/php/register.php" method="POST" id="registerForm">
+                        <div class="in-form-box">
+                            <h1>Înregistrare</h1>
+                            <h3>Crează un cont</h3>
+                        
+                            <label for="username">Nume</label>    
+                            <input type="text" name="username" id="username" placeholder="Numele tău" required>
+                                <div id="error-username" class="error"></div>
 
-                            <label for="">Adresa de Email</label>    
-                            <input type="text" name="" id="" placeholder="Exemplu@gmail.com" >
-                                
-                            <label for=""> Parola</label>    
-                            <input type="password" name="" id="" placeholder="*********" >
-                               
-                               <div class="have-container">
-                                  <p class="have-account">Ai deja cont?</p>
-                                  <a href="/frontend/html/login.html">
-                                    <p class="login-account">Conectează-te</p>
-                                  </a>
-                                </div>
+                            <label for="email">Adresa de Email</label>    
+                            <input type="email" name="email" id="email" placeholder="exemplu@gmail.com" required>
+                                <div id="error-email" class="error"></div>
 
+                            <label for="password">Parola</label>    
+                            <input type="password" name="password" id="password" placeholder="*********" required>
+                                <div id="error-password" class="error"></div>
+                        
+                            <div class="have-container">
+                                <p class="have-account">Ai deja cont?</p>
                                 <a href="/frontend/html/login.html">
-                                    <button class="login-btn" >Intra in cont</button>
+                                    <p class="login-account">Conectează-te</p>
                                 </a>
-                            
-                            <br><br><br>
                         </div>
+                        
+                            
+                            <button type="submit" class="login-btn">Înregistrează-te</button>
+                        </div><br><br>
                     </form>
+
                 </div>
             </div>
 
@@ -83,5 +84,6 @@
         Dinybank | © Copyright 2025 Toate drepturile rezervate.
     </footer>
      <script src="../js/repeat.js"></script>
+     
 </body>
 </html>

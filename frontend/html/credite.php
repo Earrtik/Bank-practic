@@ -1,3 +1,8 @@
+<?php
+session_start(); // pornim sesiunea
+$loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este logat
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,37 +17,46 @@
 <body>
     <!-- Header -->
     <header>
-        <div class="menu-container">
-            <p class="logo">Diny bank</p>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+    <div class="menu-container">
+        <p class="logo">Diny bank</p>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="menu-items" id="menu-items">
+            <div class="menu">
+                <a " class="a1" data-translate="a1">Acasă</a>
+                <a href="credite.php" class="a2" data-translate="a2">Calculator Credite</a>
+                <a href="informatii.php" class="a3 spinner-link" data-translate="a3">Informații</a>
             </div>
-            <div class="menu-items" id="menu-items">
-            <div class="menu" >
-                <a href="" class="a1 " data-translate="a1">Acasă</a>
-                <a href="credite.html" class=" a2 " data-translate="a2" >Calculator Credite</a>
-                <a href="informatii.html" class="a3 spinner-link" data-translate="a3">Informații</a>
-                </div>
-                    <a href="/frontend/html/login.html" class="login spinner-link" >Login</a>
-                    <a href="/frontend/html/register.html" class="spinner-link">
-                        <button class="register" >Register</button>
-                    </a>
-                <div class="language-select">
-                    <hr class="left-language" >
-                    
-                    <select id="lang">
-                        <option value="ro">RO</option>
-                        <option value="ru">RU</option>
-                        <option value="en">EN</option>
-                    </select>
-                     <hr class="right-language" >
-                </div>
+
+            <?php if (!$loggedIn): ?>
+                <!-- Vizitatori neautentificați -->
+                <a href="../../frontend/html/login.html" class="login spinner-link">Login</a>
+                <a href="/frontend/html/register.html" class="spinner-link">
+                    <button class="register">Register</button>
+                </a>
+            <?php else: ?>
+                <!-- Utilizatori logați -->
+                <a href="istoric.php"><i class="bi bi-clock-history"></i></a>
+                <a href="../../frontend/html/favorite.php"><i class="bi bi-heart" id="heart" ></i></a>
+                
+                <a href="../../backend/php/logout.php"><i class="bi bi-box-arrow-right" id="logout" ></i></a>
+            <?php endif; ?>
+
+            <div class="language-select">
+                <hr class="left-language">
+                <select id="lang">
+                    <option value="ro">RO</option>
+                    <option value="ru">RU</option>
+                    <option value="en">EN</option>
+                </select>
+                <hr class="right-language">
             </div>
         </div>
-        
-    </header>
+    </div>
+</header>
 
     <!-- Main content -->
     <main>
@@ -62,6 +76,7 @@
                 </p>
                 <hr>
             </div>
+     <form action="../../backend/php/credite.php" method="POST">
 
             <!-- Form credit -->
             <div class="credit-form">
@@ -222,41 +237,41 @@
 
        <!-- Afisare rezultate -->
 <br><br>
-<div class="content-rezult">
-    <p class="p-rez" data-translate="rezultate">Rezultatele</p>
-    <div class="rezult" data-target="rezultate">
-        <p data-translate="rez-rata-lunara">Rata lunara:</p>
-        <p data-translate="rez-rata-totala">Rata totala:</p>
-        <p data-translate="rez-dobanda-lunara">Dobanda lunara:</p>
-        <p data-translate="rez-dobanda-totala">Dobanda totala:</p>
-        <p data-translate="rez-comision">Comisionul:</p>
-        <p data-translate="rez-dae">DAE:</p>
-        <p data-translate="rez-comisie-rata">Comisie si rata totala:</p>
-        <hr>
-        <button data-translate="vezi-tabel" class="vezi-tabel" >Vezi tabel cu toate rezultatele</button>
-    </div>
-    
-    
-</div>
+        <div class="content-rezult">
+            <p class="p-rez" data-translate="rezultate">Rezultatele</p>
+            <div class="rezult" data-target="rezultate">
+                <p data-translate="rez-rata-lunara">Rata lunara:</p>
+                <p data-translate="rez-rata-totala">Rata totala:</p>
+                <p data-translate="rez-dobanda-lunara">Dobanda lunara:</p>
+                <p data-translate="rez-dobanda-totala">Dobanda totala:</p>
+                <p data-translate="rez-comision">Comisionul:</p>
+                <p data-translate="rez-dae">DAE:</p>
+                <p data-translate="rez-comisie-rata">Comisie si rata totala:</p>
+                <hr>
+                <button data-translate="vezi-tabel" class="vezi-tabel" >Vezi tabel cu toate rezultatele</button>
+            </div>
 
-<br>
-<div class="content-grafic">
-    <h2 data-translate="grafic-rambursare">Grafic de rambursare</h2>
-    <div class="grafic-rambursare"></div>
-    <br><br>
-    <div class="all-icons">
-        <div class="div-icon1">
-            <a><i class="bi bi-heart" id="icon1"></i> <span data-translate="icon-favorit">Adauga la favorit</span></a>
-        </div>
-        <div class="div-icon2">
-            <a><i class="bi bi-download" id="icon2"></i> <span data-translate="icon-pdf">Export tot PDF</span></a>
-        </div>
-        <div class="div-icon3">
-            <a><i class="bi bi-box-arrow-up-right" id="icon3"></i> <span data-translate="icon-link">Creaza link</span></a>
-        </div>
-    </div>
-</div>
 
+        </div>
+
+        <br>
+        <div class="content-grafic">
+            <h2 data-translate="grafic-rambursare">Grafic de rambursare</h2>
+            <div class="grafic-rambursare"></div>
+            <br><br>
+            <div class="all-icons">
+                <div class="div-icon1">
+                    <a><i class="bi bi-heart" id="icon1"></i> <span data-translate="icon-favorit">Adauga la favorit</span></a>
+                </div>
+                <div class="div-icon2">
+                    <a><i class="bi bi-download" id="icon2"></i> <span data-translate="icon-pdf">Export tot PDF</span></a>
+                </div>
+                <div class="div-icon3">
+                    <a><i class="bi bi-box-arrow-up-right" id="icon3"></i> <span data-translate="icon-link">Creaza link</span></a>
+                </div>
+            </div>
+        </div>
+</form>
 <div id="spinner" class="spinner" style="display:none;"></div>
 
     </main>
@@ -265,7 +280,7 @@
         <p>Dinybank | © Copyright 2025 Toate drepturile rezervate.</p>
     </footer>
     <script src="../js/credite.js"></script>
-    <script src="../js/repeat.js"></script>
     <script src="../js/language-credit.js"></script>
+    <script src="../js/repeat.js"></script>
 </body>
 </html>

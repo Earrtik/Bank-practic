@@ -19,11 +19,11 @@
             </div>
             <div class="menu-items" id="menu-items">
                 <div class="menu" >
-                    <a href="" class="a1 " data-translate="a1">Acasă</a>
+                    <a  class="a1 " data-translate="a1">Acasă</a>
                     <a href="credite.html" class="a2 spinner-link" data-translate="a2">Calculator Credite</a>
                     <a href="informatii.html" class="a3 spinner-link" data-translate="a3">Informații</a>
                 </div>
-                <a href="/frontend/html/login.html" class="login spinner-link">Login</a>
+               <a href="../../frontend/html/login.html" class="login spinner-link">Login</a>
                 <a href="/frontend/html/register.html" class="spinner-link">
                     <button class="register" >Register</button>
                 </a>
@@ -186,8 +186,8 @@
 <footer class="footer" data-translate="footer">
     Dinybank | © Copyright 2025 Toate drepturile rezervate.
 </footer>
-      <script src="../js/repeat.js"></script>
-       <script src="../js/language-informatii.js"></script>
+<script src="../js/language-informatii.js"></script>
+<script src="../js/repeat.js"></script>
   
 </body>
 </html>
