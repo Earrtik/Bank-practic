@@ -12,7 +12,7 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
 
     <link rel="stylesheet" href="../style/repeat.css">
     <link rel="stylesheet" href="../style/istoric.css">
-    <link rel="stylesheet" href="../style/favorit_istoric.css">
+    <link rel="stylesheet" href="../style/favorit_istoric_repeat.css">
     <title>Istoric</title>
 </head>
 <body>

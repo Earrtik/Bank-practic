@@ -16,3 +16,5 @@ document.body.addEventListener('click', function(e) {
     const href = link.getAttribute('href');
     if(href) setTimeout(() => { window.location.href = href; }, 500);
 });
+
+

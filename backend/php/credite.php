@@ -1,6 +1,7 @@
 <?php
 header('Content-Type: application/json');
 
+
 $url = "https://www.bnm.md/ro/official_exchange_rates?get_xml=1&date=" . date('d.m.Y');
 $xml = @file_get_contents($url);
 $eur = $usd = null;
