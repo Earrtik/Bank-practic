@@ -1,3 +1,8 @@
+<?php
+session_start(); // pornim sesiunea
+$loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este logat
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,41 +10,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/informatii.css">
     <link rel="stylesheet" href="../style/repeat.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Diny Bank Informatii</title>
 </head>
 <body>
 
-
- <header>
-        <div class="menu-container">
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+<header>
+    <div class="menu-container">
+        <p class="logo">Diny bank</p>
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="menu-items" id="menu-items">
+            <div class="menu">
+                <a class="a1" data-translate="a1">Acasă</a>
+                <a href="credite.php" class="a2 spinner-link" data-translate="a2">Calculator Credite</a>
+                <a href="informatii.php" class="a3 spinner-link" data-translate="a3">Informații</a>
             </div>
-            <div class="menu-items" id="menu-items">
-                <div class="menu" >
-                    <a  class="a1 " data-translate="a1">Acasă</a>
-                    <a href="credite.html" class="a2 spinner-link" data-translate="a2">Calculator Credite</a>
-                    <a href="informatii.html" class="a3 spinner-link" data-translate="a3">Informații</a>
-                </div>
-               <a href="../../frontend/html/login.html" class="login spinner-link">Login</a>
+
+            <?php if (!$loggedIn): ?>
+                <!-- Vizitatori neautentificați -->
+                <a href="../../frontend/html/login.html" class="login spinner-link">Login</a>
                 <a href="/frontend/html/register.html" class="spinner-link">
-                    <button class="register" >Register</button>
+                    <button class="register">Register</button>
                 </a>
-                <div class="language-select">
-                    <hr class="left-language">
-                    <select id="lang">
-                        <option value="ro">RO</option>
-                        <option value="ru">RU</option>
-                        <option value="en">EN</option>
-                    </select>
-                    <hr class="right-language">
-                </div>
+            <?php else: ?>
+                <!-- Utilizatori logați -->
+                <a href="istoric.php" class="spinner-link"><i class="bi bi-clock-history"></i></a>
+                <a href="../../frontend/html/favorite.php" class="spinner-link"><i class="bi bi-heart" id="heart"></i></a>
+                <a href="../../backend/php/logout.php" class="spinner-link"><i class="bi bi-box-arrow-right" id="logout"></i></a>
+            <?php endif; ?>
+
+            <div class="language-select">
+                <hr class="left-language">
+                <select id="lang">
+                    <option value="ro">RO</option>
+                    <option value="ru">RU</option>
+                    <option value="en">EN</option>
+                </select>
+                <hr class="right-language">
             </div>
         </div>
-        <p class="logo">Diny bank</p>
-    </header>
+    </div>
+</header>
     
 <main>
  <!-- Div cu toate cards -->
@@ -180,6 +195,7 @@
     </div>
 
 </div>
+<div id="spinner" class="spinner" style="display:none;"></div>
 <!-- Sfirsit Div cu taote cards  -->
 </main>
 <br><br><br>

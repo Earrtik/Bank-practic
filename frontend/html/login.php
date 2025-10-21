@@ -95,6 +95,6 @@
         Dinybank | © Copyright 2025 Toate drepturile rezervate.
     </footer>
 
-    
+     <script src="../js/repeat.js"></script>
 </body>
 </html>

@@ -26,9 +26,9 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
         </div>
         <div class="menu-items" id="menu-items">
             <div class="menu">
-                <a " class="a1" data-translate="a1">Acasă</a>
+                <a class="a1 " data-translate="a1">Acasă</a>
                 <a href="credite.php" class="a2" data-translate="a2">Calculator Credite</a>
-                <a href="informatii.php" class="a3 spinner-link" data-translate="a3">Informații</a>
+                <a href="informatii.php " class="a3 spinner-link" data-translate="a3">Informații</a>
             </div>
 
             <?php if (!$loggedIn): ?>
@@ -39,10 +39,10 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
                 </a>
             <?php else: ?>
                 <!-- Utilizatori logați -->
-                <a href="istoric.php"><i class="bi bi-clock-history"></i></a>
-                <a href="../../frontend/html/favorite.php"><i class="bi bi-heart" id="heart" ></i></a>
+                <a href="istoric.php" class="spinner-link"><i class="bi bi-clock-history "></i></a>
+                <a href="../../frontend/html/favorite.php" class="spinner-link"><i class="bi bi-heart" id="heart" ></i></a>
                 
-                <a href="../../backend/php/logout.php"><i class="bi bi-box-arrow-right" id="logout" ></i></a>
+                <a href="../../backend/php/logout.php" class="spinner-link"><i class="bi bi-box-arrow-right" id="logout" ></i></a>
             <?php endif; ?>
 
             <div class="language-select">
@@ -261,7 +261,7 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
             <br><br>
             <div class="all-icons">
                 <div class="div-icon1">
-                    <a><i class="bi bi-heart" id="icon1"></i> <span data-translate="icon-favorit">Adauga la favorit</span></a>
+                    <a  ><i class="bi bi-heart" id="icon1"></i> <span data-translate="icon-favorit">Adauga la favorit</span></a>
                 </div>
                 <div class="div-icon2">
                     <a><i class="bi bi-download" id="icon2"></i> <span data-translate="icon-pdf">Export tot PDF</span></a>
