@@ -17,29 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- Adăugare / Ștergere favorite prin click pe inimă ---
+    // --- Adăugare favorite pentru simularea curentă ---
     if (divFavorite && iconFavorite) {
         divFavorite.addEventListener("click", async () => {
-            const id_simulare = divFavorite.dataset.id;
-            if (!id_simulare) return;
-
-            // Ștergere dacă este deja favorite
-            if (iconFavorite.classList.contains("bi-heart-fill")) {
-                try {
-                    await fetch("../../backend/php/sterge_favorite.php", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ id: id_simulare })
-                    });
-                    iconFavorite.classList.remove("bi-heart-fill");
-                    iconFavorite.classList.add("bi-heart");
-                } catch (err) {
-                    console.error(err);
-                }
-                return;
-            }
-
-            // Adăugare favorite
             const tip_credit = document.querySelector(".input-tip-credit").value;
             const suma = document.querySelector(".input-suma").value;
             const perioada = document.querySelector(".input-perioada").value;
@@ -84,10 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const data = await response.json();
                 if (data.status === "success") {
+                    // aici doar schimb culoarea inimii
                     iconFavorite.classList.add("bi-heart-fill");
                     iconFavorite.classList.remove("bi-heart");
-                } else {
-                    console.error(data.message || "Eroare la salvare.");
                 }
             } catch (err) {
                 console.error(err);
@@ -114,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // --- Ștergere favorite individual ---
+    // --- Ștergere favorite individual (doar în lista de carduri) ---
     document.addEventListener("click", async (e) => {
         if (e.target.closest(".sterge")) {
             const button = e.target.closest(".sterge");

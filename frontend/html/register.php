@@ -80,7 +80,7 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
 
                     <div class="have-container">
                         <p class="have-account">Ai deja cont?</p>
-                        <a href="/frontend/html/login.html">
+                        <a href="/frontend/html/login.php">
                             <p class="login-account">Conectează-te</p>
                         </a>
                     </div>

@@ -72,20 +72,14 @@ const translations = {
         "error-tip-rata": "Trebuie să alegeți tipul de rată.",
         "error-tip-dobanda": "Trebuie să selectați tipul de dobândă.",
         "error-grad-indatorare": "Grad de îndatorare depășit!",
-        "rez-rata-lunara": "Rata lunară :",
-        "rez-rata-totala": "Rata totală :",
-        "rez-dobanda-lunara": "Dobânda lunară :",
-        "rez-dobanda-totala": "Dobânda totală :",
-        "rez-comision": "Comision :",
-        "rez-dae": "DAE :",
-        "rez-comisie-rata": "Comisie + rată totală :",
         "tabel-luna": "Luna",
         "tabel-data": "Data scadenta",
         "tabel-rata-totala": "Rata totala",
         "tabel-principal": "Principal",
         "tabel-dobanda": "Dobanda",
         "tabel-comision": "Comision",
-        "tabel-sold-ramas": "Sold ramas"
+        "tabel-sold-ramas": "Sold ramas",
+        
     },
     "en": {
         "a1": "Home",
@@ -157,13 +151,6 @@ const translations = {
         "error-tip-rata": "You must select an installment type.",
         "error-tip-dobanda": "You must select an interest type.",
         "error-grad-indatorare": "Debt ratio exceeded!",
-        "rez-rata-lunara": "Monthly installment :",
-        "rez-rata-totala": "Total installment :",
-        "rez-dobanda-lunara": "Monthly interest :",
-        "rez-dobanda-totala": "Total interest :",
-        "rez-comision": "Commission :",
-        "rez-dae": "APR :",
-        "rez-comisie-rata": "Commission + total installment :",
         "tabel-luna": "Month",
         "tabel-data": "Due date",
         "tabel-rata-totala": "Total installment",
@@ -171,7 +158,6 @@ const translations = {
         "tabel-dobanda": "Interest",
         "tabel-comision": "Commission",
         "tabel-sold-ramas": "Remaining balance"
-        
     },
     "ru": {
         "a1": "Главная",
@@ -225,7 +211,7 @@ const translations = {
         "opt-reduce-rata": "Сократить ставку, срок остается тот же",
         "btn-calcul": "Рассчитать",
         "rezultate": "Результаты",
-        "vezi-tabel": "Смотреть все результаты",        
+        "vezi-tabel": "Смотреть все результаты",
         "rez-rata-lunara": "Ежемесячный платеж :",
         "rez-rata-totala": "Общий платеж :",
         "rez-dobanda-lunara": "Ежемесячный процент :",
@@ -233,22 +219,16 @@ const translations = {
         "rez-comision": "Комиссия :",
         "rez-dae": "ЭПС :",
         "rez-comisie-rata": "Комиссия и общий платеж :",
-        "icon-favorit": "Добавить в избранное ",
+        "icon-favorit": "Добавить в избранное",
         "icon-pdf": "Экспорт в PDF",
         "icon-link": "Создать ссылку",
         "footer": "Dinybank | © Copyright 2025 Все права защищены.",
-        "grafic-rambursare": "График погашения", "error-tip-credit": "Необходимо выбрать тип кредита.",
+        "grafic-rambursare": "График погашения",
+        "error-tip-credit": "Необходимо выбрать тип кредита.",
         "error-perioada": "Срок должен быть от 2 до 360 месяцев.",
         "error-tip-rata": "Необходимо выбрать тип платежа.",
         "error-tip-dobanda": "Необходимо выбрать тип ставки.",
         "error-grad-indatorare": "Превышена степень задолженности!",
-        "rez-rata-lunara": "Ежемесячный платеж :",
-        "rez-rata-totala": "Общий платеж :",
-        "rez-dobanda-lunara": "Ежемесячный процент :",
-        "rez-dobanda-totala": "Общий процент :",
-        "rez-comision": "Комиссия :",
-        "rez-dae": "ЭПС :",
-        "rez-comisie-rata": "Комиссия + общий платеж :",
         "tabel-luna": "Месяц",
         "tabel-data": "Дата платежа",
         "tabel-rata-totala": "Общий платеж",
@@ -258,6 +238,7 @@ const translations = {
         "tabel-sold-ramas": "Остаток"
     }
 };
+
 // Functie pentru traducere
 function translatePage(lang) {
     // Texte simple
