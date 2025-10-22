@@ -15,55 +15,40 @@ document.addEventListener("DOMContentLoaded", function() {
     const inputOptiuneRamb = document.querySelector(".input-optiune-rambursare");
 
     const rezultDiv = document.querySelector(".content-rezult");
+    const rezultInner = document.querySelector(".rezult");
     const grafDiv = document.querySelector(".content-grafic");
     const allIcons = document.querySelector(".all-icons");
+    const tabelAmortizareDiv = document.querySelector(".tabel-amortizare");
 
+    // --- ASCUNDEM TOT LA START ---
     rezultDiv.style.display = "none";
+    rezultInner.style.display = "none";
     grafDiv.style.display = "none";
     allIcons.style.display = "none";
+    tabelAmortizareDiv.style.display = "none";
 
+    let ultimaSimulare = null;
+
+    // Funcție pentru afișarea erorilor
     function showError(selector, message) {
         const el = document.querySelector(selector);
         el.textContent = message;
         el.style.display = "block";
     }
-    function clearError(selector) {
-        const el = document.querySelector(selector);
-        el.textContent = "";
-        el.style.display = "none";
-    }
 
+    // Permitem doar cifre în inputurile numerice
     [inputSuma, inputPerioada, inputAvans, inputSalariu, inputSumaRamb].forEach(input => {
         input.addEventListener("input", () => {
             input.value = input.value.replace(/\D/g,'');
         });
     });
 
-    // --- CORECTARE: Prima lună nu trebuie blocată ---
-    function updateDurataGratieOptions(inputDurata, perioada) {
-        inputDurata.querySelectorAll("option").forEach(opt => {
-            const luni = parseInt(opt.value.split("-")[1]) || 0;
-            if(opt.value === "prima-luna"){
-                opt.disabled = false; // Prima lună niciodată blocată
-            } else {
-                opt.disabled = luni > perioada; // restul depinde de perioada
-            }
-        });
-        inputDurata.value = "";
-    }
-
-    inputPerioada.addEventListener("input", () => {
-        const perioada = parseInt(inputPerioada.value) || 0;
-        updateDurataGratieOptions(inputDurataGratie, perioada);
-        updateDurataGratieOptions(inputDurataGratieMixta, perioada);
-    });
-
+    // --- Crearea graficului ---
     function createGrafic(principal, rataLunara, perioada) {
         const ctx = document.querySelector(".grafic-rambursare").getContext("2d");
         if(window.myChart) window.myChart.destroy();
 
-        const labels = [];
-        const data = [];
+        const labels = [], data = [];
         let sold = principal;
 
         for(let i=1; i<=perioada; i++){
@@ -74,56 +59,94 @@ document.addEventListener("DOMContentLoaded", function() {
 
         window.myChart = new Chart(ctx, {
             type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Sold restant',
-                    data: data,
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    fill: true,
-                    tension: 0.2
+            data: { 
+                labels, 
+                datasets:[{
+                    label:'Sold restant', 
+                    data, 
+                    borderColor:'rgba(75,192,192,1)', 
+                    backgroundColor:'rgba(75,192,192,0.2)', 
+                    fill:true, 
+                    tension:0.2
                 }]
             },
-            options: { responsive: true }
+            options: { responsive:true }
         });
     }
 
-    function saveSimulare(tip_credit, suma, perioada, tip_rata, avans, salariu, rataLunara, rataTotala) {
+    // --- Crearea tabelului de amortizare ---
+    function createTabelAmortizare(principal, rataLunara, perioada, dobandaLunara, comision) {
+        const today = new Date();
+        let html = `<table border="1" style="width:100%;border-collapse:collapse;">
+            <tr><th>Luna</th><th>Data scadenta</th><th>Rata totala</th><th>Principal</th><th>Dobanda</th><th>Comision</th><th>Sold ramas</th></tr>`;
+        let sold = principal;
+
+        for(let i=1;i<=perioada;i++){
+            const dobLunara = dobandaLunara;
+            const principalRata = rataLunara - dobLunara;
+            const soldFinal = Math.max(sold - principalRata,0);
+            const dataScadenta = new Date(today.getFullYear(), today.getMonth()+i, today.getDate());
+
+            html += `<tr>
+                <td>${i}</td>
+                <td>${dataScadenta.toLocaleDateString()}</td>
+                <td>${rataLunara.toFixed(2)}</td>
+                <td>${principalRata.toFixed(2)}</td>
+                <td>${dobLunara.toFixed(2)}</td>
+                <td>${comision.toFixed(2)}</td>
+                <td>${soldFinal.toFixed(2)}</td>
+            </tr>`;
+
+            sold = soldFinal;
+        }
+
+        html += `</table>`;
+        tabelAmortizareDiv.innerHTML = html;
+        tabelAmortizareDiv.style.display = "block";
+    }
+
+    // --- Verificare dacă simularea s-a schimbat ---
+    function isSimulareDifferent(simulareCurenta) {
+        if(!ultimaSimulare) return true;
+        for(const key in simulareCurenta){
+            if(simulareCurenta[key] != ultimaSimulare[key]) return true;
+        }
+        return false;
+    }
+
+    // --- Salvare simulare ---
+    function saveSimulare(tip_credit, suma, perioada, tip_rata, avans, salariu, rataLunara, rataTotala){
+        const simulareCurenta = {
+            tip_credit, suma, perioada, tip_rata, avans, salariu, rataLunara, rataTotala,
+            perioada_gratie: inputDurataGratie.value || '',
+            tip_dobanda: inputTipDobanda.value || '',
+            dobanda_mixta: inputInitialMixta.value || '',
+            perioada_gratie_mixta: inputDurataGratieMixta.value || '',
+            suma_rambursare: inputSumaRamb.value || '',
+            optiune_rambursare: inputOptiuneRamb.value || ''
+        };
+
+        if(!isSimulareDifferent(simulareCurenta)) return;
+
+        ultimaSimulare = simulareCurenta;
+
         const formData = new FormData();
-        formData.append('tip_credit', tip_credit);
-        formData.append('suma', suma);
-        formData.append('perioada', perioada);
-        formData.append('tip_rata', tip_rata);
-        formData.append('perioada_gratie', inputDurataGratie.value || '');
-        formData.append('tip_dobanda', inputTipDobanda.value || '');
-        formData.append('dobanda_mixta', inputInitialMixta.value || '');
-        formData.append('perioada_gratie_mixta', inputDurataGratieMixta.value || '');
-        formData.append('avans', avans);
-        formData.append('salariu', salariu);
-        formData.append('suma_rambursare', inputSumaRamb.value || '');
-        formData.append('optiune_rambursare', inputOptiuneRamb.value || '');
-        formData.append('rata_lunara', rataLunara.toFixed(2));
-        formData.append('rata_totala', rataTotala.toFixed(2));
+        for(const key in simulareCurenta){
+            formData.append(key, simulareCurenta[key]);
+        }
 
         fetch('../../backend/php/save_simulare.php', {
             method: 'POST',
             body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
-            if(data.status === 'success'){
-                console.log("Simulare salvata cu succes!");
-            } else {
-                console.error("Eroare salvare:", data.message);
-            }
-        })
-        .catch(err => console.error("Eroare fetch:", err));
+        });
     }
 
+    // --- SUBMIT FORM ---
     form.addEventListener("submit", function(e) {
         e.preventDefault();
         let valid = true;
+
+        // Ascundem erorile la fiecare submit
         document.querySelectorAll(".error").forEach(el => el.style.display = "none");
 
         const suma = parseFloat(inputSuma.value) || 0;
@@ -136,64 +159,50 @@ document.addEventListener("DOMContentLoaded", function() {
         if(suma < 1000 || suma > 100000000){ showError(".error-suma", "Suma trebuie să fie între 1.000 și 100.000.000 LEI."); valid=false; }
         if(perioada < 2 || perioada > 360){ showError(".error-perioada", "Perioada trebuie să fie între 2 și 360 luni."); valid=false; }
         if(inputTipRata.value === ""){ showError(".error-tip-rata", "Trebuie să alegeți tipul de rată."); valid=false; }
-        if(inputTipCredit.value==="ipotecar" && avans < suma*0.1){ showError(".error-avans", `Avans minim ipotecar 10% (${(suma*0.1).toFixed(2)} LEI)`); valid=false; }
-        if(avans > suma){ showError(".error-avans", "Avansul nu poate fi mai mare decât suma creditului."); valid=false; }
-        if(salariu < 1000 || salariu > 300000){ showError(".error-salariu", "Salariu între 1.000 și 300.000 LEI."); valid=false; }
+
+        if(!valid) return; // Oprire dacă validarea eșuează
+
+        const principal = suma - avans;
+        const dobandaAnuala = 0.12;
+        const r = dobandaAnuala / 12;
+        let rataLunara = principal * r / (1 - Math.pow(1+r, -perioada));
+
+        if(sumaRamb > 0 && inputOptiuneRamb.value === "reduce-rata"){
+            rataLunara -= sumaRamb / perioada;
+        }
 
         const gradMax = salariu < 35000 ? 0.4 : 0.55;
-        const principal = suma - avans;
-        let rataLunara = 0;
-
-        if(inputTipRata.value && perioada > 0){
-            const dobandaAnuala = 0.12;
-            const r = dobandaAnuala / 12;
-            rataLunara = principal * r / (1 - Math.pow(1+r, -perioada));
-
-            if(sumaRamb > 0 && inputOptiuneRamb.value === "reduce-rata"){
-                rataLunara -= sumaRamb / perioada;
-            }
-        }
-
         if(rataLunara > salariu*gradMax){
-            const salariuMin = (rataLunara / gradMax).toFixed(2);
-            showError(".error-salariu", `Grad de îndatorare depășit! Salariu minim: ${salariuMin} LEI.`);
-            rezultDiv.style.display = "none";
-            grafDiv.style.display = "none";
-            allIcons.style.display = "none";
-            return;
-        }
-
-        if(!valid){
-            rezultDiv.style.display = "none";
-            grafDiv.style.display = "none";
-            allIcons.style.display = "none";
+            showError(".error-salariu", "Grad de îndatorare depășit!");
             return;
         }
 
         const dobandaLunara = principal * 0.01;
         const dobandaTotala = dobandaLunara * perioada;
         const comision = 40;
-        const DAE = 12;
         const rataTotala = rataLunara * perioada;
-        const comisieRataTotala = rataTotala + comision;
+        const comisieRataTotala = rataTotala + comision * perioada;
+        const DAE = ((Math.pow(1 + dobandaLunara / principal, 12) - 1) * 100).toFixed(2);
 
-        document.querySelector(".rezult").innerHTML = `
+        // --- Afișăm rezultatele doar după validare ---
+        rezultInner.innerHTML = `
             <p>Rata lunara: ${rataLunara.toFixed(2)} LEI</p>
             <p>Rata totala: ${rataTotala.toFixed(2)} LEI</p>
             <p>Dobanda lunara: ${dobandaLunara.toFixed(2)} LEI</p>
             <p>Dobanda totala: ${dobandaTotala.toFixed(2)} LEI</p>
-            <p>Comisionul: ${comision.toFixed(2)} LEI</p>
-            <p>DAE: ${DAE.toFixed(2)} %</p>
+            <p>Comision: ${comision.toFixed(2)} LEI</p>
+            <p>DAE: ${DAE} %</p>
             <p>Comisie si rata totala: ${comisieRataTotala.toFixed(2)} LEI</p>
         `;
 
         rezultDiv.style.display = "block";
+        rezultInner.style.display = "block";
         grafDiv.style.display = "block";
         allIcons.style.display = "flex";
 
         createGrafic(principal, rataLunara, perioada);
+        createTabelAmortizare(principal, rataLunara, perioada, dobandaLunara, comision);
 
         saveSimulare(inputTipCredit.value, suma, perioada, inputTipRata.value, avans, salariu, rataLunara, rataTotala);
     });
 });
-        

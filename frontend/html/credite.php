@@ -13,14 +13,7 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
     <link rel="stylesheet" href="../style/repeat.css" />
 
     <title>Diny bank credite</title>
-    <style>
-        .error {
-            color: red;
-            font-size: 0.85em;
-            display: none;
-            margin-top: 2px;
-        }
-    </style>
+   
 </head>
 <body>
     <!-- Header -->
@@ -40,8 +33,8 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
                 </div>
 
                 <?php if (!$loggedIn): ?>
-                    <a href="../../frontend/html/login.html" class="login spinner-link">Login</a>
-                    <a href="/frontend/html/register.html" class="spinner-link">
+                    <a href="../../frontend/html/login.php" class="login spinner-link">Login</a>
+                    <a href="/frontend/html/register.php" class="spinner-link">
                         <button class="register">Register</button>
                     </a>
                 <?php else: ?>
@@ -263,8 +256,8 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
                 <p data-translate="rez-comision">Comisionul:</p>
                 <p data-translate="rez-dae">DAE:</p>
                 <p data-translate="rez-comisie-rata">Comisie si rata totala:</p>
-                <hr />
-                <button data-translate="vezi-tabel" class="vezi-tabel">Vezi tabel cu toate rezultatele</button>
+                <hr>
+               
             </div>
         </div>
 
@@ -272,23 +265,31 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
         
         
         <div class="content-grafic" style="display:none;">
-               <h2 data-translate="grafic-rambursare">Grafic de rambursare</h2>
-                <canvas class="grafic-rambursare"></canvas>
-           </div>
+            <h2 data-translate="grafic-rambursare">Grafic de rambursare</h2>
+            <!-- Canvas pentru grafic -->
+            <canvas class="grafic-rambursare" width="800" height="400"></canvas>
 
-
-           <div class="all-icons">
-           
+            
+            <div class="all-icons">
                 <div class="div-icon1">
-                    <a><i class="bi bi-heart" id="icon1"></i> <span data-translate="icon-favorit">Adauga la favorit</span></a>
+                    <a>
+                        <i class="bi bi-heart" id="icon1" data-id="<?= $simulare_id ?>"></i> 
+                        <span data-translate="icon-favorit">Adauga la favorit</span>
+                    </a>
                 </div>
                 <div class="div-icon2">
                     <a><i class="bi bi-download" id="icon2"></i> <span data-translate="icon-pdf">Export tot PDF</span></a>
                 </div>
-                <div class="div-icon3">
-                    <a><i class="bi bi-box-arrow-up-right" id="icon3"></i> <span data-translate="icon-link">Creaza link</span></a>
-                </div>
-            </div>
+     <div class="div-icon3">
+         <a><i class="bi bi-box-arrow-up-right" id="icon3"></i> <span data-translate="icon-link">Creaza link</span></a>
+        </div>
+    </div>
+    <!-- Tabel pentru amortizare -->
+    <div class="tabel-amortizare" style="margin-top:20px;"></div>
+        </div>
+
+
+
         </div>
         <div id="spinner" class="spinner" style="display:none;"></div>
     </main>
@@ -298,9 +299,10 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
         <p>Dinybank | © Copyright 2025 Toate drepturile rezervate.</p>
     </footer>
     <script src="../js/credite.js"></script>
-    <script src="../js/language-credit.js"></script>
+    <script src="../js/lang/credit-language.js"></script>
     <script src="../js/repeat.js"></script>
     <script src="../js/validate-credit.js"></script>
+    <script src="../js/favorite.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>

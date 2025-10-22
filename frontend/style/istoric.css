@@ -1,4 +1,3 @@
-
 .istoric{
 color: #0FA926;
 background-color: white;
@@ -8,5 +7,9 @@ border: 1px solid #0FA926;
 .favorite{
 color: #797979;
 background-color: white;
-border: 1px solid #c2c2c2 ;
+border: 1px solid #c2c2c2  ;
+}   
+
+#logout {
+    margin-left: 20px;
 }

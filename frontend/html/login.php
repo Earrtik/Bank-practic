@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="../style/login.css">
     <link rel="stylesheet" href="../style/repeat.css">
     <link rel="stylesheet" href="../style/login_register_repeat.css">
-    
     <title>Diny-Bank Login</title>
 </head>
 <body>
@@ -19,24 +18,22 @@
             </div>
             <div class="menu-items" id="menu-items">
                 <div class="menu">
-                    <a href="" class="a1">Acasă</a>
-                    <a href="credite.html" class="a2">Calculator Credite</a>
-                    <a href="informatii.html" class="a3">Informații</a>
+                    <a href="" class="a1" data-translate="home">Acasă</a>
+                    <a href="credite.php" class="a2" data-translate="calculator">Calculator Credite</a>
+                    <a href="informatii.php" class="a3" data-translate="info">Informații</a>
                 </div>
 
-                <!-- Butoane pentru utilizatori neautentificați -->
                 <div id="guest-menu">
-                    <a href="" class="login">Login</a>
-                    <a href="/frontend/html/register.html">
-                        <button class="register">Register</button>
+                    <a  class="login" data-translate="login">Login</a>
+                    <a href="register.php">
+                        <button class="register" data-translate="register">Register</button>
                     </a>
                 </div>
 
-                <!-- Iconițe pentru utilizatori logați (ascunse implicit) -->
                 <div id="user-menu" style="display:none;">
-                    <a href="profil.html"><img src="../photo/user_icon.png" alt="Profil"></a>
-                    <a href="mesaje.html"><img src="../photo/message_icon.png" alt="Mesaje"></a>
-                    <a href="setari.html"><img src="../photo/settings_icon.png" alt="Setări"></a>
+                    <a  ><img src="../photo/user_icon.png" alt="Profil"></a>
+                    <a href="mesaje.php"><img src="../photo/message_icon.png" alt="Mesaje"></a>
+                    <a href="setari.php"><img src="../photo/settings_icon.png" alt="Setări"></a>
                     <a href="../../backend/php/logout.php"><img src="../photo/logout_icon.png" alt="Logout"></a>
                 </div>
 
@@ -51,37 +48,36 @@
                 </div>
             </div>
         </div>
-        <p class="logo">Diny Bank</p>
+        <p class="logo" data-translate="logo">Diny Bank</p>
     </header>
 
     <main> 
-        <img src="/photo/register_login.png" alt="">
+        <img src="../../photo/register_login.png" alt="">
         <div class="content">
             <div class="form-box">
                 <form action="../../backend/php/login.php" method="POST">
                     <div class="in-form-box">
-                        <h1>Conectare</h1>
-                        <h3>Intra în contul tău</h3>
+                        <h1 data-translate="login-title">Conectare</h1>
+                        <h3 data-translate="login-subtitle">Intra în contul tău</h3>
 
-                        <label for="email">Adresa de Email</label>    
+                        <label for="email" data-translate="email-label">Adresa de Email</label>    
                         <input type="email" name="email" id="email" placeholder="Exemplu@gmail.com" required>
                         
-                        <label for="password">Parola</label>    
+                        <label for="password" data-translate="password-label">Parola</label>    
                         <input type="password" name="password" id="password" placeholder="*********" required>
                         
-                        <!-- Aici vor apărea erorile -->
                         <div id="login-errors" style="color:red; margin-top:5px;"></div>
 
                         <br>
                         <a href="" class="forgout-password">
-                            <p>Ai uitat parola?</p>
+                            <p data-translate="forgot">Ai uitat parola?</p>
                         </a>
-                        <button type="submit" class="login-btn">Intra în cont</button>
+                        <button type="submit" class="login-btn" data-translate="login-btn">Intra în cont</button>
 
                         <div class="dont-have-container">
-                            <p class="dont-have-account">Nu ai cont?</p>
-                            <a href="/frontend/html/register.html">
-                                <p class="register-account">Înregistrare</p>
+                            <p class="dont-have-account" data-translate="no-account">Nu ai cont?</p>
+                            <a href="register.php">
+                                <p class="register-account" data-translate="register-account">Înregistrare</p>
                             </a>
                         </div>
                     </div>
@@ -90,11 +86,11 @@
         </div>
         <div id="spinner" class="spinner" style="display: none;"></div>
     </main>
-
-    <footer class="footer">
+        <br><br>
+    <footer class="footer" data-translate="footer">
         Dinybank | © Copyright 2025 Toate drepturile rezervate.
     </footer>
 
-     <script src="../js/repeat.js"></script>
+    <script src="../js/lang/login-language.js"></script>
 </body>
 </html>

@@ -1,55 +1,154 @@
-.a1,.a2,.a3{
-    color: black;
+    .a1,.a2,.a3{
+        color: black;
+        
+    }
+
+.content .login-text{
+  padding: 20px 50px 20px 50px;
+ 
+}
     
-}
+    a{
+        text-decoration: none;
+    }
 
-/* Button isotric favorite / style  */
-a{
-    text-decoration: none;
-}
-
-.buttons{
-    text-align: center;
-}
-.favorite{
-font-size: 22px;
-padding: 10px 30px 10px 30px;
-margin: 20px 100px 20px 0px;
-border-radius: 10px;
-cursor: pointer;
-}
-.istoric{
-font-size: 22px;
-padding: 10px 30px 10px 30px;
-margin: 20px 0px 20px 0px;
-border-radius: 10px;
-cursor: pointer;
-}
-#content2{
-    margin-top: 100px;
-    padding: 20px 0px 20px 0px;
-}
-.login-text h1{
-text-align: center;
-color: #9b9b9b;
- }
-
-.login-text {
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    justify-content: center; /* centrează vertical dacă e nevoie */
-    text-align: center;
-}
-
-.login-favorit-button {
-    margin-top: 30px;
-    font-size: 24px;
-    background-color: #0FA926;
-    color: white;
-    border: 0px;
-    border-radius: 8px;
-    padding: 10px 60px;
-    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    .buttons{
+        text-align: center;
+    }
+    .favorite{
+    font-size: 22px;
+    padding: 10px 30px 10px 30px;
+    margin: 20px 100px 20px 0px;
+    border-radius: 10px;
     cursor: pointer;
+    background-color: white;
+    }
+    .istoric{
+    font-size: 22px;
+    padding: 10px 30px 10px 30px;
+    margin: 20px 0px 20px 0px;
+    border-radius: 10px;
+    cursor: pointer;
+      background-color: white;
+    }
+    #content2{
+        margin-top: 100px;
+        padding: 20px 0px 20px 0px;
+    }
+    .login-text h1{
+    text-align: center;
+    color: #9b9b9b;
+    }
+
+    .login-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        justify-content: center; /* centrează vertical dacă e nevoie */
+        text-align: center;
+    }
+
+    .login-favorit-button {
+        margin-top: 30px;
+        font-size: 24px;
+        background-color: #0FA926;
+        color: white;
+        border: 0px;
+        border-radius: 8px;
+        padding: 10px 60px;
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        cursor: pointer;
+    }
+
+    .container-div {
+  display: flex;
+  flex-wrap: wrap;           /* permite trecerea pe alt rând */
+  gap: 30px;                 /* spațiu între carduri */
+  justify-content: center;   /* centrează pe pagină */
+  margin-top: 40px;
+  padding: 20px;
+  max-width: 1200px;
 }
+
+
+/* efect mic la hover */
+.istoric-card:hover ,.favorite-card{
+  transform: translateY(-4px);
+}
+
+.container-div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 20px;
+}
+
+.istoric-card ,.favorite-card{
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 330px;
+  transition: 0.3s;
+  max-width: 400px;
+    
+  flex: 1 1 300px;
+}@media screen and (max-width: 500px) {
+  .istoric-card, .favorite-card {
+   width: auto;     
+  }
+}
+
+.istoric-card:hover {
+  transform: translateY(-3px);
+}
+
+.istoric-card h3 {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.istoric-card p {
+  margin: 5px 0;
+}
+
+  .buttons-row {
+    
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+.creaza-link, .sterge {
+  background: #f3f3f3;
+  border: none;
+  padding: 2px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.creaza-link:hover, .sterge-toate:hover {
+  background: #e0e0e0;
+}
+
+.sterge-toate-wrapper {
+    max-width: 1250px;
+  display: flex;
+  justify-content: end;     
+  width: 100%;
+  margin: 10px 50px 10px 0;     
+  
+}
+
+    .sterge-toate {
+    padding: 5px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+        border: 1px solid #9b9b9b;
+    }
+

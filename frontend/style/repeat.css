@@ -7,6 +7,7 @@ body{
     margin: 0;
     padding: 0;
     height: 100%;
+    font-family: Arial, sans-serif;
     
 }html {
     height: 100%;
@@ -86,7 +87,12 @@ header {
   font-size: 22px;
   font-weight: 600;
 }
-
+ .error {
+            color: red;
+            font-size: 0.85em;
+            display: none;
+            margin-top: 2px;
+        }
    
 .left-language{
   position: absolute;

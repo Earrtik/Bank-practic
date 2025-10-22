@@ -15,3 +15,5 @@ if ($xml !== false) {
 }
 
 echo json_encode(['EUR' => $eur, 'USD' => $usd]);
+
+

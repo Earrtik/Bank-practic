@@ -66,7 +66,26 @@ const translations = {
         "icon-pdf": "Export tot PDF",
         "icon-link": "Creaza link",
         "footer": "Dinybank | © Copyright 2025 Toate drepturile rezervate.",
-        "grafic-rambursare": "Grafic de rambursare"
+        "grafic-rambursare": "Grafic de rambursare",
+        "error-tip-credit": "Trebuie să selectați tipul de credit.",
+        "error-perioada": "Perioada trebuie să fie între 2 și 360 luni.",
+        "error-tip-rata": "Trebuie să alegeți tipul de rată.",
+        "error-tip-dobanda": "Trebuie să selectați tipul de dobândă.",
+        "error-grad-indatorare": "Grad de îndatorare depășit!",
+        "rez-rata-lunara": "Rata lunară :",
+        "rez-rata-totala": "Rata totală :",
+        "rez-dobanda-lunara": "Dobânda lunară :",
+        "rez-dobanda-totala": "Dobânda totală :",
+        "rez-comision": "Comision :",
+        "rez-dae": "DAE :",
+        "rez-comisie-rata": "Comisie + rată totală :",
+        "tabel-luna": "Luna",
+        "tabel-data": "Data scadenta",
+        "tabel-rata-totala": "Rata totala",
+        "tabel-principal": "Principal",
+        "tabel-dobanda": "Dobanda",
+        "tabel-comision": "Comision",
+        "tabel-sold-ramas": "Sold ramas"
     },
     "en": {
         "a1": "Home",
@@ -132,7 +151,27 @@ const translations = {
         "icon-pdf": "Export all PDF",
         "icon-link": "Create link",
         "grafic-rambursare": "Repayment chart",
-        "footer": "Dinybank | © Copyright 2025 All rights reserved."
+        "footer": "Dinybank | © Copyright 2025 All rights reserved.",
+        "error-tip-credit": "You must select a credit type.",
+        "error-perioada": "Period must be between 2 and 360 months.",
+        "error-tip-rata": "You must select an installment type.",
+        "error-tip-dobanda": "You must select an interest type.",
+        "error-grad-indatorare": "Debt ratio exceeded!",
+        "rez-rata-lunara": "Monthly installment :",
+        "rez-rata-totala": "Total installment :",
+        "rez-dobanda-lunara": "Monthly interest :",
+        "rez-dobanda-totala": "Total interest :",
+        "rez-comision": "Commission :",
+        "rez-dae": "APR :",
+        "rez-comisie-rata": "Commission + total installment :",
+        "tabel-luna": "Month",
+        "tabel-data": "Due date",
+        "tabel-rata-totala": "Total installment",
+        "tabel-principal": "Principal",
+        "tabel-dobanda": "Interest",
+        "tabel-comision": "Commission",
+        "tabel-sold-ramas": "Remaining balance"
+        
     },
     "ru": {
         "a1": "Главная",
@@ -198,10 +237,27 @@ const translations = {
         "icon-pdf": "Экспорт в PDF",
         "icon-link": "Создать ссылку",
         "footer": "Dinybank | © Copyright 2025 Все права защищены.",
-        "grafic-rambursare": "График погашения"
+        "grafic-rambursare": "График погашения", "error-tip-credit": "Необходимо выбрать тип кредита.",
+        "error-perioada": "Срок должен быть от 2 до 360 месяцев.",
+        "error-tip-rata": "Необходимо выбрать тип платежа.",
+        "error-tip-dobanda": "Необходимо выбрать тип ставки.",
+        "error-grad-indatorare": "Превышена степень задолженности!",
+        "rez-rata-lunara": "Ежемесячный платеж :",
+        "rez-rata-totala": "Общий платеж :",
+        "rez-dobanda-lunara": "Ежемесячный процент :",
+        "rez-dobanda-totala": "Общий процент :",
+        "rez-comision": "Комиссия :",
+        "rez-dae": "ЭПС :",
+        "rez-comisie-rata": "Комиссия + общий платеж :",
+        "tabel-luna": "Месяц",
+        "tabel-data": "Дата платежа",
+        "tabel-rata-totala": "Общий платеж",
+        "tabel-principal": "Основная сумма",
+        "tabel-dobanda": "Процент",
+        "tabel-comision": "Комиссия",
+        "tabel-sold-ramas": "Остаток"
     }
 };
-
 // Functie pentru traducere
 function translatePage(lang) {
     // Texte simple
@@ -221,8 +277,28 @@ function translatePage(lang) {
         const key = el.getAttribute("data-translate-placeholder");
         if(translations[lang][key]) el.placeholder = translations[lang][key];
     });
-}
 
+    // --- Traduce erorile afisate ---
+    document.querySelectorAll("[data-translate-error]").forEach(el => {
+        const key = el.getAttribute("data-translate-error");
+        if(translations[lang][key]) el.textContent = translations[lang][key];
+    });
+
+    // --- Traduce rezultatele afisate ---
+    document.querySelectorAll("[data-translate-rezultat]").forEach(el => {
+        const key = el.getAttribute("data-translate-rezultat");
+        if(translations[lang][key]) el.textContent = translations[lang][key];
+    });
+
+    // --- Traduce  tabel ---
+    const tabel = document.getElementById("tabel-amortizare");
+    if(tabel) {
+        tabel.querySelectorAll("th").forEach(th => {
+            const key = th.getAttribute("data-translate-tabel");
+            if(translations[lang][key]) th.textContent = translations[lang][key];
+        });
+    }
+}
 
 // Ascultam schimbarea limbii
 document.getElementById("lang").addEventListener("change", (e) => {

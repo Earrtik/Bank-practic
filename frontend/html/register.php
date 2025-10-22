@@ -57,7 +57,7 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
 </header>
 
 <main> 
-    <img src="/photo/register_login.png" alt="">
+     <img src="../../photo/register_login.png" alt="">
 
     <div class="content">
         <div class="form-box">
