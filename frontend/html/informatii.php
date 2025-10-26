@@ -33,8 +33,8 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
 
             <?php if (!$loggedIn): ?>
                 <!-- Vizitatori neautentificați -->
-                <a href="../../frontend/html/login.html" class="login spinner-link">Login</a>
-                <a href="/frontend/html/register.html" class="spinner-link">
+                <a href="../../frontend/html/login.php" class="login spinner-link">Login</a>
+                <a href="../../frontend/html/register.php" class="spinner-link">
                     <button class="register">Register</button>
                 </a>
             <?php else: ?>
@@ -203,8 +203,8 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
 <footer class="footer" data-translate="footer">
     Dinybank | © Copyright 2025 Toate drepturile rezervate.
 </footer>
-<script src="../js/language-informatii.js"></script>
 <script src="../js/repeat.js"></script>
+<script src="../js/lang/informatii-language.js"></script>
   
 </body>
-</html>
+</html> 

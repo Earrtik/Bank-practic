@@ -9,4 +9,11 @@ border: 1px solid #0FA926;
 color: #797979;
 background-color: white;
 border: 1px solid #c2c2c2  ;
+
+}#content-favorite{
+    margin-top: 20px;
+}
+#content-favorite-login{
+    padding-left: 13px;
+    padding-right: 13px;
 }

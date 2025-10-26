@@ -13,4 +13,3 @@ $stmt->execute();
 $stmt->close();
 $conn->close();
 
-// Nu trimitem niciun răspuns JSON, JS doar execută logica

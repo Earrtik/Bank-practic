@@ -22,14 +22,16 @@ $loggedIn = isset($_SESSION['user_id']);
         <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
         <div class="menu-items" id="menu-items">
             <div class="menu">
-                <a href="../../frontend/html/index.php" class="a1">Acasă</a>
+                <a href="" class="a1">Acasă</a>
                 <a href="credite.php" class="a2 spinner-link">Calculator Credite</a>
                 <a href="informatii.php" class="a3 spinner-link">Informații</a>
             </div>
 
             <?php if (!$loggedIn): ?>
-                <a href="../../frontend/html/login.php" class="login">Login</a>
-                <button class="register">Register</button>
+                <a href="../../frontend/html/login.php" class="login spinner-link">Login</a>
+                <a href="../../frontend/html/register.php" class="spinner-link">
+                    <button class="register">Register</button>
+                </a>
             <?php else: ?>
                 <a href=""><i class="bi bi-clock-history" id="icon-history"></i></a>
                 <a href="../../frontend/html/favorite.php" class="spinner-link"><i class="bi bi-heart" id="icon-heart"></i></a>
@@ -53,17 +55,21 @@ $loggedIn = isset($_SESSION['user_id']);
 <main>
     <div class="content">
         <div class="buttons">
-            <a href="../../frontend/html/favorite.php" class="spinner-link"><button class="favorite">Favorite</button></a>
+            <a href="../../frontend/html/favorite.php" class="spinner-link">
+                <button class="favorite">Favorite</button>
+            </a>
             <button class="istoric">Istoric</button>
         </div>
     </div>
 
     <?php if (!$loggedIn): ?>
         <div class="login-text">
+            <div class="content" id="content-istoric" >
             <h1>Intra în cont pentru a vedea istoricul simulărilor tale</h1>
             <a href="../../frontend/html/login.php" class="spinner-link">
                 <button class="login-favorit-button">Intra în cont</button>
             </a>
+        </div>
         </div>
     <?php else: ?>
         <?php
@@ -106,7 +112,7 @@ $loggedIn = isset($_SESSION['user_id']);
             </div>
         <?php else: ?>
             <div class="content" id="content-d" >
-                <div class="login-text">
+                <div class="login-text"     >
                     <h1>Nu există simulări în istoric</h1>
                     <a href="credite.php" class="spinner-link">
                         <button class="login-favorit-button">Mergi la Credite</button>
@@ -115,6 +121,7 @@ $loggedIn = isset($_SESSION['user_id']);
             </div>
         <?php endif; ?>
     <?php endif; ?>
+      <div id="spinner" class="spinner" style="display:none;"></div>
 </main>
 
 <footer class="footer">

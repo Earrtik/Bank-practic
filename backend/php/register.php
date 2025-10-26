@@ -12,10 +12,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email    = isset($_POST['email']) ? clean($_POST['email']) : '';
     $password = isset($_POST['password']) ? clean($_POST['password']) : '';
 
-    if ($username === '' || $email === '' || $password === '') {
-        die("Toate câmpurile sunt obligatorii!");
-    }
-
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
     // verificăm dacă emailul există deja
@@ -23,11 +19,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $check->bind_param("s", $email);
     $check->execute();
     $check->store_result();
-
-    if ($check->num_rows > 0) {
-        die("Acest email este deja folosit!");
-    }
-
     $check->close();
 
     // inserăm utilizatorul nou
@@ -45,9 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
         header("Location: ../../frontend/html/credite.php");
         exit;
-    } else {
-        die("Eroare la înregistrare: " . $stmt->error);
-    }
+        } 
 
     $stmt->close();
 }

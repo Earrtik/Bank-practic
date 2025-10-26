@@ -1,7 +1,6 @@
 <?php
 session_start();
-require_once "../../backend/php/config.php"; // conexiunea la DB
-
+require_once "../../backend/php/config.php";
 $loggedIn = isset($_SESSION['user_id']);
 ?>
 
@@ -11,8 +10,8 @@ $loggedIn = isset($_SESSION['user_id']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../style/repeat.css">
     <link rel="stylesheet" href="../style/favorite.css">
+    <link rel="stylesheet" href="../style/repeat.css">
     <link rel="stylesheet" href="../style/favorit_istoric_repeat.css">
     <title>Favorite</title>
 </head>
@@ -22,14 +21,16 @@ $loggedIn = isset($_SESSION['user_id']);
         <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
         <div class="menu-items" id="menu-items">
             <div class="menu">
-                <a class="a1" href="../../frontend/html/index.php">Acasă</a>
-                <a href="credite.php" class="a2 spinner-link">Calculator Credite</a>
-                <a href="informatii.php" class="a3 spinner-link">Informații</a>
+                <a class="a1" href="" data-lang="acasa">Acasă</a>
+                <a href="credite.php" class="a2 spinner-link" data-lang="calculator_credit">Calculator Credite</a>
+                <a href="informatii.php" class="a3 spinner-link" data-lang="informatii">Informații</a>
             </div>
 
             <?php if (!$loggedIn): ?>
-                <a href="../../frontend/html/login.html" class="login spinner-link">Login</a>
-                <button class="register spinner-link">Register</button>
+                <a href="../../frontend/html/login.php" class="login spinner-link" data-lang="login">Login</a>
+                <a href="../../frontend/html/register.php" class="spinner-link">
+                    <button class="register" data-lang="register">Register</button>
+                </a>
             <?php else: ?>
                 <a href="istoric.php" class="spinner-link"><i class="bi bi-clock-history"></i></a>
                 <a><i class="bi bi-heart" id="heart"></i></a>
@@ -55,19 +56,19 @@ $loggedIn = isset($_SESSION['user_id']);
 <main>
     <div class="content">
         <div class="buttons">
-            <button class="favorite">Favorite</button>
+            <button class="favorite" data-lang="favorite">Favorite</button>
             <a href="../../frontend/html/istoric.php" class="spinner-link">
-                <button class="istoric">Istoric</button>
+                <button class="istoric" data-lang="istoric">Istoric</button>
             </a>
         </div>
     </div>
 
 <?php if (!$loggedIn): ?>
-    <div class="content">
+    <div class="content" id="content-favorite">
         <div class="login-text">
-            <h1>Intra în cont pentru a vedea simulările favorite</h1>
+            <h1 data-lang="login_required">Intra în cont pentru a vedea simulările favorite</h1>
             <a href="../../frontend/html/login.php" class="spinner-link">
-                <button class="login-favorit-button">Intra în Cont</button>
+                <button class="login-favorit-button" data-lang="intra_cont">Intra în Cont</button>
             </a>
         </div>
     </div>
@@ -81,16 +82,14 @@ $loggedIn = isset($_SESSION['user_id']);
     $result = $stmt->get_result();
     $favorites = [];
     while($row = $result->fetch_assoc()){
-        if (!empty($row['id_simulare'])) {
-            $favorites[] = $row;
-        }
+        if (!empty($row['id_simulare'])) $favorites[] = $row;
     }
     $hasFavorites = count($favorites) > 0;
     ?>
 
     <?php if ($hasFavorites): ?>
         <div class="sterge-toate-wrapper">
-            <button class="sterge-toate"><i class="bi bi-trash"></i> Șterge toate favoritele</button>
+            <button class="sterge-toate"><i class="bi bi-trash"></i> <span data-lang="sterge_toate">Șterge toate favoritele</span></button>
         </div>
     <?php endif; ?>
 
@@ -98,36 +97,40 @@ $loggedIn = isset($_SESSION['user_id']);
         <?php if ($hasFavorites): $index = 1; ?>
             <?php foreach($favorites as $row): ?>
                 <div class="favorite-card">
-                    <h3>Favorite #<?= $index++ ?></h3>
-                    <p><strong>Tip Credit :</strong> <?= $row['tip_credit'] ?></p>
-                    <p><strong>Suma :</strong> <?= number_format($row['suma'], 0, '.', ',') ?> lei</p>
-                    <p><strong>Perioada :</strong> <?= $row['perioada'] ?> luni</p>
-                    <p><strong>Tip rată :</strong> <?= $row['tip_rata'] ?></p>
-                    <p><strong>Perioada de gratie :</strong> <?= $row['perioada_gratie'] ?: 'NU' ?></p>
-                    <p><strong>Tip dobândă :</strong> <?= $row['tip_dobanda'] ?: 'NU' ?></p>
-                    <p><strong>Dobândă mixtă :</strong> <?= $row['dobanda_mixta'] ?: 'NU' ?></p>
-                    <p><strong>Avans :</strong> <?= number_format($row['avans'], 0, '.', ',') ?> lei</p>
-                    <p><strong>Salariu lunar :</strong> <?= number_format($row['salariu'], 0, '.', ',') ?> lei</p>
-                    <p><strong>Rambursare anticipată :</strong> <?= $row['optiune_rambursare'] ?: 'NU' ?></p>
+                    <h3>
+                        <span class="favorite-title" data-lang="favorite_num">Favorite</span> #<?= $index++ ?>
+                    </h3>
+                    <p><strong data-lang="tip_credit">Tip Credit :</strong> <span class="val" data-field="tip_credit"><?= $row['tip_credit'] ?></span></p>
+                    <p><strong data-lang="suma">Suma :</strong> <span class="val" data-field="suma"><?= number_format($row['suma'], 0, '.', ',') ?> lei</span></p>
+                    <p><strong data-lang="perioada">Perioada :</strong> <span class="val" data-field="perioada"><?= $row['perioada'] ?> luni</span></p>
+                    <p><strong data-lang="tip_rata">Tip rată :</strong> <span class="val" data-field="tip_rata"><?= $row['tip_rata'] ?></span></p>
+                    <p><strong data-lang="perioada_gratie">Perioada de gratie :</strong> <span class="val" data-field="perioada_gratie"><?= $row['perioada_gratie'] ?: 'NU' ?></span></p>
+                    <p><strong data-lang="tip_dobanda">Tip dobândă :</strong> <span class="val" data-field="tip_dobanda"><?= $row['tip_dobanda'] ?: 'NU' ?></span></p>
+                    <p><strong data-lang="dobanda_mixta">Dobândă mixtă :</strong> <span class="val" data-field="dobanda_mixta"><?= $row['dobanda_mixta'] ?: 'NU' ?></span></p>
+                    <p><strong data-lang="avans">Avans :</strong> <span class="val" data-field="avans"><?= number_format($row['avans'], 0, '.', ',') ?> lei</span></p>
+                    <p><strong data-lang="salariu">Salariu lunar :</strong> <span class="val" data-field="salariu"><?= number_format($row['salariu'], 0, '.', ',') ?> lei</span></p>
+                    <p><strong data-lang="optiune_rambursare">Rambursare anticipată :</strong> <span class="val" data-field="optiune_rambursare"><?= $row['optiune_rambursare'] ?: 'NU' ?></span></p>
                     <hr class="hr-div-card">
                     <div class="buttons-row">
-                        <button class="creaza-link"><i class="bi bi-link-45deg"></i> Crează link</button>
-                        <button class="sterge" data-id="<?= $row['id_simulare'] ?>"><i class="bi bi-trash"></i> Șterge</button>
+                        <button class="creaza-link"><i class="bi bi-link-45deg"></i> <span data-lang="creaza_link">Crează link</span></button>
+                        <button class="sterge" data-id="<?= $row['id_simulare'] ?>"><i class="bi bi-trash"></i> <span data-lang="sterge">Șterge</span></button>
                     </div>
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <div class="content">
+            <div class="content" id="content-favorite-login">
                 <div class="login-text">
-                    <h1>Nu există simulări favorite</h1>
+                    <h1 data-lang="no_favorites">Nu există simulări favorite</h1>
                     <a href="credite.php" class="spinner-link">
-                        <button class="login-favorit-button">Mergi la Credite</button>
+                        <button class="login-favorit-button" data-lang="mergi_credit">Mergi la Credite</button>
                     </a>
                 </div>
             </div>
         <?php endif; ?>
     </div>
 <?php endif; ?>
+
+<div id="spinner" class="spinner" style="display:none;"></div>
 </main>
 
 <footer class="footer">
@@ -136,5 +139,6 @@ $loggedIn = isset($_SESSION['user_id']);
 
 <script src="../js/repeat.js"></script>
 <script src="../js/favorite.js"></script>
+<script src="../js/lang/favorite-language.js"></script>
 </body>
 </html>

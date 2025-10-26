@@ -205,12 +205,24 @@ const translations = {
   }
 };
 
-document.getElementById("lang").addEventListener("change", function() {
-    const lang = this.value;
-    document.querySelectorAll("[data-translate]").forEach(el => {
-        const key = el.getAttribute("data-translate");
-        if(translations[lang] && translations[lang][key]){
-            el.innerHTML = translations[lang][key];
-        }
+const select = document.getElementById("lang");
+    const savedLang = localStorage.getItem("lang") || "ro";
+    select.value = savedLang;
+
+    function translatePage(lang) {
+        document.querySelectorAll("[data-translate]").forEach(el => {
+            const key = el.getAttribute("data-translate");
+            if (translations[lang] && translations[lang][key]) {
+                el.textContent = translations[lang][key];
+            }
+        });
+    }
+
+    translatePage(savedLang);
+
+    select.addEventListener("change", () => {
+        const lang = select.value;
+        localStorage.setItem("lang", lang);
+        translatePage(lang);
     });
-});
+

@@ -1,8 +1,15 @@
+<?php
+session_start();
+$loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este logat
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <link rel="stylesheet" href="../style/login.css">
     <link rel="stylesheet" href="../style/repeat.css">
     <link rel="stylesheet" href="../style/login_register_repeat.css">
@@ -19,16 +26,22 @@
             <div class="menu-items" id="menu-items">
                 <div class="menu">
                     <a href="" class="a1" data-translate="home">Acasă</a>
-                    <a href="credite.php" class="a2" data-translate="calculator">Calculator Credite</a>
-                    <a href="informatii.php" class="a3" data-translate="info">Informații</a>
+                    <a href="credite.php" class="a2 spinner-link" data-translate="calculator">Calculator Credite</a>
+                    <a href="informatii.php" class="a3 spinner-link" data-translate="info">Informații</a>
                 </div>
 
-                <div id="guest-menu">
-                    <a  class="login" data-translate="login">Login</a>
-                    <a href="register.php">
-                        <button class="register" data-translate="register">Register</button>
-                    </a>
-                </div>
+                <?php if (!$loggedIn): ?>   
+                <!-- Vizitatori -->
+                <a href="" class="login">Login</a>
+                <a href="../../frontend/html/register.php" class="spinner-link">
+                    <button class="register">Register</button>
+                </a>
+            <?php else: ?>
+                <!-- Utilizatori logați -->
+                <a href="istoric.php" class="spinner-link"><i class="bi bi-clock-history "></i></a>
+                <a href="favorite.php" class="spinner-link"><i class="bi bi-heart" id="heart"></i></a>
+                <a href="../../backend/php/logout.php" class="spinner-link"><i class="bi bi-box-arrow-right" id="logout"></i></a>
+            <?php endif; ?>
 
                 <div id="user-menu" style="display:none;">
                     <a  ><img src="../photo/user_icon.png" alt="Profil"></a>
@@ -40,7 +53,7 @@
                 <div class="language-select">
                     <hr class="left-language">
                     <select id="lang">
-                        <option value="ro">RO</option>
+                        <option value="ro" >RO</option>
                         <option value="ru">RU</option>
                         <option value="en">EN</option>
                     </select>
@@ -69,10 +82,12 @@
                         <div id="login-errors" style="color:red; margin-top:5px;"></div>
 
                         <br>
-                        <a href="" class="forgout-password">
+                        <a href="" class="forgout-password ">
                             <p data-translate="forgot">Ai uitat parola?</p>
                         </a>
-                        <button type="submit" class="login-btn" data-translate="login-btn">Intra în cont</button>
+                        <a >
+                            <button type="submit" class="login-btn " data-translate="login-btn">Intra în cont</button>
+                        </a>
 
                         <div class="dont-have-container">
                             <p class="dont-have-account" data-translate="no-account">Nu ai cont?</p>
@@ -92,5 +107,6 @@
     </footer>
 
     <script src="../js/lang/login-language.js"></script>
+    <script src="../js/repeat.js"></script>
 </body>
 </html>

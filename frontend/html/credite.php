@@ -11,7 +11,10 @@
         <link rel="stylesheet" href="../style/credite.css" />
         <link rel="stylesheet" href="../style/repeat.css" />
         <title>Diny bank credite</title>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+<script src="../js/export-pdf.js"></script>
+
     </head>
     <body>
         <!-- Header -->
@@ -26,7 +29,7 @@
                 <div class="menu-items" id="menu-items">
                     <div class="menu">
                         <a class="a1" data-translate="a1">Acasă</a>
-                        <a href="credite.php" class="a2" data-translate="a2">Calculator Credite</a>
+                        <a href="" class="a2" data-translate="a2">Calculator Credite</a>
                         <a href="informatii.php" class="a3 spinner-link" data-translate="a3">Informații</a>
                  </div>
                     <?php if (!$loggedIn): ?>
@@ -84,8 +87,8 @@
                         <!-- Suma imprumutata -->
                         <span class="span-content" data-translate="suma-imprumutata">Suma Imprumutata</span>
                         <div class="input-wrapper">
-                        <input type="number" min="1000" max="100000000" step="200" class="suma input-suma" placeholder=" " data-translate-placeholder="ph-suma" />
-                            <span class="placeholder-left">1000 - 100,000,000</span>
+                        <input type="number" min="200" max="100000000" step="200" class="suma input-suma" placeholder=" " data-translate-placeholder="ph-suma" />
+                            <span class="placeholder-left">200 - 100,000,000</span>
                             <span class="placeholder-right">LEI</span>
                         </div>
                         <div class="error error-suma"></div>
@@ -108,6 +111,7 @@
                                 <option value="descrescatoare" data-translate-option="opt-descrescatoare">Rate Descrescătoare</option>
                             </select>
                             <div class="error error-tip-rata"></div>
+                                                <!-- CHECKBOX -->
                             <input type="checkbox" id="gratie-checkbox" class="checkbox" />
                             <span class="span-chekbox" data-translate="include-gratie">Include Perioada de gratie Optional</span>
                             <div class="conditional" data-target="gratie-checkbox" style="display:none;">
@@ -120,6 +124,7 @@
                                     <option value="luna-6" data-translate-option="opt-6luni">Primele 6 luni</option>
                                     <option value="luna-9" data-translate-option="opt-9luni">Primele 9 luni</option>
                                     <option value="luna-12" data-translate-option="opt-12luni">Primele 12 luni</option>
+                                    <option value="luna-24" data-translate-option="opt-24luni">Primele 24 luni</option>
                                 </select>
                                 <div class="error error-durata-gratie"></div>
                                 <br /><br />
@@ -136,11 +141,13 @@
                                 <option value="variabila" data-translate-option="opt-variabila">Dobândă Variabilă</option>
                             </select>
                             <div class="error error-tip-dobanda"></div>
+                          
+                             <!-- CHECKBOX -->
                             <input type="checkbox" id="dobinda-mixta-checkbox" class="checkbox" />
                             <span class="span-chekbox" data-translate="include-mixta">Include Dobinda mixta Optional</span>
                             <div class="conditional" data-target="dobinda-mixta-checkbox" style="display:none;">
                                 <br />
-                                <span class="span-content" data-translate="initial-mixta">Initial Dobinda Fixa dupa Dobinda Variabilă</span>
+                                <span class="span-content" data-translate="initial-mixta">Ce dobinda v-a fi initial </span>
                                 <select class="input-initial-mixta">
                                     <option value="" data-translate-option="opt-initial-dobinda">-- Alege Initial tip Dobinda --</option>
                                     <option value="start-fixa" data-translate-option="opt-start-fixa">Inital Dobândă Fixă</option>
@@ -148,16 +155,17 @@
                                 </select>
                                 <div class="error error-initial-mixta"></div>
                                 <br /><br /><br />
-                                <span class="span-content" data-translate="durata-gratie">Durata perioada de gratie</span>
-                                <select class="input-durata-gratie-mixta">
-                                    <option value="" data-translate-option="opt-gratie">-- Alege durata de gratie --</option>
+                                <span class="span-content" data-translate="durata-dobinda">Durata de dobinda aleasa</span>
+                                <select class="input-durata-mixta">
+                                    <option value="" data-translate-option="opt-dobinda">-- Alege durata de dobinda aleasa --</option>
                                     <option value="prima-luna" data-translate-option="opt-1luna">Prima Luna</option>
                                     <option value="luna-3" data-translate-option="opt-3luni">Primele 3 luni</option>
                                     <option value="luna-6" data-translate-option="opt-6luni">Primele 6 luni</option>
                                     <option value="luna-9" data-translate-option="opt-9luni">Primele 9 luni</option>
                                     <option value="luna-12" data-translate-option="opt-12luni">Primele 12 luni</option>
+                                    <option value="luna-24" data-translate-option="opt-24luni">Primele 24 luni</option>
                                 </select>
-                                <div class="error error-durata-gratie-mixta"></div>
+                                <div class="error error-durata-dobinda-mixta"></div>
                                 <br /><br />
                             </div>
                         </div>
@@ -166,16 +174,16 @@
                     <div class="credit-form">
                         <span class="span-content" data-translate="avans">Avans</span>
                         <div class="input-wrapper">
-                        <input type="number" min="1000" max="60000000" step="200" class="avans input-avans" placeholder=" " data-translate-placeholder="ph-avans" />
-                            <span class="placeholder-left">1000 - 60,000,000</span>
+                        <input type="number" min="100" max="60000000" step="100" class="avans input-avans" placeholder=" " data-translate-placeholder="ph-avans" />
+                            <span class="placeholder-left">100 - 60,000,000</span>
                             <span class="placeholder-right">LEI</span>
                         </div>
                         <div class="error error-avans"></div>
                         <br />
                         <span class="span-content" data-translate="salariu">Salariul</span>
                         <div class="input-wrapper">
-                        <input type="number" min="1000" max="300000" step="200" class="salariu input-salariu" placeholder=" " data-translate-placeholder="ph-salariu" />
-                            <span class="placeholder-left">1000 - 300,000</span>
+                        <input type="number" min="200" max="300000" step="200" class="salariu input-salariu" placeholder=" " data-translate-placeholder="ph-salariu" />
+                            <span class="placeholder-left">200 - 300,000</span>
                             <span class="placeholder-right">LEI</span>
                         </div>
                         <div class="error error-salariu"></div>
@@ -190,8 +198,8 @@
                                 <br />
                                 <span class="span-content" data-translate="suma-rambursare">Suma pentru rambursare anticipata</span>
                                 <div class="input-wrapper">
-                                    <input type="number" class="input-suma-rambursare" min="1000" max="300000" step="200" data-translate-placeholder="ph-suma-rambursare" />
-                                    <span class="placeholder-left">1000 - 300,000</span>
+                                    <input type="number" class="input-suma-rambursare" min="200" max="300000" step="200" data-translate-placeholder="ph-suma-rambursare" />
+                                    <span class="placeholder-left">200 - 300,000</span>
                                     <span class="placeholder-right">Lei</span>
                                 </div>
                                 <div class="error error-suma-rambursare"></div>
@@ -211,7 +219,7 @@
                     <br />
                     <div class="credit-form">
                         
-                            <button class="btn-calcul  " data-translate="btn-calcul">Calculeaza</button>
+                            <button class="btn-calcul" type="submit" data-translate="btn-calcul">Calculeaza</button>
                         
                         <br /><br />
                         <div class="eur-usd-rate">
@@ -245,7 +253,13 @@
                 <!-- Canvas pentru grafic -->
                 <canvas class="grafic-rambursare" width="800" height="400"></canvas>
                 
-                <div class="all-icons">
+             
+        <!-- Tabel pentru amortizare -->
+        <div class="tabel-amortizare" style="margin-top:20px;"></div>
+
+            <br><br>                
+
+        <div class="all-icons">
                     <div class="div-icon1">
                         <a>
                             <i class="bi bi-heart" id="icon1" data-id="<?= $simulare_id ?>"></i> 
@@ -253,25 +267,29 @@
                         </a>
                     </div>
                     <div class="div-icon2">
-                        <a><i class="bi bi-download" id="icon2"></i> <span data-translate="icon-pdf">Export tot PDF</span></a>
+                        <a><i class="bi bi-download" id="icon2"></i> 
+                        <span data-translate="icon-pdf">Export tot PDF</span>
+                    </a>
                     </div>
-        <div class="div-icon3">
-            <a><i class="bi bi-box-arrow-up-right" id="icon3"></i> <span data-translate="icon-link">Creaza link</span></a>
+                    <div class="div-icon3">
+                        <a><i class="bi bi-box-arrow-up-right" id="icon3"></i> 
+                        <span data-translate="icon-link">Creaza link</span>
+                    </a>
+                    </div>
             </div>
-        </div>
-        <!-- Tabel pentru amortizare -->
-        <div class="tabel-amortizare" style="margin-top:20px;"></div>
             </div>
+            
             </div>
             <div id="spinner" class="spinner" style="display:none;"></div>
         </main>
         <br /><br />
+        
         <footer class="footer" data-translate="footer">
             <p>Dinybank | © Copyright 2025 Toate drepturile rezervate.</p>
         </footer>
+        <script src="../js/validate-credit.js"></script>
         <script src="../js/credite.js"></script>
         <script src="../js/repeat.js"></script>
-        <script src="../js/validate-credit.js"></script>
         <script src="../js/favorite.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="../js/lang/credit-language.js"></script>

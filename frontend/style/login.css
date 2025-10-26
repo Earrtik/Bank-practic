@@ -1,5 +1,4 @@
 
-
 .dont-have-container {
   display: flex;
   justify-content: center; 
@@ -22,9 +21,7 @@
   cursor: pointer;
 }
 
-.register-account:hover {
-  text-decoration: underline;
-}
+
 .forgout-password{
   text-decoration: none;
   color: #036000;

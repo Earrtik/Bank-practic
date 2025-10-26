@@ -1,6 +1,6 @@
 // language-credit.js
 
-// Obiect cu traduceri pentru toate textele paginii
+// Obiect cu traduceri pentru toate textele paginii și tabelul
 const translations = {
     "ro": {
         "a1": "Acasă",
@@ -33,12 +33,13 @@ const translations = {
         "opt-6luni": "Primele 6 luni",
         "opt-9luni": "Primele 9 luni",
         "opt-12luni": "Primele 12 luni",
+        "opt-24luni": "Primele 24 luni",
         "tip-dobanda": "Tip Dobândă",
         "opt-dobanda": "-- Alege tipul de Dobândă --",
         "opt-fixa": "Dobândă Fixă",
         "opt-variabila": "Dobândă Variabilă",
         "include-mixta": "Include Dobinda mixta Optional",
-        "initial-mixta": "Initial Dobinda Fixa dupa Dobinda Variabilă",
+        "initial-mixta": "Ce dobinda v-a fi initial",
         "opt-initial-dobinda": "-- Alege Initial tip Dobinda --",
         "opt-start-fixa": "Inital Dobândă Fixă",
         "opt-start-variabila": "Initial Dobinda Variabilă",
@@ -59,27 +60,34 @@ const translations = {
         "rez-rata-totala": "Rata totala :",
         "rez-dobanda-lunara": "Dobanda lunara :",
         "rez-dobanda-totala": "Dobanda totala :",
-        "rez-comision": "Comisionul : ",
-        "rez-dae": "DAE : ",
+        "rez-comision": "Comisionul :",
+        "rez-dae": "DAE :",
         "rez-comisie-rata": "Comisie si rata totala :",
         "icon-favorit": "Adauga la favorit",
         "icon-pdf": "Export tot PDF",
         "icon-link": "Creaza link",
-        "footer": "Dinybank | © Copyright 2025 Toate drepturile rezervate.",
         "grafic-rambursare": "Grafic de rambursare",
-        "error-tip-credit": "Trebuie să selectați tipul de credit.",
-        "error-perioada": "Perioada trebuie să fie între 2 și 360 luni.",
-        "error-tip-rata": "Trebuie să alegeți tipul de rată.",
-        "error-tip-dobanda": "Trebuie să selectați tipul de dobândă.",
-        "error-grad-indatorare": "Grad de îndatorare depășit!",
-        "tabel-luna": "Luna",
-        "tabel-data": "Data scadenta",
-        "tabel-rata-totala": "Rata totala",
-        "tabel-principal": "Principal",
-        "tabel-dobanda": "Dobanda",
-        "tabel-comision": "Comision",
-        "tabel-sold-ramas": "Sold ramas",
-        
+        "footer": "Dinybank | © Copyright 2025 Toate drepturile rezervate.",
+        "Rata lunara": "Rata lunara",
+        "Rata totala": "Rata totala",
+        "Dobanda lunara": "Dobanda lunara",
+        "Dobanda totala": "Dobanda totala",
+        "Comision": "Comision",
+        "DAE": "DAE",
+        "Comisie si rata totala": "Comisie si rata totala",
+        "Luna": "Luna",
+        "Data scadenta": "Data scadenta",
+        "Principal": "Principal",
+        "Sold ramas": "Sold ramas",
+
+        "Selecteaza tipul de credit": "Selecteaza tipul de credit",
+        "Selecteaza suma intre 1.000 si 100.000.000 unitati": "Selecteaza suma intre 1.000 si 100.000.000 unitati",
+        "Selectati perioda intre 2-360 luni": "Selectati perioda intre 2-360 luni",
+        "Selecteaza tipul de rata": "Selecteaza tipul de rata",
+        "Selecteaza tipul de dobinda": "Selecteaza tipul de dobinda",
+        "Salariu": "Grad de Indatorare depasit - alege o suma mai mare",
+
+    
     },
     "en": {
         "a1": "Home",
@@ -112,12 +120,13 @@ const translations = {
         "opt-6luni": "First 6 months",
         "opt-9luni": "First 9 months",
         "opt-12luni": "First 12 months",
+        "opt-24luni": "First 24 months",
         "tip-dobanda": "Interest type",
         "opt-dobanda": "-- Choose interest type --",
         "opt-fixa": "Fixed interest",
         "opt-variabila": "Variable interest",
         "include-mixta": "Include Mixed Interest (Optional)",
-        "initial-mixta": "Initial Fixed after Variable Interest",
+        "initial-mixta": "What will be the initial interest rate",
         "opt-initial-dobinda": "-- Choose initial interest type --",
         "opt-start-fixa": "Initial Fixed Interest",
         "opt-start-variabila": "Initial Variable Interest",
@@ -146,18 +155,23 @@ const translations = {
         "icon-link": "Create link",
         "grafic-rambursare": "Repayment chart",
         "footer": "Dinybank | © Copyright 2025 All rights reserved.",
-        "error-tip-credit": "You must select a credit type.",
-        "error-perioada": "Period must be between 2 and 360 months.",
-        "error-tip-rata": "You must select an installment type.",
-        "error-tip-dobanda": "You must select an interest type.",
-        "error-grad-indatorare": "Debt ratio exceeded!",
-        "tabel-luna": "Month",
-        "tabel-data": "Due date",
-        "tabel-rata-totala": "Total installment",
-        "tabel-principal": "Principal",
-        "tabel-dobanda": "Interest",
-        "tabel-comision": "Commission",
-        "tabel-sold-ramas": "Remaining balance"
+        "Rata lunara": "Monthly installment",
+        "Rata totala": "Total installment",
+        "Dobanda lunara": "Monthly interest",
+        "Dobanda totala": "Total interest",
+        "Comision": "Commission",
+        "DAE": "APR",
+        "Comisie si rata totala": "Commission & total installment",
+        "Luna": "Month",
+        "Data scadenta": "Due Date",
+        "Principal": "Principal",
+        "Sold ramas": "Remaining Balance",
+        "Selecteaza tipul de credit": "Select credit type",
+        "Selecteaza suma intre 1.000 si 100.000.000 unitati": "Select amount between 1,000 and 100,000,000 units",
+        "Selectati perioda intre 2-360 luni": "Select period between 2-360 months",
+        "Selecteaza tipul de rata": "Select rate type",
+        "Selecteaza tipul de dobinda": "Select interest type",
+        "Salariu": "Debt ratio exceeded — choose a smaller amount"
     },
     "ru": {
         "a1": "Главная",
@@ -190,12 +204,13 @@ const translations = {
         "opt-6luni": "Первые 6 месяцев",
         "opt-9luni": "Первые 9 месяцев",
         "opt-12luni": "Первые 12 месяцев",
+        "opt-24luni": "Первые 24 месяцев",
         "tip-dobanda": "Тип процентной ставки",
         "opt-dobanda": "-- Выберите тип ставки --",
         "opt-fixa": "Фиксированная ставка",
         "opt-variabila": "Переменная ставка",
         "include-mixta": "Включить смешанную ставку (опционально)",
-        "initial-mixta": "Сначала фиксированная, потом переменная ставка",
+        "initial-mixta": "Какая процентная ставка будет изначально",
         "opt-initial-dobinda": "-- Выберите начальный тип ставки --",
         "opt-start-fixa": "Начальная фиксированная ставка",
         "opt-start-variabila": "Начальная переменная ставка",
@@ -222,22 +237,59 @@ const translations = {
         "icon-favorit": "Добавить в избранное",
         "icon-pdf": "Экспорт в PDF",
         "icon-link": "Создать ссылку",
-        "footer": "Dinybank | © Copyright 2025 Все права защищены.",
         "grafic-rambursare": "График погашения",
-        "error-tip-credit": "Необходимо выбрать тип кредита.",
-        "error-perioada": "Срок должен быть от 2 до 360 месяцев.",
-        "error-tip-rata": "Необходимо выбрать тип платежа.",
-        "error-tip-dobanda": "Необходимо выбрать тип ставки.",
-        "error-grad-indatorare": "Превышена степень задолженности!",
-        "tabel-luna": "Месяц",
-        "tabel-data": "Дата платежа",
-        "tabel-rata-totala": "Общий платеж",
-        "tabel-principal": "Основная сумма",
-        "tabel-dobanda": "Процент",
-        "tabel-comision": "Комиссия",
-        "tabel-sold-ramas": "Остаток"
+        "footer": "Dinybank | © Copyright 2025 Все права защищены.",
+        "Rata lunara": "Ежемесячный платеж",
+        "Rata totala": "Общий платеж",
+        "Dobanda lunara": "Ежемесячный процент",
+        "Dobanda totala": "Общий процент",
+        "Comision": "Комиссия",
+        "DAE": "ЭПС",
+        "Comisie si rata totala": "Комиссия и общий платеж",
+        "Luna": "Месяц",
+        "Data scadenta": "Срок платежа",
+        "Principal": "Основная сумма",
+        "Sold ramas": "Остаток",
+        "Selecteaza tipul de credit": "Выберите тип кредита",
+        "Selecteaza suma intre 1.000 si 100.000.000 unitati": "Выберите сумму от 1.000 до 100.000.000 единиц",
+        "Selectati perioda intre 2-360 luni": "Выберите период от 2 до 360 месяцев",
+        "Selecteaza tipul de rata": "Выберите тип платежа",
+        "Selecteaza tipul de dobinda": "Выберите тип процента",
+        "Salariu": "Превышен уровень задолженности — выберите меньшую сумму"
     }
 };
+
+const translationsError = {
+    "ro": {
+        "Trebuie să selectați tipul de credit": "Trebuie să selectați tipul de credit",
+        "Trebuie să selectați tipul dobânzii": "Trebuie să selectați tipul dobânzii",
+        "Suma trebuie să fie între 1.000 și 100.000.000 LEI": "Suma trebuie să fie între 1.000 și 100.000.000 LEI",
+        "Perioada trebuie să fie între 2 și 360 luni": "Perioada trebuie să fie între 2 și 360 luni",
+        "Trebuie să alegeți tipul de rată": "Trebuie să alegeți tipul de rată",
+        "Trebuie să introduceți salariul": "Trebuie să introduceți salariul",
+        "Grad de îndatorare depășit": "Grad de îndatorare depășit"
+    },
+    "en": {
+        "Trebuie să selectați tipul de credit": "You must select a credit type",
+        "Trebuie să selectați tipul dobânzii": "You must select an interest type",
+        "Suma trebuie să fie între 1.000 și 100.000.000 LEI": "Amount must be between 1,000 and 100,000,000 LEI",
+        "Perioada trebuie să fie între 2 și 360 luni": "Period must be between 2 and 360 months",
+        "Trebuie să alegeți tipul de rată": "You must select an installment type",
+        "Trebuie să introduceți salariul": "You must enter your salary",
+        "Grad de îndatorare depășit": "Debt ratio exceeded"
+    },
+    "ru": {
+        "Trebuie să selectați tipul de credit": "Необходимо выбрать тип кредита",
+        "Trebuie să selectați tipul dobânzii": "Необходимо выбрать тип ставки",
+        "Suma trebuie să fie între 1.000 și 100.000.000 LEI": "Сумма должна быть от 1.000 до 100.000.000 LEI",
+        "Perioada trebuie să fie între 2 și 360 luni": "Срок должен быть от 2 до 360 месяцев",
+        "Trebuie să alegeți tipul de rată": "Необходимо выбрать тип платежа",
+        "Trebuie să introduceți salariul": "Необходимо ввести зарплату",
+        "Grad de îndatorare depășit": "Превышен уровень задолженности"
+    }
+};
+
+
 
 // Functie pentru traducere
 function translatePage(lang) {
@@ -263,7 +315,7 @@ function translatePage(lang) {
     document.querySelectorAll("[data-translate-error]").forEach(el => {
         const key = el.getAttribute("data-translate-error");
         if(translations[lang][key]) el.textContent = translations[lang][key];
-    });
+    }); 
 
     // --- Traduce rezultatele afisate ---
     document.querySelectorAll("[data-translate-rezultat]").forEach(el => {
@@ -291,3 +343,9 @@ window.addEventListener("DOMContentLoaded", () => {
     const langSelect = document.getElementById("lang").value || "ro";
     translatePage(langSelect);
 });
+function translateErrors(lang){
+    document.querySelectorAll("[data-translate-error]").forEach(el => {
+        const key = el.getAttribute("data-translate-error");
+        if(translationsError[lang][key]) el.textContent = translationsError[lang][key];
+    });
+}

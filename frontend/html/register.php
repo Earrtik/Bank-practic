@@ -26,15 +26,15 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
 
         <div class="menu-items" id="menu-items">
             <div class="menu">
-                <a href="index.php" class="a1 spinner-link">Acasă</a>
+                <a class="a1 spinner-link">Acasă</a>
                 <a href="credite.php" class="a2 spinner-link">Calculator Credite</a>
                 <a href="informatii.php" class="a3 spinner-link">Informații</a>
             </div>
 
             <?php if (!$loggedIn): ?>
                 <!-- Vizitatori -->
-                <a href="../../frontend/html/login.html" class="login spinner-link">Login</a>
-                <button class="register spinner-link">Register</button>
+                <a href="../../frontend/html/login.php" class="login spinner-link">Login</a>
+                <button class="register">Register</button>
             <?php else: ?>
                 <!-- Utilizatori logați -->
                 <a href="istoric.php" class="spinner-link"><i class="bi bi-clock-history"></i></a>
@@ -80,7 +80,7 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
 
                     <div class="have-container">
                         <p class="have-account">Ai deja cont?</p>
-                        <a href="/frontend/html/login.php">
+                        <a href="../../frontend/html/login.php">
                             <p class="login-account">Conectează-te</p>
                         </a>
                     </div>
