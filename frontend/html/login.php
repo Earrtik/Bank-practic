@@ -25,26 +25,27 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
             </div>
             <div class="menu-items" id="menu-items">
                 <div class="menu">
-                    <a href="" class="a1" data-translate="home">Acasă</a>
+                    <a href="index.php" class="a1 spinner-link" data-translate="home">Acasă</a>
                     <a href="credite.php" class="a2 spinner-link" data-translate="calculator">Calculator Credite</a>
                     <a href="informatii.php" class="a3 spinner-link" data-translate="info">Informații</a>
                 </div>
 
                 <?php if (!$loggedIn): ?>   
                 <!-- Vizitatori -->
-                <a href="" class="login">Login</a>
+                <a href="" class="login" data-translate="login">Login</a>
                 <a href="../../frontend/html/register.php" class="spinner-link">
-                    <button class="register">Register</button>
+                    <button class="register" data-translate="register">Register</button>
                 </a>
+
             <?php else: ?>
                 <!-- Utilizatori logați -->
-                <a href="istoric.php" class="spinner-link"><i class="bi bi-clock-history "></i></a>
                 <a href="favorite.php" class="spinner-link"><i class="bi bi-heart" id="heart"></i></a>
+                <a href="istoric.php" class="spinner-link"><i class="bi bi-clock-history "id="history"></i></a>
                 <a href="../../backend/php/logout.php" class="spinner-link"><i class="bi bi-box-arrow-right" id="logout"></i></a>
             <?php endif; ?>
 
                 <div id="user-menu" style="display:none;">
-                    <a  ><img src="../photo/user_icon.png" alt="Profil"></a>
+                    <a><img src="../photo/user_icon.png" alt="Profil"></a>
                     <a href="mesaje.php"><img src="../photo/message_icon.png" alt="Mesaje"></a>
                     <a href="setari.php"><img src="../photo/settings_icon.png" alt="Setări"></a>
                     <a href="../../backend/php/logout.php"><img src="../photo/logout_icon.png" alt="Logout"></a>
@@ -68,26 +69,37 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
         <img src="../../photo/register_login.png" alt="">
         <div class="content">
             <div class="form-box">
-                <form action="../../backend/php/login.php" method="POST">
+                <form method="POST">
                     <div class="in-form-box">
                         <h1 data-translate="login-title">Conectare</h1>
-                        <h3 data-translate="login-subtitle">Intra în contul tău</h3>
+                        <h3 data-translate="login-subtitle">Intră în contul tău</h3>
 
                         <label for="email" data-translate="email-label">Adresa de Email</label>    
-                        <input type="email" name="email" id="email" placeholder="Exemplu@gmail.com" required>
-                        
+                        <input type="email" name="email" id="email" placeholder="Exemplu@gmail.com" required 
+                            <?php if ($loggedIn) echo 'disabled'; ?>>
+                        <div id="error-email" class="error"></div>
+
                         <label for="password" data-translate="password-label">Parola</label>    
-                        <input type="password" name="password" id="password" placeholder="*********" required>
-                        
-                        <div id="login-errors" style="color:red; margin-top:5px;"></div>
+                        <input type="password" name="password" id="password" placeholder="*********" required 
+                            <?php if ($loggedIn) echo 'disabled'; ?>>
+                        <div id="error-password" class="error"></div>
 
                         <br>
-                        <a href="" class="forgout-password ">
+                        <a href="" class="forgout-password">
                             <p data-translate="forgot">Ai uitat parola?</p>
                         </a>
-                        <a >
-                            <button type="submit" class="login-btn " data-translate="login-btn">Intra în cont</button>
+                        <a>
+                            <button type="submit" class="login-btn" data-translate="login-btn" 
+                                <?php if ($loggedIn) echo 'disabled'; ?>>
+                                Intră în cont
+                            </button>
                         </a>
+
+                        <?php if ($loggedIn): ?>
+                            <p style="color:gray; margin-top:10px; text-align:center;">
+                                Ești deja autentificat — nu poți accesa pagina de login.
+                            </p>
+                        <?php endif; ?>
 
                         <div class="dont-have-container">
                             <p class="dont-have-account" data-translate="no-account">Nu ai cont?</p>
@@ -101,12 +113,13 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
         </div>
         <div id="spinner" class="spinner" style="display: none;"></div>
     </main>
-        <br><br>
+
     <footer class="footer" data-translate="footer">
         Dinybank | © Copyright 2025 Toate drepturile rezervate.
     </footer>
 
     <script src="../js/lang/login-language.js"></script>
     <script src="../js/repeat.js"></script>
+    <script src="../js/login.js"></script>
 </body>
 </html>

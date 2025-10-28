@@ -73,26 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
-    // --- Funcție pentru afișare mesaj când nu mai există favorite ---
-    function checkFavoritesEmpty() {
-        const container = document.querySelector(".container-div");
-        if (container && container.children.length === 0) {
-            container.innerHTML = `
-                <div class="content">
-                    <div class="login-text">
-                        <h1>Nu există simulări favorite</h1>
-                        <a href="credite.php" class="spinner-link">
-                            <button class="login-favorit-button">Mergi la Credite</button>
-                        </a>
-                    </div>
-                </div>
-            `;
-            const stergeWrapper = document.querySelector(".sterge-toate-wrapper");
-            if (stergeWrapper) stergeWrapper.remove();
-        }
-    }
-
     // --- Ștergere favorite individual (doar în lista de carduri) ---
     document.addEventListener("click", async (e) => {
         if (e.target.closest(".sterge")) {
@@ -116,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // --- Ștergere toate favoritele ---
+    // --- Stergere toate favoritele ---
     if (stergeToateBtn) {
         stergeToateBtn.addEventListener("click", async () => {
             if (!confirm("Sigur vrei să ștergi toate favoritele?")) return;
@@ -132,4 +112,54 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+});
+document.addEventListener("DOMContentLoaded", () => {
+    const iconFavorite = document.querySelector("#icon1");
+    const divFavorite = document.querySelector(".div-icon1");
+    if (!divFavorite || !iconFavorite) return;
+
+    divFavorite.addEventListener("click", async () => {
+        const data = {
+            tip_credit: (document.querySelector(".input-tip-credit")?.value || '').trim(),
+            suma: parseFloat(document.querySelector(".input-suma")?.value || 0).toFixed(2),
+            perioada: parseInt(document.querySelector(".input-perioada")?.value || 0),
+            tip_rata: (document.querySelector(".input-tip-rata")?.value || '').trim(),
+            perioada_gratie: (document.querySelector(".input-durata-gratie")?.value || '').trim(),
+            tip_dobanda: (document.querySelector(".input-tip-dobanda")?.value || '').trim(),
+            dobanda_mixta: (document.querySelector(".input-initial-mixta")?.value || '').trim(),
+            perioada_gratie_mixta: (document.querySelector(".input-durata-mixta")?.value || '').trim(),
+            avans: parseFloat(document.querySelector(".input-avans")?.value || 0).toFixed(2),
+            salariu: parseFloat(document.querySelector(".input-salariu")?.value || 0).toFixed(2),
+            suma_rambursare: parseFloat(document.querySelector(".input-suma-rambursare")?.value || 0).toFixed(2),
+            optiune_rambursare: (document.querySelector(".input-optiune-rambursare")?.value || '').trim(),
+            rata_lunara: parseFloat(document.querySelector("[data-translate='rez-rata-lunara'] + p")?.textContent || 0).toFixed(2),
+            rata_totala: parseFloat(document.querySelector("[data-translate='rez-rata-totala'] + p")?.textContent || 0).toFixed(2)
+        };
+
+        if (!data.tip_credit || !data.suma || !data.perioada || !data.tip_rata) {
+            alert("Completează datele principale ale simulării înainte de a salva la favorite!");
+            return;
+        }
+
+        try {
+            const res = await fetch("../../backend/php/save_favorite.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            const result = await res.json();
+
+            if (result.status === "success") {
+                alert(result.message);
+                iconFavorite.classList.replace("bi-heart", "bi-heart-fill");
+            } else if (result.status === "exists") {
+                alert(result.message);
+            } 
+               
+            
+        } catch (err) {
+            console.error(err);
+           
+        }});
 });

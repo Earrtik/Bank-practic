@@ -32,8 +32,8 @@ $loggedIn = isset($_SESSION['user_id']);
                     <button class="register" data-lang="register">Register</button>
                 </a>
             <?php else: ?>
-                <a href="istoric.php" class="spinner-link"><i class="bi bi-clock-history"></i></a>
                 <a><i class="bi bi-heart" id="heart"></i></a>
+                <a href="istoric.php" class="spinner-link"><i class="bi bi-clock-history" id="history"></i></a>
                 <a class="spinner-link" href="../../backend/php/logout.php?redirect=<?= urlencode($_SERVER['PHP_SELF']) ?>">
                     <i class="bi bi-box-arrow-right" id="logout"></i>
                 </a>
@@ -97,7 +97,7 @@ $loggedIn = isset($_SESSION['user_id']);
         <?php if ($hasFavorites): $index = 1; ?>
             <?php foreach($favorites as $row): ?>
                 <div class="favorite-card">
-                    <h3>
+                    <h3  >
                         <span class="favorite-title" data-lang="favorite_num">Favorite</span> #<?= $index++ ?>
                     </h3>
                     <p><strong data-lang="tip_credit">Tip Credit :</strong> <span class="val" data-field="tip_credit"><?= $row['tip_credit'] ?></span></p>

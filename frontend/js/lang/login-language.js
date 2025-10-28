@@ -1,4 +1,5 @@
 // --- Obiect cu traduceri ---
+
 const translations = {
     ro: {
         "home": "Acasă",
@@ -15,7 +16,9 @@ const translations = {
         "login-btn": "Intra în cont",
         "no-account": "Nu ai cont?",
         "register-account": "Înregistrare",
-        "footer": "Dinybank | © Copyright 2025 Toate drepturile rezervate."
+        "footer": "Dinybank | © Copyright 2025 Toate drepturile rezervate.",
+        "login" : "Login",
+        "register" : "register"
     },
     en: {
         "home": "Home",
@@ -32,7 +35,9 @@ const translations = {
         "login-btn": "Login",
         "no-account": "Don't have an account?",
         "register-account": "Register",
-        "footer": "Dinybank | © Copyright 2025 All rights reserved."
+        "footer": "Dinybank | © Copyright 2025 All rights reserved.",
+        "login" : "Login",
+        "register" : "register"
     },
     ru: {
         "home": "Главная",
@@ -42,6 +47,8 @@ const translations = {
         "register": "Регистрация",
         "logo": "Diny Bank",
         "login-title": "Вход",
+        "login" : "Вход",
+        "register" : "Регистрация",
         "login-subtitle": "Войдите в свой аккаунт",
         "email-label": "Электронная почта",
         "password-label": "Пароль",
@@ -50,6 +57,7 @@ const translations = {
         "no-account": "Нет аккаунта?",
         "register-account": "Регистрация",
         "footer": "Dinybank | © Copyright 2025 Все права защищены."
+
     }
 };
 
@@ -74,4 +82,21 @@ document.addEventListener("DOMContentLoaded", () => {
     langSelect.addEventListener("change", () => {
         translatePage(langSelect.value);
     });
+});
+
+
+
+// --- CODUL COMUN PNTRU SALVARE LIMBA PE PAGINI ---
+document.addEventListener("DOMContentLoaded", () => {
+    const langSelect = document.getElementById("lang");
+    const savedLang = localStorage.getItem("language") || "ro";
+    if (langSelect) langSelect.value = savedLang;
+    translatePage(savedLang);
+    if (langSelect) {
+        langSelect.addEventListener("change", () => {
+            const lang = langSelect.value;
+            localStorage.setItem("language", lang);
+            translatePage(lang);
+        });
+    }
 });

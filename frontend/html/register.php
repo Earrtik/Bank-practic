@@ -12,7 +12,6 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
     <link rel="stylesheet" href="../style/repeat.css">
     <link rel="stylesheet" href="../style/login_register_repeat.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
     <title>Diny-Bank Register</title>
 </head>
 <body>
@@ -26,19 +25,19 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
 
         <div class="menu-items" id="menu-items">
             <div class="menu">
-                <a class="a1 spinner-link">Acasă</a>
-                <a href="credite.php" class="a2 spinner-link">Calculator Credite</a>
-                <a href="informatii.php" class="a3 spinner-link">Informații</a>
+                <a href="index.php" class="a1 spinner-link" data-translate="home">Acasă</a>
+                <a href="credite.php" class="a2 spinner-link" data-translate="calculator">Calculator Credite</a>
+                <a href="informatii.php" class="a3 spinner-link" data-translate="info">Informații</a>
             </div>
 
             <?php if (!$loggedIn): ?>
                 <!-- Vizitatori -->
-                <a href="../../frontend/html/login.php" class="login spinner-link">Login</a>
-                <button class="register">Register</button>
+                <a href="../../frontend/html/login.php" class="login spinner-link" data-translate="login">Login</a>
+                <button class="register" data-translate="register">Register</button>
             <?php else: ?>
                 <!-- Utilizatori logați -->
-                <a href="istoric.php" class="spinner-link"><i class="bi bi-clock-history"></i></a>
                 <a href="favorite.php" class="spinner-link"><i class="bi bi-heart" id="heart"></i></a>
+                <a href="istoric.php" class="spinner-link"><i class="bi bi-clock-history"id="history"></i></a>
                 <a href="../../backend/php/logout.php" class="spinner-link"><i class="bi bi-box-arrow-right" id="logout"></i></a>
             <?php endif; ?>
 
@@ -53,7 +52,7 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
             </div>
         </div>
     </div>
-    <p class="logo">Diny bank</p>
+    <p class="logo" data-translate="logo">Diny Bank</p>
 </header>
 
 <main> 
@@ -61,32 +60,47 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
 
     <div class="content">
         <div class="form-box">
-            <form action="../../backend/php/register.php" method="POST" id="registerForm">
+            <form method="POST" id="registerForm">
                 <div class="in-form-box">
-                    <h1>Înregistrare</h1>
-                    <h3>Crează un cont</h3>
+                    <h1 data-translate="register-title">Înregistrare</h1>
+                    <h3 data-translate="register-subtitle">Crează un cont</h3>
 
-                    <label for="username">Nume</label>    
-                    <input type="text" name="username" id="username" placeholder="Numele tău" required>
+                    <label for="username" data-translate="name-label">Nume</label>    
+                    <input type="text" name="username" id="username" 
+                        data-placeholder="name-placeholder" placeholder="Numele tău" 
+                        required <?php if ($loggedIn) echo 'disabled'; ?>>
                     <div id="error-username" class="error"></div>
 
-                    <label for="email">Adresa de Email</label>    
-                    <input type="email" name="email" id="email" placeholder="exemplu@gmail.com" required>
+                    <label for="email" data-translate="email-label">Adresa de Email</label>    
+                    <input type="email" name="email" id="email" 
+                        data-placeholder="email-placeholder" placeholder="exemplu@gmail.com" 
+                        required <?php if ($loggedIn) echo 'disabled'; ?>>
                     <div id="error-email" class="error"></div>
 
-                    <label for="password">Parola</label>    
-                    <input type="password" name="password" id="password" placeholder="*********" required>
+                    <label for="password" data-translate="password-label">Parola</label>    
+                    <input type="password" name="password" id="password" 
+                        data-placeholder="password-placeholder" placeholder="*******" 
+                        required <?php if ($loggedIn) echo 'disabled'; ?>>
                     <div id="error-password" class="error"></div>
 
                     <div class="have-container">
-                        <p class="have-account">Ai deja cont?</p>
+                        <p class="have-account" data-translate="have-account">Ai deja cont?</p>
                         <a href="../../frontend/html/login.php">
-                            <p class="login-account">Conectează-te</p>
+                            <p class="login-account" data-translate="login-account">Conectează-te</p>
                         </a>
                     </div>
 
-                    <button type="submit" class="login-btn">Înregistrează-te</button>
-                </div><br><br>
+                    <button type="submit" class="login-btn" 
+                        data-translate="register-btn" <?php if ($loggedIn) echo 'disabled'; ?>>
+                        Înregistrează-te
+                    </button>
+
+                    <?php if ($loggedIn): ?>
+                        <p style="color:gray; margin-top:10px; text-align:center;">
+                            Ești deja logat — nu poți crea un nou cont.
+                        </p>
+                    <?php endif; ?>
+                </div>
             </form>
         </div>
     </div>
@@ -94,12 +108,12 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
     <div id="spinner" class="spinner" style="display:none;"></div>
 </main>
 
-<br><br><br>
-
-<footer class="footer">
+<footer class="footer" data-translate="footer">
     Dinybank | © Copyright 2025 Toate drepturile rezervate.
 </footer>
 
-<script src="../js/repeat.js"></script>
+<script src="../../js/repeat.js"></script>
+<script src="../../frontend/js/lang/register-language.js"></script>
+<script src="../../frontend/js/register.js"></script>
 </body>
 </html>

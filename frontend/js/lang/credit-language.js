@@ -80,6 +80,9 @@ const translations = {
         "Principal": "Principal",
         "Sold ramas": "Sold ramas",
 
+        "login": "Login",
+        "register": "Register",
+
         "Selecteaza tipul de credit": "Selecteaza tipul de credit",
         "Selecteaza suma intre 1.000 si 100.000.000 unitati": "Selecteaza suma intre 1.000 si 100.000.000 unitati",
         "Selectati perioda intre 2-360 luni": "Selectati perioda intre 2-360 luni",
@@ -166,6 +169,8 @@ const translations = {
         "Data scadenta": "Due Date",
         "Principal": "Principal",
         "Sold ramas": "Remaining Balance",
+        "login": "Login",
+        "register": "Register",
         "Selecteaza tipul de credit": "Select credit type",
         "Selecteaza suma intre 1.000 si 100.000.000 unitati": "Select amount between 1,000 and 100,000,000 units",
         "Selectati perioda intre 2-360 luni": "Select period between 2-360 months",
@@ -247,6 +252,8 @@ const translations = {
         "DAE": "ЭПС",
         "Comisie si rata totala": "Комиссия и общий платеж",
         "Luna": "Месяц",
+        "login": "Вход",
+        "register": "Регистрация",
         "Data scadenta": "Срок платежа",
         "Principal": "Основная сумма",
         "Sold ramas": "Остаток",
@@ -288,7 +295,6 @@ const translationsError = {
         "Grad de îndatorare depășit": "Превышен уровень задолженности"
     }
 };
-
 
 
 // Functie pentru traducere
@@ -349,3 +355,21 @@ function translateErrors(lang){
         if(translationsError[lang][key]) el.textContent = translationsError[lang][key];
     });
 }
+
+
+
+
+// --- CODUL COMUN PNTRU SALVARE LIMBA PE PAGINI ---
+document.addEventListener("DOMContentLoaded", () => {
+    const langSelect = document.getElementById("lang");
+    const savedLang = localStorage.getItem("language") || "ro";
+    if (langSelect) langSelect.value = savedLang;
+    translatePage(savedLang);
+    if (langSelect) {
+        langSelect.addEventListener("change", () => {
+            const lang = langSelect.value;
+            localStorage.setItem("language", lang);
+            translatePage(lang);
+        });
+    }
+});

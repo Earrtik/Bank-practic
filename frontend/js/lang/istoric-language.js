@@ -1,8 +1,6 @@
-// ../js/lang/favorite-language.js
-
 const translations = {
     ro: {
-        "acasa": "Acasă",
+        "home": "Acasă",
         "calculator_credit": "Calculator Credite",
         "informatii": "Informații",
         "login": "Login",
@@ -10,15 +8,17 @@ const translations = {
         "logo": "Diny Bank",
         "favorite": "Favorite",
         "istoric": "Istoric",
-        "login_required": "Intră în cont pentru a vedea simulările favorite",
-        "intra_cont": "Intră în Cont",
-        "sterge_toate": "Șterge toate favoritele",
-        "favorite_num": "Favorite",
+        "login_required": "Intră în cont pentru a vedea istoricul simulărilor tale",
+        "intra_cont": "Intră în cont",
+        "sterge_tot": "Șterge toată istoria",
+        "istoric_title": "Istoric Credite",
+        "istoric_num": "Istoric",
         "tip_credit": "Tip Credit",
+        "data_ora": "Data/Ora",
         "suma": "Suma",
         "perioada": "Perioada",
         "tip_rata": "Tip rată",
-        "perioada_gratie": "Perioada de grație",
+        "perioada_gratie": "Perioada de gratie",
         "tip_dobanda": "Tip dobândă",
         "dobanda_mixta": "Dobândă mixtă",
         "avans": "Avans",
@@ -26,11 +26,11 @@ const translations = {
         "optiune_rambursare": "Rambursare anticipată",
         "creaza_link": "Crează link",
         "sterge": "Șterge",
-        "no_favorites": "Nu există simulări favorite",
+        "no_simulari": "Nu există simulări în istoric",
         "mergi_credit": "Mergi la Credite"
     },
     en: {
-        "acasa": "Home",
+        "home": "Home",
         "calculator_credit": "Credit Calculator",
         "informatii": "Information",
         "login": "Login",
@@ -38,11 +38,13 @@ const translations = {
         "logo": "Diny Bank",
         "favorite": "Favorites",
         "istoric": "History",
-        "login_required": "Login to see your favorite simulations",
+        "login_required": "Login to see your simulation history",
         "intra_cont": "Login",
-        "sterge_toate": "Delete all favorites",
-        "favorite_num": "Favorite",
+        "sterge_tot": "Clear All History",
+        "istoric_title": "Credit History",
+        "istoric_num": "History",
         "tip_credit": "Credit Type",
+        "data_ora": "Date/Time",
         "suma": "Amount",
         "perioada": "Period",
         "tip_rata": "Installment Type",
@@ -54,11 +56,11 @@ const translations = {
         "optiune_rambursare": "Early Repayment",
         "creaza_link": "Create Link",
         "sterge": "Delete",
-        "no_favorites": "No favorite simulations",
+        "no_simulari": "No simulations in history",
         "mergi_credit": "Go to Credits"
     },
     ru: {
-        "acasa": "Главная",
+        "home": "Главная",
         "calculator_credit": "Калькулятор Кредитов",
         "informatii": "Информация",
         "login": "Вход",
@@ -66,11 +68,13 @@ const translations = {
         "logo": "Diny Bank",
         "favorite": "Избранное",
         "istoric": "История",
-        "login_required": "Войдите в аккаунт, чтобы видеть избранные симуляции",
+        "login_required": "Войдите в аккаунт, чтобы видеть историю симуляций",
         "intra_cont": "Войти",
-        "sterge_toate": "Удалить все избранное",
-        "favorite_num": "Избранное",
+        "sterge_tot": "Очистить всю историю",
+        "istoric_title": "История кредитов",
+        "istoric_num": "История",
         "tip_credit": "Тип кредита",
+        "data_ora": "Дата/Время",
         "suma": "Сумма",
         "perioada": "Срок",
         "tip_rata": "Тип платежа",
@@ -82,12 +86,11 @@ const translations = {
         "optiune_rambursare": "Досрочное погашение",
         "creaza_link": "Создать ссылку",
         "sterge": "Удалить",
-        "no_favorites": "Нет избранных симуляций",
+        "no_simulari": "Нет симуляций в истории",
         "mergi_credit": "Перейти к кредитам"
     }
 };
 
-// --- Functie pentru actualizarea textului ---
 function translatePage(lang) {
     document.querySelectorAll("[data-lang]").forEach(el => {
         const key = el.getAttribute("data-lang");
@@ -97,18 +100,15 @@ function translatePage(lang) {
     });
 }
 
-// --- Detectarea schimbării limbii și salvarea în localStorage ---
 document.addEventListener("DOMContentLoaded", () => {
     const langSelect = document.getElementById("lang");
     const savedLang = localStorage.getItem("language") || "ro";
     if (langSelect) langSelect.value = savedLang;
     translatePage(savedLang);
 
-    if (langSelect) {
-        langSelect.addEventListener("change", () => {
-            const lang = langSelect.value;
-            localStorage.setItem("language", lang);
-            translatePage(lang);
-        });
-    }
+    langSelect?.addEventListener("change", () => {
+        const lang = langSelect.value;
+        localStorage.setItem("language", lang);
+        translatePage(lang);
+    });
 });

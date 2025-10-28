@@ -14,7 +14,7 @@ $loggedIn = isset($_SESSION['user_id']);
     <link rel="stylesheet" href="../style/istoric.css">
     <link rel="stylesheet" href="../style/repeat.css">
     <link rel="stylesheet" href="../style/favorit_istoric_repeat.css">
-    <title>Istoric Credite</title>
+    <title data-lang="istoric_title">Istoric Credite</title>
 </head>
 <body>
 <header>
@@ -22,19 +22,19 @@ $loggedIn = isset($_SESSION['user_id']);
         <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
         <div class="menu-items" id="menu-items">
             <div class="menu">
-                <a href="" class="a1">Acasă</a>
-                <a href="credite.php" class="a2 spinner-link">Calculator Credite</a>
-                <a href="informatii.php" class="a3 spinner-link">Informații</a>
+                <a href="" class="a1" data-lang="home">Acasă</a>
+                <a href="credite.php" class="a2 spinner-link" data-lang="calculator_credit">Calculator Credite</a>
+                <a href="informatii.php" class="a3 spinner-link" data-lang="informatii">Informații</a>
             </div>
 
             <?php if (!$loggedIn): ?>
-                <a href="../../frontend/html/login.php" class="login spinner-link">Login</a>
+                <a href="../../frontend/html/login.php" class="login spinner-link" data-lang="login">Login</a>
                 <a href="../../frontend/html/register.php" class="spinner-link">
-                    <button class="register">Register</button>
+                    <button class="register" data-lang="register">Register</button>
                 </a>
             <?php else: ?>
-                <a href=""><i class="bi bi-clock-history" id="icon-history"></i></a>
                 <a href="../../frontend/html/favorite.php" class="spinner-link"><i class="bi bi-heart" id="icon-heart"></i></a>
+                <a href=""><i class="bi bi-clock-history" id="icon-history"id="history"></i></a>
                 <a class="spinner-link" href="../../backend/php/logout.php?redirect=<?= urlencode($_SERVER['PHP_SELF']) ?>"><i class="bi bi-box-arrow-right" id="logout"></i></a>
             <?php endif; ?>
 
@@ -49,27 +49,27 @@ $loggedIn = isset($_SESSION['user_id']);
             </div>
         </div>
     </div>
-    <p class="logo">Diny bank</p>
+    <p class="logo" data-lang="logo">Diny bank</p>
 </header>
 
 <main>
     <div class="content">
         <div class="buttons">
             <a href="../../frontend/html/favorite.php" class="spinner-link">
-                <button class="favorite">Favorite</button>
+                <button class="favorite" data-lang="favorite">Favorite</button>
             </a>
-            <button class="istoric">Istoric</button>
+            <button class="istoric" data-lang="istoric">Istoric</button>
         </div>
     </div>
 
     <?php if (!$loggedIn): ?>
         <div class="login-text">
             <div class="content" id="content-istoric" >
-            <h1>Intra în cont pentru a vedea istoricul simulărilor tale</h1>
-            <a href="../../frontend/html/login.php" class="spinner-link">
-                <button class="login-favorit-button">Intra în cont</button>
-            </a>
-        </div>
+                <h1 data-lang="login_required">Intra în cont pentru a vedea istoricul simulărilor tale</h1>
+                <a href="../../frontend/html/login.php" class="spinner-link">
+                    <button class="login-favorit-button" data-lang="intra_cont">Intra în cont</button>
+                </a>
+            </div>
         </div>
     <?php else: ?>
         <?php
@@ -81,7 +81,7 @@ $loggedIn = isset($_SESSION['user_id']);
 
         <?php if ($has_simulari): ?>
             <div class="sterge-toate-wrapper">
-                <button class="sterge-toate"><i class="bi bi-trash"></i> Șterge toată istoria</button>
+                <button class="sterge-toate"><i class="bi bi-trash"></i> <span data-lang="sterge_tot">Șterge toată istoria</span></button>
             </div>
 
             <div class="container-div">
@@ -90,38 +90,38 @@ $loggedIn = isset($_SESSION['user_id']);
                 while ($row = $result->fetch_assoc()):
                 ?>
                 <div class="istoric-card">
-                    <h3>Istoric #<?= $index++ ?></h3>
-                    <p><strong>Tip Credit :</strong> <?= $row['tip_credit'] ?></p>
-                    <p><strong>Data/Ora :</strong> <?= $row['data_simulare'] ?></p>
-                    <p><strong>Suma :</strong> <?= number_format($row['suma'], 0, '.', ',') ?> lei</p>
-                    <p><strong>Perioada :</strong> <?= $row['perioada'] ?> luni</p>
-                    <p><strong>Tip rată :</strong> <?= $row['tip_rata'] ?></p>
-                    <p><strong>Perioada de gratie :</strong> <?= $row['perioada_gratie'] ?: 'NU' ?></p>
-                    <p><strong>Tip dobândă :</strong> <?= $row['tip_dobanda'] ?: 'NU' ?></p>
-                    <p><strong>Dobândă mixtă :</strong> <?= $row['dobanda_mixta'] ?: 'NU' ?></p>
-                    <p><strong>Avans :</strong> <?= number_format($row['avans'], 0, '.', ',') ?> lei</p>
-                    <p><strong>Salariu lunar :</strong> <?= number_format($row['salariu'], 0, '.', ',') ?> lei</p>
-                    <p><strong>Rambursare anticipată :</strong> <?= $row['optiune_rambursare'] ?: 'NU' ?></p>
+                    <h3><span data-lang="istoric_num">Istoric</span> #<?= $index++ ?></h3>
+                    <p><strong data-lang="tip_credit">Tip Credit :</strong> <span class="val" data-field="tip_credit"><?= $row['tip_credit'] ?></span></p>
+                    <p><strong data-lang="data_ora">Data/Ora :</strong> <span class="val" data-field="data_simulare"><?= $row['data_simulare'] ?></span></p>
+                    <p><strong data-lang="suma">Suma :</strong> <span class="val" data-field="suma"><?= number_format($row['suma'], 0, '.', ',') ?> lei</span></p>
+                    <p><strong data-lang="perioada">Perioada :</strong> <span class="val" data-field="perioada"><?= $row['perioada'] ?> luni</span></p>
+                    <p><strong data-lang="tip_rata">Tip rată :</strong> <span class="val" data-field="tip_rata"><?= $row['tip_rata'] ?></span></p>
+                    <p><strong data-lang="perioada_gratie">Perioada de gratie :</strong> <span class="val" data-field="perioada_gratie"><?= $row['perioada_gratie'] ?: 'NU' ?></span></p>
+                    <p><strong data-lang="tip_dobanda">Tip dobândă :</strong> <span class="val" data-field="tip_dobanda"><?= $row['tip_dobanda'] ?: 'NU' ?></span></p>
+                    <p><strong data-lang="dobanda_mixta">Dobândă mixtă :</strong> <span class="val" data-field="dobanda_mixta"><?= $row['dobanda_mixta'] ?: 'NU' ?></span></p>
+                    <p><strong data-lang="avans">Avans :</strong> <span class="val" data-field="avans"><?= number_format($row['avans'], 0, '.', ',') ?> lei</span></p>
+                    <p><strong data-lang="salariu">Salariu lunar :</strong> <span class="val" data-field="salariu"><?= number_format($row['salariu'], 0, '.', ',') ?> lei</span></p>
+                    <p><strong data-lang="optiune_rambursare">Rambursare anticipată :</strong> <span class="val" data-field="optiune_rambursare"><?= $row['optiune_rambursare'] ?: 'NU' ?></span></p>
                     <hr class="hr-div-card">
                     <div class="buttons-row">
-                        <button class="creaza-link"><i class="bi bi-link-45deg"></i> Crează link</button>
-                        <button class="sterge" data-id="<?= $row['id_simulare'] ?>"><i class="bi bi-trash"></i> Șterge</button>
+                        <button class="creaza-link"><i class="bi bi-link-45deg"></i> <span data-lang="creaza_link">Crează link</span></button>
+                        <button class="sterge" data-id="<?= $row['id_simulare'] ?>"><i class="bi bi-trash"></i> <span data-lang="sterge">Șterge</span></button>
                     </div>
                 </div>
                 <?php endwhile; ?>
             </div>
         <?php else: ?>
             <div class="content" id="content-d" >
-                <div class="login-text"     >
-                    <h1>Nu există simulări în istoric</h1>
+                <div class="login-text">
+                    <h1 data-lang="no_simulari">Nu există simulări în istoric</h1>
                     <a href="credite.php" class="spinner-link">
-                        <button class="login-favorit-button">Mergi la Credite</button>
+                        <button class="login-favorit-button" data-lang="mergi_credit">Mergi la Credite</button>
                     </a>
                 </div>
             </div>
         <?php endif; ?>
     <?php endif; ?>
-      <div id="spinner" class="spinner" style="display:none;"></div>
+    <div id="spinner" class="spinner" style="display:none;"></div>
 </main>
 
 <footer class="footer">
@@ -129,7 +129,7 @@ $loggedIn = isset($_SESSION['user_id']);
 </footer>
 
 <script src="../js/repeat.js"></script>
-<script src="../js/istoric.js"></script>
-
+    <script src="../js/istoric.js"></script>
+<script src="../../frontend/js/lang/istoric-language.js"></script>
 </body>
 </html>

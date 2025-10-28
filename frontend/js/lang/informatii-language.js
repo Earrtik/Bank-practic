@@ -3,6 +3,8 @@ const translations = {
     "a1":"Acasă",
     "a2":"Calculator Credite",
     "a3":"Informații",
+    "login": "Login",
+    "register": "Register",
     "sectiune-1-titlu":"1. Tipuri de credite",
     "credit-ipotecar":"Credit ipotecar / imobiliar",
     "credit-ipotecar-1":"Pentru achiziția sau construcția unei locuințe.",
@@ -65,12 +67,15 @@ const translations = {
     "icon1":"Adauga la favorit",
     "icon2":"Full Export PDF",
     "icon3":"Creaza link",
+    
     "footer":"Dinybank | © Copyright 2025 Toate drepturile rezervate."
   },
   "en": {
     "a1":"Home",
     "a2":"Credit Calculator",
     "a3":"Information",
+    "login": "Login",
+    "register": "Register",
     "sectiune-1-titlu":"1. Types of Loans",
     "credit-ipotecar":"Mortgage / Real Estate Loan",
     "credit-ipotecar-1":"For buying or building a home.",
@@ -139,6 +144,8 @@ const translations = {
     "a1":"Главная",
     "a2":"Калькулятор кредитов",
     "a3":"Информация",
+    "login" : "Вход",
+    "register" : "Регистрация",
     "sectiune-1-titlu":"1. Виды кредитов",
     "credit-ipotecar":"Ипотечный / недвижимый кредит",
     "credit-ipotecar-1":"Для покупки или строительства жилья.",
@@ -225,4 +232,22 @@ const select = document.getElementById("lang");
         localStorage.setItem("lang", lang);
         translatePage(lang);
     });
+
+
+    
+
+// --- CODUL COMUN PNTRU SALVARE LIMBA PE PAGINI ---
+document.addEventListener("DOMContentLoaded", () => {
+    const langSelect = document.getElementById("lang");
+    const savedLang = localStorage.getItem("language") || "ro";
+    if (langSelect) langSelect.value = savedLang;
+    translatePage(savedLang);
+    if (langSelect) {
+        langSelect.addEventListener("change", () => {
+            const lang = langSelect.value;
+            localStorage.setItem("language", lang);
+            translatePage(lang);
+        });
+    }
+});
 

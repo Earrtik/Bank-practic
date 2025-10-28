@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch(err => console.error(err));
     });
-  });
+  }); 
 
   // --- ȘTERGERE TOATE SIMULĂRILE ---
   const stergeToateBtn = document.querySelector(".sterge-toate");
@@ -54,19 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // --- AFIȘEAZĂ MESAJUL "NU EXISTĂ SIMULĂRI" ---
-  function showNoSimulari() {
-    const container = document.querySelector(".container-div");
-    if (!container) return;
-    container.innerHTML = `
-      <div class="content">
-        <div class="login-text">
-          <h1>Nu există simulări în istoric</h1>
-          <a href="credite.php" class="spinner-link">
-            <button class="login-favorit-button">Mergi la Credite</button>
-          </a>
-        </div>
-      </div>`;
-  }
+  
 
 });

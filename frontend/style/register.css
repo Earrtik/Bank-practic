@@ -22,3 +22,7 @@
 .login-account:hover {
   text-decoration: underline;
 }
+#error-username,#error-email,#error-password{
+  text-align: left;
+  margin-left: 40px;
+} 

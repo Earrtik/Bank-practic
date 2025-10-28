@@ -1,4 +1,5 @@
-document.querySelector("form")?.addEventListener("submit", e => {
+const form = document.querySelector("form");
+form.addEventListener("submit", e => {
     e.preventDefault();
     calcCredit();
 });
@@ -32,73 +33,71 @@ const rezultDiv = document.querySelector(".content-rezult");
 const rezultInner = document.querySelector(".rezult");
 const grafDiv = document.querySelector(".content-grafic");
 const tabelAmortizareDiv = document.querySelector(".tabel-amortizare");
-
 [rezultDiv, rezultInner, grafDiv, tabelAmortizareDiv].forEach(el => el.style.display = "none");
+const allIconsDiv = document.querySelector(".all-icons");
 
-// --- FUNCȚIE EROARE ---
+// --- FUNCTIE EROARE ---
 function showError(selector, message) {
     const el = document.querySelector(selector);
     if (el) {
         el.textContent = message;
         el.style.display = "block";
+        el.style.opacity = 0;
         el.style.color = "red";
+        el.style.transition = "opacity 0.3s ease";
+        setTimeout(() => el.style.opacity = 1, 10);
     }
 }
 
-// --- CURĂȚARE INPUTURI NUMERICE ---
-[inputSuma, inputPerioada, inputAvans, inputSalariu, inputRambursareAnticipata].forEach(input => {
-    if (!input) return;
-    input.addEventListener("input", () => {
-        input.value = input.value.replace(/\D/g, '');
-        updateOptions();
-        updateMaxValues();
-        calcCredit();
+// --- ASCUNDERE AUTOMATA EROARE + recalcul la schimbare ---
+[inputTipCredit, inputTipDobanda, inputTipRata, inputSuma, inputPerioada, inputAvans, inputSalariu, inputDurataGratie, inputDurataGratieMixta, inputduratamixta].forEach(el => {
+    if (!el) return;
+    ["input", "change"].forEach(evt => {
+        el.addEventListener(evt, () => {
+            const errorEl = el.closest("form").querySelector(`.error-${el.className.split(" ").join("-")}`);
+            if (errorEl) errorEl.style.display = "none";
+            calcCredit(); // recalcul automat la orice schimbare
+        });
     });
 });
 
 // --- MAPARE LUNI ---
 const luniMap = { "prima-luna": 1, "luna-3": 3, "luna-6": 6, "luna-9": 9, "luna-12": 12, "luna-24": 24 };
 
-// --- FUNCTIE DE UPDATE OPTION ---
+// --- UPDATE OPTION PERIOADA DE GRATIE ---
 function updateOptions() {
     const perioada = parseInt(inputPerioada.value) || 0;
     [inputDurataGratie, inputduratamixta].forEach(select => {
         if (!select) return;
         select.querySelectorAll("option").forEach(opt => {
             const val = luniMap[opt.value];
+            // doar valorile < perioada sunt active
             opt.disabled = val !== undefined && val >= perioada;
         });
     });
 }
 
-// --- SINCRONIZARE: Tip dobanda (sus) -> Initial mixta (jos) ---
+// --- INITIAL DOBINDA MIXTA ---
 function updateInitialMixta() {
     if (!inputinitialmixta) return;
-    const top = inputTipDobanda?.value || "";
     const mixedOn = dobindamixtacheckbox?.checked;
-
     inputinitialmixta.querySelectorAll("option").forEach(opt => {
         if (!opt.value) return opt.disabled = false;
         if (!mixedOn) return opt.disabled = false;
-        opt.disabled = (top === "fixa" && opt.value === "start-fixa") ||
-                       (top === "variabila" && opt.value === "start-variabila");
     });
-
     if (inputinitialmixta.querySelector(`option[value="${inputinitialmixta.value}"]`)?.disabled)
         inputinitialmixta.value = "";
 }
-inputTipDobanda?.addEventListener("change", updateInitialMixta);
 dobindamixtacheckbox?.addEventListener("change", updateInitialMixta);
 updateInitialMixta();
 
-// --- LIMITARE MAXIMA AVANS SI RAMBURSARE ---
+// --- UPDATE MAX VALUES ---
 function updateMaxValues() {
     const suma = parseFloat(inputSuma.value) || 0;
     const avans = parseFloat(inputAvans.value) || 0;
     const maxDif = 100;
     const maxAvans = Math.max(suma - maxDif, 0);
     const maxRambursare = Math.max(suma - avans - maxDif, 0);
-
     if (avans > maxAvans) inputAvans.value = maxAvans.toFixed(0);
     if (checkboxRambursare.checked && inputRambursareAnticipata) {
         if (parseFloat(inputRambursareAnticipata.value) > maxRambursare) {
@@ -108,13 +107,12 @@ function updateMaxValues() {
     }
 }
 
-// --- SHOW/HIDE CONDITIONAL ---
+// --- CONDITIONAL ---
 function setupConditional(checkbox, targetSelector) {
     checkbox.addEventListener("change", () => {
         const conditional = document.querySelector(`.conditional[data-target='${targetSelector}']`);
         if (conditional) conditional.style.display = checkbox.checked ? "block" : "none";
         updateMaxValues();
-        calcCredit();
     });
 }
 setupConditional(checkboxRambursare, 'rambursare-checkbox');
@@ -122,23 +120,20 @@ setupConditional(dobindamixtacheckbox, 'dobinda-mixta-checkbox');
 setupConditional(checkboxGratie, 'gratie-checkbox');
 
 // --- GRAFIC ---
-function createGrafic(principal, rataLunara, perioada, durataGratie = 0) {
+function createGrafic(principal, rataLunara, perioada, durataGratie = 0, tipDobanda = "fixa", tipRata = "anuitate") {
     const ctx = document.querySelector(".grafic-rambursare").getContext("2d");
     if (window.myChart) window.myChart.destroy();
-
     const labels = [];
     const data = [];
     let sold = principal;
-
     for (let i = 1; i <= perioada; i++) {
-        let principalRata = rataLunara - (principal * 0.01);
+        let dobandaCurenta = tipDobanda === "fixa" ? principal * 0.12/12 : sold * 0.015;
+        let principalRata = tipRata === "contant" ? rataLunara - dobandaCurenta : principal / perioada;
         if (i <= durataGratie) principalRata = 0;
         sold = Math.max(sold - principalRata, 0);
-
         labels.push("Luna " + i);
         data.push(sold);
     }
-
     window.myChart = new Chart(ctx, {
         type: "line",
         data: {
@@ -149,7 +144,7 @@ function createGrafic(principal, rataLunara, perioada, durataGratie = 0) {
                 borderColor: "rgba(75,192,192,1)",
                 backgroundColor: "rgba(75,192,192,0.2)",
                 fill: true,
-                tension: 0.2
+                tension: 0.3
             }]
         },
         options: { responsive: true }
@@ -157,57 +152,66 @@ function createGrafic(principal, rataLunara, perioada, durataGratie = 0) {
 }
 
 // --- TABEL AMORTIZARE ---
-function createTabelAmortizare(principal, rataLunara, perioada, dobandaLunara, comision, durataGratie = 0) {
+function createTabelAmortizare(principal, rataLunara, perioada, comision, durataGratie = 0, tipDobanda = "fixa", tipRata = "anuitate") {
     const today = new Date();
     let html = `<table border="1" style="width:100%;border-collapse:collapse;">
         <tr>
-            <th data-translate-tabel="Luna">Luna</th>
-            <th data-translate-tabel="Data scadenta">Data scadenta</th>
-            <th data-translate-tabel="Rata totala">Rata totala</th>
-            <th data-translate-tabel="Principal">Principal</th>
-            <th data-translate-tabel="Dobanda">Dobanda</th>
-            <th data-translate-tabel="Comision">Comision</th>
-            <th data-translate-tabel="Sold ramas">Sold ramas</th>
+            <th>Luna</th>
+            <th>Data scadenta</th>
+            <th>Rata totala</th>
+            <th>Principal</th>
+            <th>Dobanda</th>
+            <th>Comision</th>
+            <th>Sold ramas</th>
         </tr>`;
     
     let sold = principal;
+    const perioadaEfectiva = perioada - durataGratie;
+    const rataDupaGratie = perioadaEfectiva > 0 ? principal / perioadaEfectiva : 0;
+
     for (let i = 1; i <= perioada; i++) {
-        let principalRata = rataLunara - dobandaLunara;
-        let dobandaCurenta = dobandaLunara;
+        let dobandaCurenta = tipDobanda === "fixa" ? principal * 0.12/12 : sold * 0.015;
+        let principalRata = 0;
+
         if (i <= durataGratie) {
-            principalRata = 0;
-            dobandaCurenta = sold * 0.01;
+            principalRata = 0; // perioada de gratie
+        } else {
+            principalRata = tipRata === "contant" ? rataDupaGratie : principal / perioadaEfectiva;
         }
+
         const soldFinal = Math.max(sold - principalRata, 0);
         const dataScadenta = new Date(today.getFullYear(), today.getMonth() + i, today.getDate());
         html += `<tr>
                     <td>${i}</td>
                     <td>${dataScadenta.toLocaleDateString()}</td>
-                    <td>${(principalRata + dobandaCurenta + comision).toFixed(2)}</td>
-                    <td>${principalRata.toFixed(2)}</td>
-                    <td>${dobandaCurenta.toFixed(2)}</td>
+                    <td style="background:#e6f7ff;">${(principalRata + dobandaCurenta + comision).toFixed(2)}</td>
+                    <td style="background:#d9f2d9;">${principalRata.toFixed(2)}</td>
+                    <td style="background:#fff2cc;">${dobandaCurenta.toFixed(2)}</td>
                     <td>${comision.toFixed(2)}</td>
-                    <td>${soldFinal.toFixed(2)}</td>
+                    <td style="background:#f2d9d9;">${soldFinal.toFixed(2)}</td>
                 </tr>`;
         sold = soldFinal;
     }
-
     html += "</table>";
     tabelAmortizareDiv.innerHTML = html;
     tabelAmortizareDiv.style.display = "block";
 }
 
-// --- FUNCTIE CALCUL CREDIT ---
-function calcCredit() {
+// --- CALCUL CREDIT ---
+async function calcCredit() {
+    updateOptions(); // actualizare optiuni perioada de gratie
+
     const suma = parseFloat(inputSuma.value) || 0;
     const perioada = parseInt(inputPerioada.value) || 0;
     const avans = parseFloat(inputAvans.value) || 0;
     const salariu = parseFloat(inputSalariu.value) || 0;
-    let principal = suma - avans;
+    const principal = suma - avans;
     let valid = true;
 
+    // Ascunde toate erorile
     document.querySelectorAll(".error").forEach(el => el.style.display = "none");
 
+    // Validari
     if (!inputTipCredit.value) { showError(".error-tip-credit", "Selecteaza tipul de credit"); valid = false; }
     if (!inputTipDobanda.value) { showError(".error-tip-dobanda", "Selecteaza tipul de dobinda"); valid = false; }
     if (suma < 200 || suma > 100000000) { showError(".error-suma", "Selecteaza suma intre 200 si 100.000.000"); valid = false; }
@@ -215,97 +219,99 @@ function calcCredit() {
     if (!inputTipRata.value) { showError(".error-tip-rata", "Selecteaza tipul de rata"); valid = false; }
     if (salariu === 0) { showError(".error-salariu", "Introduce Salariu"); valid = false; }
 
-    if (avans > suma - 100) { showError(".error-avans", `Introduce suma AA`); valid = false; }
-    if (inputTipCredit.value === "ipotecar" && avans < suma * 0.1) { showError(".error-avans", "Avans minim 10% pentru credit ipotecar"); valid = false; }
-
-    // --- Rambursare anticipata ---
-    if (checkboxRambursare.checked) {
-        if (!inputRambursareAnticipata.value || parseFloat(inputRambursareAnticipata.value) <= 0) {
-            showError(".error-suma-rambursare", "Introduceți suma pentru rambursare anticipată");
-            valid = false;
-        }
-        if (!selectOptiuneRambursare.value) {
-            showError(".error-optiune-rambursare", "Selectați o opțiune de rambursare anticipată");
-            valid = false;
-        }
-    }
-
-    // --- Dobinda mixta ---
-    if (dobindamixtacheckbox.checked) {
-        if (!inputinitialmixta.value) { showError(".error-initial-mixta", "Selectați tipul inițial de dobândă"); valid = false; }
-        if (!inputDurataGratieMixta.value) { showError(".error-durata-gratie-mixta", "Selectați durata perioadei de grație"); valid = false; }
-    }
-
-    // --- Perioada de gratie optional ---
-    if (checkboxGratie.checked && !inputDurataGratie.value) {
-        showError(".error-durata-gratie", "Selectați durata perioadei de grație");
-        valid = false;
-    }
-
     if (!valid) return;
 
-    // --- perioada gratie ---
+    // --- durata de gratie
     let durataGratie = 0;
-    if (dobindamixtacheckbox.checked && inputDurataGratieMixta.value && luniMap[inputDurataGratieMixta.value] !== undefined) {
-        durataGratie = luniMap[inputDurataGratieMixta.value];
+    if (dobindamixtacheckbox.checked && inputduratamixta.value && luniMap[inputduratamixta.value] !== undefined) {
+        durataGratie = luniMap[inputduratamixta.value];
     } else if (checkboxGratie.checked && inputDurataGratie.value && luniMap[inputDurataGratie.value] !== undefined) {
         durataGratie = luniMap[inputDurataGratie.value];
     }
 
-    // --- Calcul rata ajustata pentru perioada de grație ---
+    const tipRata = inputTipRata.value;
+    const tipDobanda = inputTipDobanda.value;
+
+    // dobanda lunara
+    let dobandaLunara = tipDobanda === "fixa" ? principal * 0.12 / 12 : principal * 0.015;
+
+    // calcul rata lunara efectiva dupa perioada de gratie
     const perioadaEfectiva = perioada - durataGratie;
-    if (perioadaEfectiva <= 0) {
-        showError(".error-perioada", "Perioada de gratie nu poate fi mai lunga sau egala cu perioada creditului");
-        return;
+    let rataLunara = 0;
+    if (perioadaEfectiva > 0) {
+        if (tipRata === "contant") {
+            let r = tipDobanda === "fixa" ? 0.12/12 : 0.015;
+            rataLunara = principal * r / (1 - Math.pow(1 + r, -perioadaEfectiva));
+        } else if (tipRata === "descrescatoare") {
+            rataLunara = principal / perioadaEfectiva + dobandaLunara;
+        }
     }
 
-    const r = inputTipDobanda.value === "fixa" ? 0.12/12 : 0.015;
-    const rataLunara = principal * r / (1 - Math.pow(1 + r, -perioadaEfectiva));
-
-    // --- Verificare grad de indatorare ---
-   const gradMax = salariu < 35000 ? 0.4 : 0.55;
-    const rataMaxPermisa = (salariu * gradMax).toFixed(2); 
-    const salariuRecomandat = (rataLunara / gradMax).toFixed(2); 
-    
-    
-    if (rataLunara > rataMaxPermisa) {
-        showError(".error-salariu", 
-            `Grad de îndatorare depășit ,salariu recomandat: ${salariuRecomandat} `
-        );
-        return;
-    }
-
-    const dobandaLunara = principal * 0.01;
     const comision = 40;
-    const rataTotala = rataLunara * perioada;
+    const rataTotala = rataLunara * perioadaEfectiva;
     const comisieRataTotala = rataTotala + comision * perioada;
     const DAE = ((Math.pow(1 + dobandaLunara / principal, 12) - 1) * 100).toFixed(2);
 
-    // --- Afisare rezultate ---
+    // verificare grad de indatorare
+    let gradMax = salariu <= 35000 ? 40 : 55;
+    const gradIndatorare = (rataLunara / salariu) * 100;
+    if (gradIndatorare > gradMax) {
+        const salariuRecomandat = (rataLunara / (gradMax / 100)).toFixed(0);
+        showError(".error-salariu", `Grad de îndatorare depășit, salariu recomandat: ${salariuRecomandat} LEI`);
+        return;
+    }
+
+    // Afisare rezultate
     rezultInner.innerHTML = `
         <p>Rata lunara: <b>${rataLunara.toFixed(2)} LEI</b></p>
         <p>Rata totala: <b>${rataTotala.toFixed(2)} LEI</b></p>
         <p>Dobanda lunara: <b>${dobandaLunara.toFixed(2)} LEI</b></p>
         <p>Comision: <b>${comision.toFixed(2)} LEI</b></p>
         <p>DAE: <b>${DAE} %</b></p>
-        <p>Comisie si rata totala: <b>${comisieRataTotala.toFixed(2)} LEI</b></p>
-    `;
+        <p>Comisie si rata totala: <b>${comisieRataTotala.toFixed(2)} LEI</b></p>`;
+
     [rezultDiv, rezultInner, grafDiv].forEach(el => el.style.display = "block");
 
-    createGrafic(principal, rataLunara, perioada, durataGratie);
-    createTabelAmortizare(principal, rataLunara, perioada, dobandaLunara, comision, durataGratie);
+    createGrafic(principal, rataLunara, perioada, durataGratie, tipDobanda, tipRata);
+    createTabelAmortizare(principal, rataLunara, perioada, comision, durataGratie, tipDobanda, tipRata);
+
+    if (allIconsDiv) allIconsDiv.style.display = "flex"; 
+
+    // DATE PENTRU SALVARE
+    const dataSimulare = {
+        tip_credit: inputTipCredit.value,
+        suma,
+        perioada,
+        tip_rata: tipRata,
+        perioada_gratie: durataGratie,
+        tip_dobanda: tipDobanda,
+        dobanda_mixta: dobindamixtacheckbox.checked ? 1 : 0,
+        perioada_gratie_mixta: dobindamixtacheckbox.checked ? luniMap[inputduratamixta.value] || 0 : 0,
+        avans,
+        salariu,
+        rata_lunara: rataLunara,
+        rata_totala: rataTotala
+    };
+
+    // SALVARE AUTOMATA IN BAZA DE DATE
+    try {
+        const response = await fetch("../../backend/php/save_simulare.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(dataSimulare)
+        });
+        const result = await response.json();
+        console.log("Salvare simulare:", result);
+    } catch (err) {
+        console.error("Eroare salvare simulare:", err);
+    }
 }
 
-// --- RECALCULARE LA SCHIMBAREA INPUTURILOR ---
-[inputTipRata, inputTipDobanda, inputSuma, inputAvans, inputPerioada, inputRambursareAnticipata, inputDurataGratie, inputDurataGratieMixta].forEach(input => {
-    if (!input) return;
-    input.addEventListener("change", () => {
-        updateMaxValues();
-        calcCredit();
-    });
+// EVENIMENT SUBMIT FORM
+document.querySelector("form")?.addEventListener("submit", e => {
+    e.preventDefault();
+    calcCredit();
 });
 
-
-// --- INIT ---
-updateOptions();
+// INIT
 updateMaxValues();

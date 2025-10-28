@@ -17,3 +17,9 @@ border: 1px solid #c2c2c2  ;
     padding-left: 13px;
     padding-right: 13px;
 }
+.favorite-card h3{
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    
+}
