@@ -209,7 +209,7 @@
                                 <span class="span-content" data-translate="optiune-rambursare">Optiunea de rambursare anticipata</span>
                                 <select class="input-optiune-rambursare">
                                     <option value="" data-translate-option="opt-gratie">-- Alege durata de gratie --</option>
-                                    <option value="reduce-perioada" data-translate-option="opt-reduce-perioada">Reducere perioadă, rata rămâne aceeași</option>
+                                    <option value="reduce-perioada" data-translate-option="opt-reduce-perioada" disabled >Reducere perioadă, rata rămâne aceeași</option><!--Nustiu cum sa fac , mai logic o blochez-->
                                     <option value="reduce-rata" data-translate-option="opt-reduce-rata">Reducere rată, perioada rămâne aceeași</option>
                                 </select>
                                 <div class="error error-optiune-rambursare"></div>
@@ -236,15 +236,8 @@
             <br><br>
             <div class="content-rezult">
                 <p class="p-rez" data-translate="rezultate">Rezultatele</p>
-                <div class="rezult" data-target="rezultate">
-                    <p data-translate="rez-rata-lunara">Rata lunara:</p>
-                    <p data-translate="rez-rata-totala">Rata totala:</p>
-                    <p data-translate="rez-dobanda-lunara">Dobanda lunara:</p>
-                    <p data-translate="rez-dobanda-totala">Dobanda totala:</p>
-                    <p data-translate="rez-comision">Comisionul:</p>
-                    <p data-translate="rez-dae">DAE:</p>
-                    <p data-translate="rez-comisie-rata">Comisie si rata totala:</p>
-                    <hr>
+                <div class="rezult" >
+                    
                 
                 </div>
             </div>

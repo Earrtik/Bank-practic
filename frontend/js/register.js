@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (result.success) {
       window.location.href = "../../frontend/html/credite.php";
     } else {
-      // afișăm eroarea sub input corespunzător
+      // afisam eroarea sub input corespunzator
       if (result.errorField === "username") {
         errorUsername.textContent = result.message;
         errorUsername.style.display = "block";

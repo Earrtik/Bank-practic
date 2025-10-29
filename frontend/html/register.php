@@ -1,6 +1,6 @@
 <?php
 session_start();
-$loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este logat
+$loggedIn = isset($_SESSION['user_id']); // verificam daca utilizatorul este logat
 ?>
 
 <!DOCTYPE html>

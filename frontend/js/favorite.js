@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const divFavorite = document.querySelector(".div-icon1");
     const stergeToateBtn = document.querySelector(".sterge-toate");
 
-    // --- Resetare inimă la modificarea datelor ---
+    // --- Resetare inima la modificarea datelor ---
     const formInputs = document.querySelectorAll(
         ".input-tip-credit, .input-suma, .input-perioada, .input-tip-rata, .input-durata-gratie, .input-tip-dobanda, .input-initial-mixta, .input-durata-gratie-mixta, .input-avans, .input-salariu, .input-suma-rambursare, .input-optiune-rambursare"
     );
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- Adăugare favorite pentru simularea curentă ---
+    // --- Adaugare favorite pentru simularea curenta ---
     if (divFavorite && iconFavorite) {
         divFavorite.addEventListener("click", async () => {
             const tip_credit = document.querySelector(".input-tip-credit").value;
@@ -136,10 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
             rata_totala: parseFloat(document.querySelector("[data-translate='rez-rata-totala'] + p")?.textContent || 0).toFixed(2)
         };
 
-        if (!data.tip_credit || !data.suma || !data.perioada || !data.tip_rata) {
-            alert("Completează datele principale ale simulării înainte de a salva la favorite!");
-            return;
-        }
+      
 
         try {
             const res = await fetch("../../backend/php/save_favorite.php", {

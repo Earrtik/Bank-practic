@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-  // --- ȘTERGERE INDIVIDUALĂ ---
+  // --- STERGERE INDIVIDUALA ---
   document.querySelectorAll(".sterge").forEach(button => {
     button.addEventListener("click", () => {
       const id = button.dataset.id;
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }); 
 
-  // --- ȘTERGERE TOATE SIMULĂRILE ---
+  // --- STERGERE TOATE SIMULARILE ---
   const stergeToateBtn = document.querySelector(".sterge-toate");
   if (stergeToateBtn) {
     stergeToateBtn.addEventListener("click", () => {
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- VERIFICĂ DACĂ MAI EXISTĂ SIMULĂRI ---
+  // --- VERIFICA DACA MAI EXISTA SIMULARI ---
   function checkIfEmpty() {
     const container = document.querySelector(".container-div");
     if (container && container.querySelectorAll(".istoric-card").length === 0) {

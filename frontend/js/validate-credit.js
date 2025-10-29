@@ -56,7 +56,7 @@ function showError(selector, message) {
         el.addEventListener(evt, () => {
             const errorEl = el.closest("form").querySelector(`.error-${el.className.split(" ").join("-")}`);
             if (errorEl) errorEl.style.display = "none";
-            calcCredit(); // recalcul automat la orice schimbare
+            
         });
     });
 });
@@ -76,6 +76,12 @@ function updateOptions() {
         });
     });
 }
+// --- CLICK PE BUTONUL "CALCULEAZA" ---
+document.querySelector(".btn-calcul")?.addEventListener("click", e => {
+    e.preventDefault();
+    document.querySelectorAll(".error").forEach(el => el.style.display = "none");
+    calcCredit(); // se executa calculul complet + afișare + salvare
+});
 
 // --- INITIAL DOBINDA MIXTA ---
 function updateInitialMixta() {
@@ -150,27 +156,57 @@ function createGrafic(principal, rataLunara, perioada, durataGratie = 0, tipDoba
         options: { responsive: true }
     });
 }
+function updateInitialMixtaOptions() {
+    if (!dobindamixtacheckbox || !inputinitialmixta || !inputTipDobanda) return;
 
-// --- TABEL AMORTIZARE ---
+    const tipPrincipal = inputTipDobanda.value; // fixa sau variabila
+    inputinitialmixta.querySelectorAll("option").forEach(opt => {
+        if (!opt.value) return;     
+        
+        if (tipPrincipal === "fixa") {
+            
+            opt.disabled = opt.value === "start-fixa";
+        } else if (tipPrincipal === "variabila") {
+            
+            opt.disabled = opt.value === "start-variabila";
+        } else {
+            opt.disabled = false;   
+        }
+    });
+
+    // Resetăm valoarea dacă e invalidă
+    if (inputinitialmixta.querySelector(`option[value="${inputinitialmixta.value}"]`)?.disabled) {
+        inputinitialmixta.value = "";
+    }
+}
+
+// Evenimente
+inputTipDobanda.addEventListener("change", updateInitialMixtaOptions);
+dobindamixtacheckbox.addEventListener("change", updateInitialMixtaOptions);
+
+// Init
+updateInitialMixtaOptions();
+
+/// --- TABEL AMORTIZARE ---
 function createTabelAmortizare(principal, rataLunara, perioada, comision, durataGratie = 0, tipDobanda = "fixa", tipRata = "anuitate") {
     const today = new Date();
     let html = `<table border="1" style="width:100%;border-collapse:collapse;">
         <tr>
-            <th>Luna</th>
-            <th>Data scadenta</th>
-            <th>Rata totala</th>
-            <th>Principal</th>
-            <th>Dobanda</th>
-            <th>Comision</th>
-            <th>Sold ramas</th>
+            <th data-translate="Luna">Luna</th>
+            <th data-translate="Data scadenta">Data scadenta</th>
+            <th data-translate="Rata totala">Rata totala</th>
+            <th data-translate="Principal">Principal</th>
+            <th data-translate="Dobanda lunara">Dobanda</th>
+            <th data-translate="Comision">Comision</th>
+            <th data-translate="Sold ramas">Sold ramas</th>
         </tr>`;
-    
+
     let sold = principal;
     const perioadaEfectiva = perioada - durataGratie;
     const rataDupaGratie = perioadaEfectiva > 0 ? principal / perioadaEfectiva : 0;
 
     for (let i = 1; i <= perioada; i++) {
-        let dobandaCurenta = tipDobanda === "fixa" ? principal * 0.12/12 : sold * 0.015;
+        let dobandaCurenta = tipDobanda === "fixa" ? principal * 0.12 / 12 : sold * 0.015;
         let principalRata = 0;
 
         if (i <= durataGratie) {
@@ -192,13 +228,35 @@ function createTabelAmortizare(principal, rataLunara, perioada, comision, durata
                 </tr>`;
         sold = soldFinal;
     }
+
     html += "</table>";
     tabelAmortizareDiv.innerHTML = html;
     tabelAmortizareDiv.style.display = "block";
+
+    // Traducem tabelul imediat după creare
+    translatePage(localStorage.getItem("language") || "ro");
 }
+// --- Recalculare grafic si tabel cu dobanda mixta ---
+function recalcGraficTabel(principal, rataLunara, perioada, comision, durataGratie, tipDobanda, tipRata, dobandamixta, luniMixta, dobandaInitiala) {
+    // Grafic
+    createGrafic(principal, rataLunara, perioada, durataGratie, tipDobanda, dobandamixta, luniMixta, dobandaInitiala);
+
+    // Tabel
+    createTabelAmortizare(principal, rataLunara, perioada, comision, durataGratie, tipDobanda, tipRata, dobandamixta, luniMixta, dobandaInitiala);
+}
+
+    
+const dobandamixta = dobindamixtacheckbox.checked;
+const luniMixta = dobandamixta ? (luniMap[inputduratamixta.value] || 0) : 0;
+
+// Recalculăm grafic și tabel
+recalcGraficTabel(principal, rataLunara, perioada, comision, durataGratie, tipDobanda, tipRata, dobandamixta, luniMixta, dobandaInitiala);
+
+
 
 // --- CALCUL CREDIT ---
 async function calcCredit() {
+    
     updateOptions(); // actualizare optiuni perioada de gratie
 
     const suma = parseFloat(inputSuma.value) || 0;
@@ -211,7 +269,6 @@ async function calcCredit() {
     // Ascunde toate erorile
     document.querySelectorAll(".error").forEach(el => el.style.display = "none");
 
-    // Validari
     if (!inputTipCredit.value) { showError(".error-tip-credit", "Selecteaza tipul de credit"); valid = false; }
     if (!inputTipDobanda.value) { showError(".error-tip-dobanda", "Selecteaza tipul de dobinda"); valid = false; }
     if (suma < 200 || suma > 100000000) { showError(".error-suma", "Selecteaza suma intre 200 si 100.000.000"); valid = false; }
@@ -219,7 +276,7 @@ async function calcCredit() {
     if (!inputTipRata.value) { showError(".error-tip-rata", "Selecteaza tipul de rata"); valid = false; }
     if (salariu === 0) { showError(".error-salariu", "Introduce Salariu"); valid = false; }
 
-    if (!valid) return;
+if (!valid) return;
 
     // --- durata de gratie
     let durataGratie = 0;
@@ -233,19 +290,19 @@ async function calcCredit() {
     const tipDobanda = inputTipDobanda.value;
 
     // dobanda lunara
-    let dobandaLunara = tipDobanda === "fixa" ? principal * 0.12 / 12 : principal * 0.015;
+    let dobandaLunara = "fixa" ? principal * 0.12 / 12 : principal * 0.015;
 
     // calcul rata lunara efectiva dupa perioada de gratie
     const perioadaEfectiva = perioada - durataGratie;
     let rataLunara = 0;
     if (perioadaEfectiva > 0) {
-        if (tipRata === "contant") {
-            let r = tipDobanda === "fixa" ? 0.12/12 : 0.015;
-            rataLunara = principal * r / (1 - Math.pow(1 + r, -perioadaEfectiva));
-        } else if (tipRata === "descrescatoare") {
-            rataLunara = principal / perioadaEfectiva + dobandaLunara;
-        }
+    if (tipRata === "contant") {
+        const r = 0.01; // ex. rata fixa lunara pentru calcul rata (fără dobanda)
+        rataLunara = principal * r / (1 - Math.pow(1 + r, -perioadaEfectiva));
+    } else if (tipRata === "descrescatoare") {
+        rataLunara = principal / perioadaEfectiva; // doar principal
     }
+}
 
     const comision = 40;
     const rataTotala = rataLunara * perioadaEfectiva;
@@ -263,12 +320,15 @@ async function calcCredit() {
 
     // Afisare rezultate
     rezultInner.innerHTML = `
-        <p>Rata lunara: <b>${rataLunara.toFixed(2)} LEI</b></p>
-        <p>Rata totala: <b>${rataTotala.toFixed(2)} LEI</b></p>
-        <p>Dobanda lunara: <b>${dobandaLunara.toFixed(2)} LEI</b></p>
-        <p>Comision: <b>${comision.toFixed(2)} LEI</b></p>
-        <p>DAE: <b>${DAE} %</b></p>
-        <p>Comisie si rata totala: <b>${comisieRataTotala.toFixed(2)} LEI</b></p>`;
+    <p><span data-translate="Rata lunara">Rata lunara:</span> <b>${rataLunara.toFixed(2)} LEI</b></p>
+    <p><span data-translate="Rata totala">Rata totala:</span> <b>${rataTotala.toFixed(2)} LEI</b></p>
+    <p><span data-translate="Dobanda lunara">Dobanda lunara:</span> <b>${dobandaLunara.toFixed(2)} LEI</b></p>
+    <p><span data-translate="Dobanda totala">Dobanda totala:</span> <b>${(dobandaLunara * perioada).toFixed(2)} LEI</b></p>
+    <p><span data-translate="Comision">Comision:</span> <b>${comision.toFixed(2)} LEI</b></p>
+    <p><span data-translate="DAE">DAE:</span> <b>${DAE} %</b></p>
+    <p><span data-translate="Comisie si rata totala">Comisie si rata totala:</span> <b>${comisieRataTotala.toFixed(2)} LEI</b></p>
+`;
+
 
     [rezultDiv, rezultInner, grafDiv].forEach(el => el.style.display = "block");
 
@@ -276,23 +336,40 @@ async function calcCredit() {
     createTabelAmortizare(principal, rataLunara, perioada, comision, durataGratie, tipDobanda, tipRata);
 
     if (allIconsDiv) allIconsDiv.style.display = "flex"; 
+ // DATE PENTRU SALVARE
+   const dataSimulare = {
+    tip_credit: inputTipCredit.value,
+    suma,
+    perioada,
+    tip_rata: tipRata,
+    perioada_gratie: durataGratie,
+    tip_dobanda: tipDobanda,
+   
+    dobanda_mixta: dobindamixtacheckbox.checked
+    ? (inputinitialmixta.value === "fixa"
+        ? "Inițial dobândă fixă"
+        : "Inițial dobândă variabilă")
+    : "NU",
 
-    // DATE PENTRU SALVARE
-    const dataSimulare = {
-        tip_credit: inputTipCredit.value,
-        suma,
-        perioada,
-        tip_rata: tipRata,
-        perioada_gratie: durataGratie,
-        tip_dobanda: tipDobanda,
-        dobanda_mixta: dobindamixtacheckbox.checked ? 1 : 0,
-        perioada_gratie_mixta: dobindamixtacheckbox.checked ? luniMap[inputduratamixta.value] || 0 : 0,
-        avans,
-        salariu,
-        rata_lunara: rataLunara,
-        rata_totala: rataTotala
+    perioada_gratie_mixta: dobindamixtacheckbox.checked
+        ? (luniMap[inputduratamixta.value] || 0)
+        : 0,
+    avans,
+    salariu,
+    rata_lunara: rataLunara,
+    rata_totala: rataTotala,
+    
+    suma_rambursare: checkboxRambursare.checked
+        ? parseFloat(inputRambursareAnticipata.value) || 0
+        : 0,
+    optiune_rambursare: checkboxRambursare.checked
+        ? (selectOptiuneRambursare.value || "NU")
+        : "NU"
+        
+        
     };
-
+    
+    
     // SALVARE AUTOMATA IN BAZA DE DATE
     try {
         const response = await fetch("../../backend/php/save_simulare.php", {
@@ -305,9 +382,12 @@ async function calcCredit() {
     } catch (err) {
         console.error("Eroare salvare simulare:", err);
     }
+   
 }
 
 // EVENIMENT SUBMIT FORM
+
+
 document.querySelector("form")?.addEventListener("submit", e => {
     e.preventDefault();
     calcCredit();

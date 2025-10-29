@@ -17,7 +17,6 @@ body{
 a {
   text-decoration: none;
 }
-
 i{
   color: #000;
   font-size: 25px;
@@ -29,8 +28,6 @@ i{
 #history{
     margin-right: 20px;
 }
-   
-/* Main content */
 main {
     display: flex;
     flex-direction: column; 
@@ -39,8 +36,6 @@ main {
     width: 100%;
     flex: 1;
 }
-
-/* Logo */
 .logo {
     margin: 0px;
    top: 23px;
@@ -49,22 +44,18 @@ main {
     font-weight: bold;
     color: #0FA926;
     cursor: pointer;
-  
 }
 header {
     box-sizing: border-box;
     min-height: 70px; 
         
 }
-
-/* Meniu */
 .menu-items {
     display: flex;
     justify-content: space-between; 
     align-items: center;
     width: 100%;
 }
-
 .menu {
     display: flex;
     gap: 40px; 
@@ -72,7 +63,6 @@ header {
     flex: 1; 
     margin-left: 10px;
     text-align: center;
-    
 }
 @media (min-width: 998px) {
   .menu {
@@ -90,10 +80,10 @@ header {
   font-weight: 600;
 }
  .error {
-            color: red;
-            font-size: 0.85em;
-            display: none;
-            margin-top: 2px;
+    color: red;
+    font-size: 0.85em;
+    display: none;
+    margin-top: 2px;
         }
    
 .left-language{
@@ -119,7 +109,7 @@ header {
     min-width: 250px;
     border-radius: 10px;
 }
-/* Container meniu */
+
 header {
 padding: 20px;
   background-color: white;
@@ -127,7 +117,7 @@ padding: 20px;
     
     }
 
-/* Hamburger pentru telefoane */
+
 .hamburger {
     display: none;
     flex-direction: column;
@@ -143,14 +133,14 @@ padding: 20px;
     border-radius: 2px;
 }
 
-/* Meniu desktop */
+
 .menu-items {
     display: flex;
     gap: 20px;
     align-items: center;
 }
 
-/* Dropdown limba */
+
 .language-select select {
     padding: 3px 5px;
     border-radius: 4px;
@@ -172,10 +162,10 @@ padding: 20px;
     .menu-items {
         position: absolute;
         width: 200px;
-        top: 60px; /* sub header */
+        top: 60px; 
         right: 20px;
         background: #ffffff;
-        flex-direction: column; /* elementele unul sub altul */
+        flex-direction: column; 
         padding: 15px;
         border: 1px solid #ccc;
         border-radius: 8px;
@@ -211,7 +201,6 @@ padding: 20px;
     .left-language, .right-language {
         display: none; /* ascundem liniile verticale pe mobil */
     }
-  
 }
 /* Footer */
 .footer {
@@ -227,14 +216,11 @@ main select {
     width: 100%;
     background-color: #F5F8FA;
 }
-
 .login{
 text-decoration: none;
 color: black;
 cursor: pointer;
 font-size: 20px;
-
-
 }
 .register{
 font-size: 20px;
@@ -254,9 +240,7 @@ cursor: pointer;
     margin-right: 20px;
   }
 }
-
-
-/* Spinner - cerc care se învârte */
+/* Spinner - cerc care se invarte */
 .spinner {
   border: 6px solid #f3f3f3; /* gri deschis */
   border-top: 6px solid #0FA926; /* verde */

@@ -58,11 +58,11 @@
 .input-wrapper input:not(:placeholder-shown) + .placeholder-left {
     display: none;
 }
-/* când se scrie ceva — textul „Lei” devine mai închis */
+
 .input-wrapper input:not(:placeholder-shown) ~ .placeholder-right {
     color: #333;
 }
-/* când inputul e focusat sau are text — border puțin mai închis */
+
 .input-wrapper input:focus,
 .input-wrapper input:not(:placeholder-shown) {
     border-color: #5a5a5a;
@@ -116,9 +116,6 @@
 .a1,.a3{
     color: black;
 }
-
-
-
 
 /* Afisare rezultate dupa click button INCEPE CU RIND 226 HTML*/
 

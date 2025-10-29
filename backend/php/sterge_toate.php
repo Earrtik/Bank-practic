@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) exit;
 
 $user_id = intval($_SESSION['user_id']);
 
-// Șterge toate simulările
+// Sterge toate simulările
 $stmt = $conn->prepare("DELETE FROM simulari WHERE id_utilizator = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();

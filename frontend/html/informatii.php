@@ -32,13 +32,13 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
             </div>
 
             <?php if (!$loggedIn): ?>
-                <!-- Vizitatori neautentificați -->
+                <!-- Vizitatori neautentificati -->
                 <a href="../../frontend/html/login.php" class="login spinner-link" data-translate="login" >Login</a>
                 <a href="../../frontend/html/register.php" class="spinner-link">
                     <button class="register" data-translate="register" >Register</button>
                 </a>
             <?php else: ?>
-                <!-- Utilizatori logați -->
+                <!-- Utilizatori logati -->
                 <a href="../../frontend/html/favorite.php" class="spinner-link"><i class="bi bi-heart" id="heart"></i></a>
                 <a href="istoric.php" class="spinner-link"><i class="bi bi-clock-history" id="history"></i></a>
                 <a href="../../backend/php/logout.php" class="spinner-link"><i class="bi bi-box-arrow-right" id="logout"></i></a>

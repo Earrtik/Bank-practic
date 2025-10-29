@@ -3,6 +3,11 @@ session_start();
 include "config.php";
 header('Content-Type: application/json');
 
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['status'=>'error','message'=>'Nu ești autentificat']);
+    exit;
+}
+
 $data = json_decode(file_get_contents("php://input"), true);
 if (!$data) {
     echo json_encode(['status'=>'error', 'message'=>'Date invalide']);
@@ -11,22 +16,21 @@ if (!$data) {
 
 $id_utilizator = $_SESSION['user_id'];
 
-// --- Normalizează câmpurile ---
+// --- Preluare date cu valori implicite ---
 $tip_credit = trim($data['tip_credit'] ?? '');
-$suma = round(isset($data['suma']) ? floatval($data['suma']) : 0, 2);
+$suma = isset($data['suma']) ? round(floatval($data['suma']),2) : 0;
 $perioada = isset($data['perioada']) ? intval($data['perioada']) : 0;
 $tip_rata = trim($data['tip_rata'] ?? '');
-
 $perioada_gratie = trim($data['perioada_gratie'] ?? '');
 $tip_dobanda = trim($data['tip_dobanda'] ?? '');
 $dobanda_mixta = trim($data['dobanda_mixta'] ?? '');
 $perioada_gratie_mixta = trim($data['perioada_gratie_mixta'] ?? '');
-$avans = round(isset($data['avans']) ? floatval($data['avans']) : 0, 2);
-$salariu = round(isset($data['salariu']) ? floatval($data['salariu']) : 0, 2);
-$suma_rambursare = round(isset($data['suma_rambursare']) ? floatval($data['suma_rambursare']) : 0, 2);
-$optiune_rambursare = trim($data['optiune_rambursare'] ?? '');
-$rata_lunara = round(isset($data['rata_lunara']) ? floatval($data['rata_lunara']) : 0, 2);
-$rata_totala = round(isset($data['rata_totala']) ? floatval($data['rata_totala']) : 0, 2);
+$avans = isset($data['avans']) ? round(floatval($data['avans']),2) : 0;
+$salariu = isset($data['salariu']) ? round(floatval($data['salariu']),2) : 0;
+$suma_rambursare = isset($data['suma_rambursare']) ? round(floatval($data['suma_rambursare']),2) : 0;
+$optiune_rambursare = !empty($data['optiune_rambursare']) ? trim($data['optiune_rambursare']) : 'NU';
+$rata_lunara = isset($data['rata_lunara']) ? round(floatval($data['rata_lunara']),2) : 0;
+$rata_totala = isset($data['rata_totala']) ? round(floatval($data['rata_totala']),2) : 0;
 
 // --- Verificare simulare existentă ---
 $sqlCheck = "SELECT id_simulare FROM favorite 
@@ -59,7 +63,6 @@ $stmt->execute();
 $stmt->store_result();
 
 if ($stmt->num_rows > 0) {
-
     $stmt->close();
     $conn->close();
     exit;
@@ -80,8 +83,27 @@ $stmtInsert->bind_param(
 );
 
 if ($stmtInsert->execute()) {
-    echo json_encode(['status'=>'success','message'=>'Simulare adăugată la favorite!']);
-} 
+
+    // --- LOGARE simulare în logs_favorite ---
+    $sqlLog = "INSERT INTO logs_favorite 
+    (id_utilizator, tip_credit, suma, perioada, tip_rata, perioada_gratie, tip_dobanda, dobanda_mixta, perioada_gratie_mixta, avans, salariu, suma_rambursare, optiune_rambursare, rata_lunara, rata_totala, data_simulare)
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW())";
+
+    $stmtLog = $conn->prepare($sqlLog);
+    $stmtLog->bind_param(
+        "isdisssssddiidd",
+        $id_utilizator, $tip_credit, $suma, $perioada, $tip_rata,
+        $perioada_gratie, $tip_dobanda, $dobanda_mixta, $perioada_gratie_mixta,
+        $avans, $salariu, $suma_rambursare, $optiune_rambursare,
+        $rata_lunara, $rata_totala
+    );
+    $stmtLog->execute();
+    $stmtLog->close();
+
+    echo json_encode(['status'=>'success','message'=>'Simulare adăugată la favorite ']);
+} else {
+    echo json_encode(['status'=>'error','message'=>'Eroare la salvare']);
+}
 
 $stmtInsert->close();
 $stmt->close();

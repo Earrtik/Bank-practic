@@ -3,6 +3,8 @@ session_start();
 require_once "config.php";
 header('Content-Type: application/json');
 
+
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $email = htmlspecialchars(trim($_POST['email']));
     $password = htmlspecialchars(trim($_POST['password']));
@@ -29,6 +31,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         echo json_encode(['success'=>false,'errorField'=>'password','message'=>'Parola este greșită!']);
         exit;
     }
+        //  LOGARE ACȚIUNE LOGIN
+        $log = $conn->prepare("INSERT INTO logs_users (id_utilizator, actiune) VALUES (?, 'login')");
+        if ($log) {
+            $log->bind_param("i", $id); // id-ul user-ului
+            if (!$log->execute()) {
+                exit;
+            }
+            $log->close();
+        } else {
+            exit;
+        }
 
     $_SESSION['user_id'] = $id;
     $_SESSION['username'] = $username;

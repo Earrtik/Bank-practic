@@ -149,7 +149,7 @@ const translations = {
         "rez-rata-lunara": "Monthly installment :",
         "rez-rata-totala": "Total installment :",
         "rez-dobanda-lunara": "Monthly interest :",
-        "rez-dobanda-totala": "Total interest :",
+        "rez-dobanda-totala": "Total interest:",
         "rez-comision": "Commission :",
         "rez-dae": "APR :",
         "rez-comisie-rata": "Commission & total installment :",
@@ -265,36 +265,33 @@ const translations = {
         "Salariu": "Превышен уровень задолженности — выберите меньшую сумму"
     }
 };
-
 const translationsError = {
     "ro": {
-        "Trebuie să selectați tipul de credit": "Trebuie să selectați tipul de credit",
-        "Trebuie să selectați tipul dobânzii": "Trebuie să selectați tipul dobânzii",
-        "Suma trebuie să fie între 1.000 și 100.000.000 LEI": "Suma trebuie să fie între 1.000 și 100.000.000 LEI",
-        "Perioada trebuie să fie între 2 și 360 luni": "Perioada trebuie să fie între 2 și 360 luni",
-        "Trebuie să alegeți tipul de rată": "Trebuie să alegeți tipul de rată",
-        "Trebuie să introduceți salariul": "Trebuie să introduceți salariul",
-        "Grad de îndatorare depășit": "Grad de îndatorare depășit"
+        "Selecteaza tipul de credit": "Trebuie să selectați tipul de credit",
+        "Selecteaza tipul de dobinda": "Trebuie să selectați tipul dobânzii",
+        "Selecteaza suma intre 200 si 100.000.000": "Suma trebuie să fie între 200 și 100.000.000 LEI",
+        "Selectati perioada intre 2-360 luni": "Perioada trebuie să fie între 2 și 360 luni",
+        "Selecteaza tipul de rata": "Trebuie să alegeți tipul de rată",
+        "Introduce Salariu": "Trebuie să introduceți salariul"
     },
     "en": {
-        "Trebuie să selectați tipul de credit": "You must select a credit type",
-        "Trebuie să selectați tipul dobânzii": "You must select an interest type",
-        "Suma trebuie să fie între 1.000 și 100.000.000 LEI": "Amount must be between 1,000 and 100,000,000 LEI",
-        "Perioada trebuie să fie între 2 și 360 luni": "Period must be between 2 and 360 months",
-        "Trebuie să alegeți tipul de rată": "You must select an installment type",
-        "Trebuie să introduceți salariul": "You must enter your salary",
-        "Grad de îndatorare depășit": "Debt ratio exceeded"
+        "Selecteaza tipul de credit": "You must select a credit type",
+        "Selecteaza tipul de dobinda": "You must select an interest type",
+        "Selecteaza suma intre 200 si 100.000.000": "Amount must be between 200 and 100,000,000 LEI",
+        "Selectati perioada intre 2-360 luni": "Period must be between 2 and 360 months",
+        "Selecteaza tipul de rata": "You must select an installment type",
+        "Introduce Salariu": "You must enter your salary"
     },
     "ru": {
-        "Trebuie să selectați tipul de credit": "Необходимо выбрать тип кредита",
-        "Trebuie să selectați tipul dobânzii": "Необходимо выбрать тип ставки",
-        "Suma trebuie să fie între 1.000 și 100.000.000 LEI": "Сумма должна быть от 1.000 до 100.000.000 LEI",
-        "Perioada trebuie să fie între 2 și 360 luni": "Срок должен быть от 2 до 360 месяцев",
-        "Trebuie să alegeți tipul de rată": "Необходимо выбрать тип платежа",
-        "Trebuie să introduceți salariul": "Необходимо ввести зарплату",
-        "Grad de îndatorare depășit": "Превышен уровень задолженности"
+        "Selecteaza tipul de credit": "Необходимо выбрать тип кредита",
+        "Selecteaza tipul de dobinda": "Необходимо выбрать тип ставки",
+        "Selecteaza suma intre 200 si 100.000.000": "Сумма должна быть от 200 до 100.000.000 LEI",
+        "Selectati perioada intre 2-360 luni": "Срок должен быть от 2 до 360 месяцев",
+        "Selecteaza tipul de rata": "Необходимо выбрать тип платежа",
+        "Introduce Salariu": "Необходимо ввести зарплату"
     }
 };
+
 
 
 // Functie pentru traducere
@@ -304,6 +301,7 @@ function translatePage(lang) {
         const key = el.getAttribute("data-translate");
         if(translations[lang][key]) el.textContent = translations[lang][key];
     });
+
 
     // Option
     document.querySelectorAll("[data-translate-option]").forEach(el => {
@@ -317,17 +315,7 @@ function translatePage(lang) {
         if(translations[lang][key]) el.placeholder = translations[lang][key];
     });
 
-    // --- Traduce erorile afisate ---
-    document.querySelectorAll("[data-translate-error]").forEach(el => {
-        const key = el.getAttribute("data-translate-error");
-        if(translations[lang][key]) el.textContent = translations[lang][key];
-    }); 
 
-    // --- Traduce rezultatele afisate ---
-    document.querySelectorAll("[data-translate-rezultat]").forEach(el => {
-        const key = el.getAttribute("data-translate-rezultat");
-        if(translations[lang][key]) el.textContent = translations[lang][key];
-    });
 
     // --- Traduce  tabel ---
     const tabel = document.getElementById("tabel-amortizare");
@@ -338,24 +326,6 @@ function translatePage(lang) {
         });
     }
 }
-
-// Ascultam schimbarea limbii
-document.getElementById("lang").addEventListener("change", (e) => {
-    translatePage(e.target.value);
-});
-
-// La load, setam limba initiala
-window.addEventListener("DOMContentLoaded", () => {
-    const langSelect = document.getElementById("lang").value || "ro";
-    translatePage(langSelect);
-});
-function translateErrors(lang){
-    document.querySelectorAll("[data-translate-error]").forEach(el => {
-        const key = el.getAttribute("data-translate-error");
-        if(translationsError[lang][key]) el.textContent = translationsError[lang][key];
-    });
-}
-
 
 
 
@@ -372,4 +342,26 @@ document.addEventListener("DOMContentLoaded", () => {
             translatePage(lang);
         });
     }
+})
+// Ascultam schimbarea limbii
+document.getElementById("lang").addEventListener("change", (e) => {
+    translatePage(e.target.value);
 });
+
+// La load, setam limba initiala
+window.addEventListener("DOMContentLoaded", () => {
+    const langSelect = document.getElementById("lang").value || "ro";
+    translatePage(langSelect);
+});
+function showError(selector, message) {
+    // preia limba direct din selectul de pe pagină
+    const langSelect = document.getElementById("lang");
+    const lang = langSelect ? langSelect.value : "ro";
+    
+    const translatedMessage = translationsError[lang][message] || message;
+    const errorElement = document.querySelector(selector);
+    if (errorElement) {
+        errorElement.innerText = translatedMessage;
+        errorElement.style.display = "block";
+    }
+}

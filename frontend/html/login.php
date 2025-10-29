@@ -1,6 +1,6 @@
 <?php
 session_start();
-$loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este logat
+$loggedIn = isset($_SESSION['user_id']); // verificam daca utilizatorul este logat
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +38,7 @@ $loggedIn = isset($_SESSION['user_id']); // verificăm dacă utilizatorul este l
                 </a>
 
             <?php else: ?>
-                <!-- Utilizatori logați -->
+                <!-- Utilizatori logati -->
                 <a href="favorite.php" class="spinner-link"><i class="bi bi-heart" id="heart"></i></a>
                 <a href="istoric.php" class="spinner-link"><i class="bi bi-clock-history "id="history"></i></a>
                 <a href="../../backend/php/logout.php" class="spinner-link"><i class="bi bi-box-arrow-right" id="logout"></i></a>

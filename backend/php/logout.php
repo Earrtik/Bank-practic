@@ -1,14 +1,24 @@
 <?php
 session_start();
+require_once "config.php";
 
-// Șterge toate variabilele de sesiune și distruge sesiunea
+// Log logout doar dacă userul e logat
+if (isset($_SESSION['user_id'])) {
+    $id = $_SESSION['user_id'];
+    $log = $conn->prepare("INSERT INTO logs_users (id_utilizator, actiune) VALUES (?, 'logout')");
+    if ($log) {
+        $log->bind_param("i", $id);
+        $log->execute();
+        $log->close();
+    }
+}
+
+// Sterge toate variabilele de sesiune si distruge sesiunea
 session_unset();
 session_destroy();
 
-// Preia pagina de redirect din URL sau folosește credite.php ca default
+// Redirect
 $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : '../../frontend/html/credite.php';
-
-// Redirecționează utilizatorul
 header("Location: $redirect");
 exit;
 ?>
