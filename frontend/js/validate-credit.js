@@ -48,18 +48,23 @@ function showError(selector, message) {
         setTimeout(() => el.style.opacity = 1, 10);
     }
 }
-
-// --- ASCUNDERE AUTOMATA EROARE + recalcul la schimbare ---
+// --- ASCUNDERE AUTOMATA EROARE + UPDATE OPTIONURI ---
+// fără a apela calcCredit(), doar ascunde erorile și actualizează selecturile
 [inputTipCredit, inputTipDobanda, inputTipRata, inputSuma, inputPerioada, inputAvans, inputSalariu, inputDurataGratie, inputDurataGratieMixta, inputduratamixta].forEach(el => {
     if (!el) return;
     ["input", "change"].forEach(evt => {
         el.addEventListener(evt, () => {
-            const errorEl = el.closest("form").querySelector(`.error-${el.className.split(" ").join("-")}`);
+            const errorEl = el.closest("form")?.querySelector(`.error-${el.className.split(" ").join("-")}`);
             if (errorEl) errorEl.style.display = "none";
-            
+
+            // update options doar dacă este un select care depinde de perioada
+            if (el === inputPerioada || el === inputDurataGratie || el === inputduratamixta) {
+                updateOptions();
+            }
         });
     });
 });
+
 
 // --- MAPARE LUNI ---
 const luniMap = { "prima-luna": 1, "luna-3": 3, "luna-6": 6, "luna-9": 9, "luna-12": 12, "luna-24": 24 };

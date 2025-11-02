@@ -102,7 +102,7 @@ if ($stmtInsert->execute()) {
 
     echo json_encode(['status'=>'success','message'=>'Simulare adăugată la favorite ']);
 } else {
-    echo json_encode(['status'=>'error','message'=>'Eroare la salvare']);
+
 }
 
 $stmtInsert->close();

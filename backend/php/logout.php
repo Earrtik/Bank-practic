@@ -21,4 +21,6 @@ session_destroy();
 $redirect = isset($_GET['redirect']) ? $_GET['redirect'] : '../../frontend/html/credite.php';
 header("Location: $redirect");
 exit;
+
+
 ?>

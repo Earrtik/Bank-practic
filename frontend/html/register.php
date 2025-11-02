@@ -112,8 +112,8 @@ $loggedIn = isset($_SESSION['user_id']); // verificam daca utilizatorul este log
     Dinybank | © Copyright 2025 Toate drepturile rezervate.
 </footer>
 
-<script src="../../js/repeat.js"></script>
 <script src="../../frontend/js/lang/register-language.js"></script>
+<script src="../../frontend/js/repeat.js"></script>
 <script src="../../frontend/js/register.js"></script>
 </body>
 </html>
